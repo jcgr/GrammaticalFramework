@@ -6,10 +6,10 @@ abstract Food = {
     Phrase ; Item ; Kind ; Quality ;
 
   fun
-    Is, Ist, EIs, EIst : Item -> Quality -> Phrase ;
-    This, That, ItThere : Kind -> Item ;
+    Is : Item -> Quality -> Phrase ;
+    This, That : Kind -> Item ;
     QKind : Quality -> Kind -> Kind ;
-    Wine, Cheese, Fish, Beer : Kind ;
-    Very, Super : Quality -> Quality ;
-    Fresh, Warm, Italian, Expensive, Delicious, Boring, Dead : Quality ;
+    Wine, Cheese, Fish : Kind ;
+    Very : Quality -> Quality ;
+    Fresh, Warm, Italian, Expensive, Delicious, Boring : Quality ;
 }
