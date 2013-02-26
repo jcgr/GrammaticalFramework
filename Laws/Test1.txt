@@ -1,0 +1,1 @@
+voting-auth-card implies {blank-ballot}
