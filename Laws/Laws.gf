@@ -11,7 +11,7 @@ abstract Laws = {
         Resource : Res -> ResColl ;
         NResource : Not -> Res -> ResColl ;
         MResource : ResColl -> Conj -> ResColl -> ResColl ;
-        VotingCard : Res ;
+        VotingCard, Hopeful : Res ;
 
         Product : Prod -> ProdColl ;
         NProduct : Not -> Prod -> ProdColl ;

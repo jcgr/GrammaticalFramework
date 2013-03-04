@@ -1,30 +1,32 @@
-concrete LawsEng of Laws = {
+concrete LawsEng of Laws = open StringOper in {
     
     lincat
-        Prod, ProdColl, Conj, Res, ResColl, Impl, Logic, Not = {s : Str} ;
+        Prod, ProdColl, Conj, Res, ResColl, Impl, Logic, Not = SS ;
 
     lin
         -- Logic
         Formular res impl prod      = {s = res.s ++ impl.s ++ "{" ++ prod.s ++ "}"} ;
         
         -- Res
-        Resource res                = {s = res.s} ;
-        NResource not res           = {s = not.s ++ res.s} ;
-        MResource res1 conj res2    = {s = res1.s ++ conj.s ++ res2.s} ;
-        VotingCard                  = {s = "voting-auth-card"} ;
+        Resource res                = c res ;
+        NResource not res           = cc not res ;
+        MResource res1 conj res2    = ccc res1 conj res2 ;
+        VotingCard                  = ss "voting-auth-card" ;
+        Hopeful                     = ss "hopeful(C, N)" ;
+
         
         -- Prod
-        Product prod                = {s = prod.s} ;
-        NProduct not prod           = {s = not.s ++ prod.s} ;
-        MProduct prod1 conj prod2   = {s = prod1.s ++ conj.s ++ prod2.s} ;
-        Ballot                      = {s = "blank-ballot"} ;
+        Product prod                = c prod;
+        NProduct not prod           = cc not prod ;
+        MProduct prod1 conj prod2   = ccc prod1 conj prod2 ;
+        Ballot                      = ss "blank-ballot" ;
         
         -- Impl
-        Then                        = {s = "implies"} ;
+        Then                        = ss "then" ;
         
         -- Conj
-        And                         = {s = "and"} ;
+        And                         = ss "and" ;
 
         -- Not
-        NotConsd                    = {s = "!"} ;
+        NotConsd                    = ss "!" ;
 }
