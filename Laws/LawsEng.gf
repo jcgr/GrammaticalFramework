@@ -8,7 +8,7 @@ concrete LawsEng of Laws = open StringOper in {
         Formular res impl prod      = {s = res.s ++ impl.s ++ "{" ++ prod.s ++ "}"} ;
         
         -- Res
-        Resource res                = c res ;
+        Resource res                = res ;
         NResource not res           = cc not res ;
         MResource res1 conj res2    = ccc res1 conj res2 ;
         VotingCard                  = ss "voting-auth-card" ;
@@ -16,7 +16,7 @@ concrete LawsEng of Laws = open StringOper in {
 
         
         -- Prod
-        Product prod                = c prod;
+        Product prod                = prod;
         NProduct not prod           = cc not prod ;
         MProduct prod1 conj prod2   = ccc prod1 conj prod2 ;
         Ballot                      = ss "blank-ballot" ;

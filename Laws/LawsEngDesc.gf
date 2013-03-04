@@ -1,31 +1,31 @@
-concrete LawsEngDesc of Laws = {
-    
+concrete LawsEngDesc of Laws = open StringOper in {
+
     lincat
         Prod, ProdColl, Conj, Res, ResColl, Impl, Logic, Not = {s : Str} ;
 
     lin
         -- Logic
-        Formular res impl prod      = {s = res.s ++ impl.s ++ prod.s} ;
+        Formular res impl prod      = ccc res impl prod ;
         
         -- Res
-        Resource res                = {s = "if" ++ res.s} ;
-        NResource not res           = {s = "if" ++ res.s ++ not.s} ;
-        MResource res1 conj res2    = {s = res1.s ++ conj.s ++ res2.s} ;
-        VotingCard                  = {s = "there is a voting-auth-card"} ;
-        Hopeful                     = {s = "there is a hopeful C with N votes"} ;
+        Resource res                = cc (ss "if") res ;
+        NResource not res           = ccc (ss "if") res not ;
+        MResource res1 conj res2    = ccc res1 conj res2 ;
+        VotingCard                  = ss "there is a voting-auth-card" ;
+        Hopeful                     = ss "there is a hopeful C with N votes" ;
         
         -- Prod
-        Product prod                = {s = prod.s} ;
-        NProduct not prod           = {s = prod.s ++ not.s} ;
-        MProduct prod1 conj prod2   = {s = prod1.s ++ conj.s ++ prod2.s} ;
-        Ballot                      = {s = "return a blank-ballot"} ;
+        Product prod                = prod ;
+        NProduct not prod           = cc prod not ;
+        MProduct prod1 conj prod2   = ccc prod1 conj prod2 ;
+        Ballot                      = ss "return a blank-ballot" ;
         
         -- Impl
-        Then                        = {s = "-then-"} ;
+        Then                        = ss "-- then --" ;
         
         -- Conj
-        And                         = {s = "and"} ;
+        And                         = ss "and" ;
 
         -- Not
-        NotConsd                    = {s = "that is not consumed"} ;
+        NotConsd                    = ss "that is not consumed" ;
 }
