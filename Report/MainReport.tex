@@ -1,0 +1,103 @@
+\documentclass{report}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{fullpage}
+\usepackage{fancyhdr}
+\usepackage[final]{pdfpages}
+\usepackage[font=sl]{caption}
+\usepackage{listings}
+\usepackage{longtable}
+\usepackage{appendix}
+\usepackage{fancyvrb}
+\usepackage{hyperref}
+\usepackage{tocvsec2}
+\usepackage{titlesec}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{inconsolata}
+\usepackage[bottom]{footmisc}
+\usepackage{titletoc}
+\usepackage{lastpage}
+
+% Chapter and section spacings
+\titleformat{\chapter}{\normalfont\huge\bfseries}{{\thechapter} }{0pt}{\Huge}
+\titlespacing*{\chapter} {0pt}{0pt}{0pt}
+
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{0.5em}{}
+\titlespacing*{\section}{0pt}{1.5ex plus 1ex minus .2ex}{0.8ex plus .2ex}
+
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection} {0pt}{0.5ex}{0.5ex}
+
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection}{0.5em}{}
+\titlespacing*{\subsubsection}{0pt}{0.5ex}{0.5ex}
+
+
+\titleformat{\paragraph}[runin]{\normalfont\normalsize\bfseries}{\theparagraph}{0.85em}{}
+\titlespacing*{\paragraph} {0pt}{1ex}{0.5em}
+
+\titleformat{\subparagraph}[runin]{\normalfont\normalsize\bfseries}{\thesubparagraph}{1em}{}
+\titlespacing*{\subparagraph} {\parindent}{3.25ex plus 1ex minus .2ex}{1em}
+
+% Text formatting
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1.8ex plus 0.5ex minus 0.2ex}
+
+% Hyper setup
+\hypersetup{
+    colorlinks,%
+    citecolor=black,%
+    filecolor=black,%
+    linkcolor=black,%
+    urlcolor=black
+}
+
+\lstset{
+numbers = left}
+
+% Page style
+\setlength{\headheight}{15.2pt}
+\setlength{\topskip}{20pt}
+\pagestyle{fancy}
+\cfoot{\thepage\ of \pageref{LastPage}}
+\fancypagestyle{plain}{\fancyhf{}\cfoot{\thepage\ of \pageref{LastPage}}
+}
+\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\thechapter.\ #1}}{}}
+\fancypagestyle{plain}{
+\fancyhf{}
+\cfoot{\thepage\ of \pageref{LastPage}}
+}
+
+% Table of contents depth
+\settocdepth{section}
+
+% New commands and environments
+\newcommand{\skippage}
+{
+\chapter*{}
+\thispagestyle{empty}
+\addtocounter{page}{-1}
+\pagebreak
+}
+
+% Title
+\title{\Huge{Laws and Logic}\\
+\Large{\textit{\\Bachelor Project}}\\
+\large{\textit{\\Bachelor in Software Development, \\IT-University of Copenhagen}}
+}
+
+% Author
+\author{
+Jacob Claudius Grooss, jcgr@itu.dk
+}
+
+\date{\today}
+\begin{document}
+\maketitle
+%\tableofcontents
+%\input{Parts/MainPart.tex}
+%\input{Parts/Appendix.tex}
+\end{document}

@@ -1,3 +1,7 @@
 *.gfo
 *.png
 *.dot
+*.out
+*.log
+*.aux
+*.gz
