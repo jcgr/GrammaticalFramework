@@ -1,4 +1,4 @@
-concrete LawsEng of Laws = open StringOper in {
+concrete LawsLin of Laws = open StringOper in {
     
     lincat
         Prod, ProdColl, Conj, Res, ResColl, Impl, Logic, Not = SS ;
