@@ -3,39 +3,59 @@ concrete FoodEng4 of Food4 = {
     param Number = Sg | Pl ;
 
     lincat
-        Phrase, Item, Quality = Str ;
-        Kind = Number => Str ;
+        Phrase, Quality = {s : Str} ;
+        Kind = {s : Number => Str} ;
+        Item = {s : Str ; n : Number} ;
 
     lin
-        Is item quality = item ++ "is" ++ quality ;
+        Is item quality = {s = item.s ++ (copula item.n) ++ quality.s} ;
 
-        This kind = "this" ++ kind ! Sg ;
-        That kind = "that" ++ kind ! Sg ;
-        These kind = "these" ++ kind ! Pl ;
-        QSKind quality kind = quality ++ kind ! Sg ;
-        QPKind quality kind = quality ++ kind ! Pl ;
+        This kind = (det "this" Sg kind) ;
+        That kind = (det "that" Sg kind) ;
+        These kind = (det "these" Pl kind) ;
+--        That kind = {
+--            s = "That" ++ kind.s ! Sg ; 
+--            n = Sg
+--        } ;
+--        These kind = {
+--            s = "these" ++ kind.s ! Pl ; 
+--            n = Pl
+--        } ;
+--        QSKind quality kind = {
+--            s = quality.s ++ kind.s ! Sg; 
+--            n = Sg
+--        } ;
+--        QPKind quality kind =  {
+--            s = quality.s ++ kind.s ! Pl; 
+--            n = Pl
+--        } ;
 
-        Wine =
-            table {
-                Sg => "wine" ;
-                Pl => "wines"
-            } ;
-        Cheese =
-            table {
-                Sg => "cheese" ;
-                Pl => "cheeses"
-            } ;
-        Fish =
-            table {
-                Sg => "fish" ;
-                Pl => "fishes"
-            } ;
+        Wine = (regNoun "wine") ;
+        Cheese = (regNoun "cheese") ;
+        Fish = (regNoun "fish") ;
 
-        Very quality = "very" ++ quality ;
-        Fresh = "fresh" ;
-        Warm = "warm" ;
-        Italian = "Italian" ;
-        Expensive = "expensive" ;
-        Delicious = "delicious" ;
-        Boring = "boring" ;
+        --Very quality = "very" ++ quality.s ;
+        Fresh = {s = "fresh"} ;
+        Warm = {s = "warm"} ;
+        Italian = {s = "Italian"} ;
+        Expensive = {s = "expensive"} ;
+        Delicious = {s = "delicious"} ;
+        Boring = {s = "boring"} ;
+
+    oper
+        regNoun : Str -> {s : Number => Str} = \dog -> {
+            s = table {
+                Sg => dog ;
+                Pl => dog + "s"
+            }
+        } ;
+        copula : Number -> Str = \n -> 
+            case n of {
+                Sg => "is" ;
+                Pl => "are"
+        } ;
+        det : Str -> Number -> {s : Number => Str} -> {s : Str ; n : Number} = \det,n,kind -> {
+            s = det ++ kind.s ! n ; 
+            n = n
+        } ; 
 }  

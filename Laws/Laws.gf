@@ -8,7 +8,8 @@ abstract Laws = {
     fun
         Formular : ResColl -> Impl -> ProdColl -> Logic ;
 
-        Resource : Res -> ResColl ;
+        Resource : 
+        Res -> ResColl ;
         NResource : Not -> Res -> ResColl ;
         MResource : ResColl -> Conj -> ResColl -> ResColl ;
         VotingCard, Hopeful : Res ;

@@ -1,4 +1,4 @@
-abstract Food4 = {
+abstract Food5 = {
 
   flags startcat = Phrase ;
 
@@ -7,9 +7,9 @@ abstract Food4 = {
 
   fun
     Is : Item -> Quality -> Phrase ;
-    This, That, These : Kind -> Item ;
-    --QSKind, QPKind : Quality -> Kind -> Kind ;
-    Wine, Cheese, Fish : Kind ;
-    --Very : Quality -> Quality ;
+    This, That, These, Those : Kind -> Item ;
+    QKind : Quality -> Kind -> Kind ;
+    Wine, Cheese, Fish, Pizza : Kind ;
+    Very : Quality -> Quality ;
     Fresh, Warm, Italian, Expensive, Delicious, Boring : Quality ;
 }

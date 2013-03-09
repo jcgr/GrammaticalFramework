@@ -13,7 +13,6 @@ concrete LawsLin of Laws = open StringOper in {
         MResource res1 conj res2    = ccc res1 conj res2 ;
         VotingCard                  = ss "voting-auth-card" ;
         Hopeful                     = ss "hopeful(C, N)" ;
-
         
         -- Prod
         Product prod                = prod;
