@@ -1,16 +1,17 @@
 concrete LawsEng2 of Laws2 = open StringOper in {
 
     lincat
-        Logic, Prod, ProdColl, ResColl, Impl, Bang, Atomic, Ident, Arg, ArgColl, Conn = SS ;
+        Logic, Prod, ProdColl, Lolli, Bang, Ident, Conn = SS ;
+        Atomic, Arg, ArgColl, ResColl = SE ;
 
     lin
         -- Logic
-        Formular res impl prod          = ccc res impl prod ;
+        Formular res impl prod          = {s = "assuming" ++ res.e  ++ "++ then ++" ++ res.s ++ impl.s ++ prod.s} ;
         
         -- Res
-        Resource_Atom atom              = cc (ss "if") atom ;
-        Resource_Bang bang res          = ccc (ss "if") res bang ;
-        Resource_Conn res1 conn res2    = ccc res1 conn res2 ;
+        Resource_Atom atom              = mkSE ("if" ++ atom.s) atom.e  ;
+        Resource_Bang bang atom         = mkSE ("if" ++ atom.s ++ bang.s) atom.e ;
+        Resource_Conn res1 conn res2    = mkSE (res1.s ++ conn.s ++ res2.s) (res1.e ++ "," ++ res2.e) ;
         
         -- Prod
         Product prod                    = prod ;
@@ -19,24 +20,28 @@ concrete LawsEng2 of Laws2 = open StringOper in {
         Ballot                          = ss "return a blank-ballot" ;
         
         -- Atomic
-        Atom_Args ident args            = ss (ident.s ++ args.s) ;
-        Atom_Noargs ident               = ss (ident.s) ;
+        Atom_Args ident args            = mkSE (ident.s ++ args.s) (args.e) ;
+        Atom_Noargs ident               = mkSE (ident.s) "" ;
         Ident_Hopeful                   = ss "there is a hopeful" ;
         Ident_Tally                     = ss "we are tallying votes" ;
-        Arg_C                           = ss "candidate C" ;
-        Arg_N                           = ss "with running tally N" ;
-        Arg_S                           = ss "seat S" ;
-        Arg_H                           = ss "hopeful H" ;
-        _Arg arg                        = ss arg.s ;
-        _ArgColl arg1 arg2              = ss (arg1.s ++ arg2.s) ;
+        Arg_C                           = mkSE "C" "C is a candidate" ;
+        Arg_N                           = mkSE "N" "N is a natrual number" ;
+        Arg_S                           = mkSE "S" "S is a seat" ;
+        Arg_H                           = mkSE "H" "H is a hopeful" ;
+        _Arg arg                        = mkSE arg.s arg.e ;
+        _ArgColl arg1 arg2              = mkSE (arg1.s ++ arg2.s) (arg1.e ++ "," ++ arg2.e) ;
         
         -- Conn
         Conn_Conj                       = ss "and" ;
         Conn_Disj                       = ss "or" ;
         
-        -- Impl
+        -- Lolli
         _Then                           = ss "-- then --" ;
 
         -- Not
         _Bang                           = ss "that is not consumed" ;
+
+    oper
+        SE : Type = {s : Str ; e : Str} ;
+        mkSE : Str -> Str -> SE = \x,y -> {s = x ; e = y} ;        
 }

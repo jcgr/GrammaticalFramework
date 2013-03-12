@@ -1,7 +1,7 @@
 concrete LawsLin2 of Laws2 = open StringOper in {
     
     lincat
-        Logic, Prod, ProdColl, ResColl, Impl, Bang, Atomic, Ident, Arg, ArgColl, Conn = SS ;
+        Logic, Prod, ProdColl, ResColl, Lolli, Bang, Atomic, Ident, Arg, ArgColl, Conn = SS ;
 
     lin
         -- Logic
@@ -27,14 +27,14 @@ concrete LawsLin2 of Laws2 = open StringOper in {
         Arg_N                           = ss "N" ;
         Arg_S                           = ss "S" ;
         Arg_H                           = ss "H" ;
-        _Arg arg                        = ss arg.s ;
+        _Arg arg                  = ss (arg.s) ;
         _ArgColl arg1 arg2              = ss (arg1.s ++ "," ++ arg2.s) ;
         
         -- Conn
         Conn_Conj                       = ss "and" ;
         Conn_Disj                       = ss "or" ;
 
-        -- Impl
+        -- Lolli
         _Then                           = ss "then" ;
 
         -- Not

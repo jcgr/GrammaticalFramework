@@ -1,1 +1,4 @@
-voting-auth-card implies {blank-ballot}
+gf
+e
+i LawsLin2.gf LawsEng2.gf
+p -lang=LawsLin2 "hopeful ( C , N ) and tally-votes ( H , N ) then { blank-ballot }" | l

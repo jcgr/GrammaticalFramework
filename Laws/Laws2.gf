@@ -3,10 +3,10 @@ abstract Laws2 = {
     flags startcat = Logic ;
 
     cat
-        Logic ; Prod ; ProdColl ; ResColl ; Impl ; Bang ; Atomic ; Ident ; Arg ; ArgColl ; Conn ;
+        Logic ; Prod ; ProdColl ; ResColl ; Lolli ; Bang ; Atomic ; Ident ; Arg ; ArgColl ; Conn ;
 
     fun
-        Formular : ResColl -> Impl -> ProdColl -> Logic ;
+        Formular : ResColl -> Lolli -> ProdColl -> Logic ;
 
         Resource_Atom : Atomic -> ResColl ;
         Resource_Bang : Bang -> Atomic -> ResColl ;
@@ -25,6 +25,6 @@ abstract Laws2 = {
         _ArgColl : ArgColl -> ArgColl -> ArgColl ;
 
         Conn_Conj, Conn_Disj : Conn ;
-        _Then : Impl ;
+        _Then : Lolli ;
         _Bang : Bang ;
 }
