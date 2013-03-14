@@ -6,7 +6,7 @@ concrete LawsEng2 of Laws2 = open StringOper in {
 
     lin
         -- Logic
-        Formular res impl prod          = {s = "assuming" ++ res.e  ++ "++ then ++" ++ res.s ++ impl.s ++ prod.s} ;
+        Formular res impl prod          = {s = res.s ++ impl.s ++ prod.s} ;
         
         -- Res
         Resource_Atom atom              = mkSE ("if" ++ atom.s) atom.e  ;
@@ -36,12 +36,12 @@ concrete LawsEng2 of Laws2 = open StringOper in {
         Conn_Disj                       = ss "or" ;
         
         -- Lolli
-        _Then                           = ss "-- then --" ;
+        _Lolli                          = ss "-- then --" ;
 
         -- Not
         _Bang                           = ss "that is not consumed" ;
 
     oper
         SE : Type = {s : Str ; e : Str} ;
-        mkSE : Str -> Str -> SE = \x,y -> {s = x ; e = y} ;        
+        mkSE : Str -> Str -> SE = \x,y -> {s = x ; e = y} ;
 }

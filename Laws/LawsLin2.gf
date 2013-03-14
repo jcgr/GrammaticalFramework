@@ -35,7 +35,7 @@ concrete LawsLin2 of Laws2 = open StringOper in {
         Conn_Disj                       = ss "or" ;
 
         -- Lolli
-        _Then                           = ss "then" ;
+        _Lolli                           = ss "then" ;
 
         -- Not
         _Bang                           = ss "!" ;

@@ -1,6 +1,4 @@
 abstract Vari = {
-
-    flags startcat = Prop ;
     
     cat
         Ind ; Prop ;
@@ -8,5 +6,4 @@ abstract Vari = {
     fun
         Eq : Ind -> Ind -> Prop ;
         All : (Ind -> Prop) -> Prop ;
-        _X : Ind ;
 }

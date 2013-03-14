@@ -25,6 +25,6 @@ abstract Laws2 = {
         _ArgColl : ArgColl -> ArgColl -> ArgColl ;
 
         Conn_Conj, Conn_Disj : Conn ;
-        _Then : Lolli ;
+        _Lolli : Lolli ;
         _Bang : Bang ;
 }
