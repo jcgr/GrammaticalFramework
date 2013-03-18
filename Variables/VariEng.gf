@@ -5,5 +5,5 @@ concrete VariEng of Vari = {
 
     lin
         All B           = {s = "(" ++ "All" ++ B.$0 ++ ")" ++ B.s} ;
-        Eq a b          = {s = "(" ++ a.s ++ "=" ++ b.s ++ ")"} ;
+        --Eq a b          = {s = "(" ++ a.s ++ "=" ++ b.s ++ ")"} ;
 }
