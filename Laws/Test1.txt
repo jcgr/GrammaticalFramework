@@ -1,4 +1,9 @@
 gf
 e
-i LawsLin2.gf LawsEng2.gf
-p -lang=LawsLin2 "hopeful ( C , N ) and tally-votes ( H , N ) then { blank-ballot }" | l
+i LawsLin3.gf LawsEng3.gf LawsDan3.gf
+p -lang=LawsLin3 "hopeful then { ! hopeful }" | l -treebank
+p -lang=LawsLin3 "hopeful ( C , N ) then { hopeful ( C , N ) }" | l -treebank
+p -lang=LawsLin3 "!elect-all and hopeful ( C , N ) then { elected ( C ) }" | l -treebank
+p -lang=LawsLin3 "{ !( C >= H ) }" | l -treebank
+p -lang=LawsLin3 "tally-votes ( S , H , U ) and uncounted-ballot ( C , L ) and hopeful ( C , N ) and !quota ( Q ) and !( N < Q ) then { counted-ballot ( C , L ) and hopeful ( C , N ) and tally-votes ( S , H , U ) }" | l -treebank
+p -lang=LawsLin3 "defeat-min ( S , H , M ) and hopeful ( C , N ) then { minimum ( C , N ) and defeat-min ( S , H-1 , M-1 ) }" | l -treebank
