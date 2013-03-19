@@ -28,6 +28,13 @@ concrete LawsLin3 of Laws3 = open StringOper in {
         Ident_Tally                     = ss "tally-votes" ;
         Ident_BangElectAll              = ss "!elect-all" ;
         Ident_Elected                   = ss "elected" ;
+        Ident_Defeated                  = ss "!defeated" ;
+        Ident_Quota                     = ss "!quota" ;
+        Ident_Minimum                   = ss "minimum" ;
+        Ident_DefeatMin                 = ss "defeat-min" ;
+        Ident_Transfer                  = ss "transfer" ;
+        Ident_Uncounted                 = ss "uncounted-ballot" ;
+        Ident_Counted                   = ss "counted-ballot" ;
 
         -- Arg
         Arg_C                           = ss "C" ;
@@ -35,10 +42,12 @@ concrete LawsLin3 of Laws3 = open StringOper in {
         Arg_S                           = ss "S" ;
         Arg_H                           = ss "H" ;
         Arg_U                           = ss "U" ;
+        Arg_Q                           = ss "Q" ;
+        Arg_L                           = ss "L" ;
         Arg_0                           = ss "0" ;
         Arg_1                           = ss "1" ;
         _Arg arg                        = ss (arg.s) ;
-        _NextArg arg1 arg2              = ss ("[" ++ (mkNextArg arg1.s) ++ "|" ++ arg2.s ++ "]") ;
+        --_NextArg arg1 arg2              = ss ("[" ++ (mkNextArg arg1.s) ++ "|" ++ arg2.s ++ "]") ;
         _ArgColl arg1 arg2              = ss (arg1.s ++ "," ++ arg2.s) ;
         
         _Conj2                          = ss "and" ;

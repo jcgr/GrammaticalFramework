@@ -1,7 +1,11 @@
 concrete LawsEng3 of Laws3 = open StringOper in {
     
+    param
+        State           = With | For ;
+
     lincat
-        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Arg, ArgColl, Conj, Disj, Pi, MathSymbol = {s : Str} ;
+        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Conj, Disj, Pi, MathSymbol = {s : Str} ;
+        Arg, ArgColl = {s : Str ; n : State} ;
 
     lin
         -- Logic
@@ -27,19 +31,28 @@ concrete LawsEng3 of Laws3 = open StringOper in {
         Ident_Hopeful                   = ss "there is a hopeful" ;
         Ident_Tally                     = ss "we are tallying votes" ;
         Ident_BangElectAll              = ss "there are more open seats than hopefuls" ;
-        Ident_Elected                   = ss "elected" ;
+        Ident_Elected                   = ss "a candidate has been elected" ;
+        Ident_Defeated                  = ss "a candidate has been defeated" ;
+        Ident_Quota                     = ss "the votes needed to be elected" ;
+        Ident_Minimum                   = ss "a candidate might have enough votes" ;
+        Ident_DefeatMin                 = ss "defeat-min???" ;
+        Ident_Transfer                  = ss "a defeated candidate's votes are being transferred" ;
+        Ident_Uncounted                 = ss "there is an uncounted ballot for a candidate" ;
+        Ident_Counted                   = ss "there is a counted ballot for a bandidate" ;
 
         -- Arg
-        Arg_C                           = ss "candidate C" ;
-        Arg_N                           = ss "number N" ;
-        Arg_S                           = ss "seat S" ;
-        Arg_H                           = ss "hopeful H" ;
-        Arg_U                           = ss "uncounted U" ;
-        Arg_0                           = ss "0" ;
-        Arg_1                           = ss "1" ;
-        _Arg arg                        = ss (arg.s) ;
-        _NextArg arg1 arg2              = ss ("[" ++ arg1.s ++ "|" ++ arg2.s ++ "]") ; -- TODO
-        _ArgColl arg1 arg2              = ss (arg1.s ++ "," ++ arg2.s) ;
+        Arg_C                           = mkArg "(candidate C)" For ;
+        Arg_N                           = mkArg "(number N)" With ;
+        Arg_S                           = mkArg "(seat S)" For ;
+        Arg_H                           = mkArg "(hopeful H)" For ;
+        Arg_U                           = mkArg "(uncounted U)" With ;
+        Arg_Q                           = mkArg "(quota Q)" For ;
+        Arg_L                           = mkArg "(preference list L)" With ;
+        Arg_0                           = mkArg "(0)" With ;
+        Arg_1                           = mkArg "(1)" With ;
+        _Arg arg                        = mkArg (arg.s) arg.n ;
+        --_NextArg arg1 arg2              = ss ("[" ++ arg1.s ++ "|" ++ arg2.s ++ "]") ; -- TODO
+        _ArgColl arg1 arg2              = mkArg (mkArgColl arg1.s arg2.s arg2.n) arg1.n;
         
         _Conj2                          = ss "and" ;
         _Disj2                          = ss "or" ;
@@ -52,4 +65,16 @@ concrete LawsEng3 of Laws3 = open StringOper in {
         Equal                           = ss "is equal to" ;
         LessEqual                       = ss "is less than or equal to" ;
         Less                            = ss "is less than" ;
+
+    oper
+        mkArg : Str -> State -> {s : Str ; n : State} = 
+            \x,y -> {s = x ; n = y} ;
+
+        mkArgColl : Str -> Str -> State -> Str = 
+            \str1,str2,state -> case state of
+            {
+                With        => str1 ++ "with" ++ str2 ;
+                For         => str1 ++ "for" ++ str2 
+            } ;
+
 }
