@@ -56,7 +56,6 @@ concrete LawsDan3 of Laws3 = open StringOper in {
         _Arg arg                        = ss (arg.s ! None) ;
         _ArgPlus arg                    = ss (arg.s ! Plus) ;
         _ArgMinus arg                   = ss (arg.s ! Minus) ;
-        --_NextArg arg1 arg2              = ss ("[" ++ arg1.s ++ "|" ++ arg2.s ++ "]") ; -- TODO
         _ArgColl arg1 arg2              = ss (arg1.s ++ arg2.s) ;
         
         _Conj2                          = ss "og" ;

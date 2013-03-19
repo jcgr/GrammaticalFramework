@@ -31,7 +31,6 @@ abstract Laws3 = {
         -- Arg
         Arg_C, Arg_N, Arg_S, Arg_H, Arg_U, Arg_Q, Arg_L, Arg_M, Arg_0, Arg_1 : Arg ;
         _ArgPlus, _ArgMinus, _Arg : Arg -> ArgColl ;
-        --_NextArg : Arg -> Arg -> ArgColl ;
         _ArgColl : ArgColl -> ArgColl -> ArgColl ;
 
         _Conj2 : Conj ;
