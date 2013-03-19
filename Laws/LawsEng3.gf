@@ -1,7 +1,6 @@
 concrete LawsEng3 of Laws3 = open StringOper in {
     
     param
-        State                           = With | For ;
         ModType                         = Plus | Minus | None ;
 
     lincat
@@ -72,6 +71,7 @@ concrete LawsEng3 of Laws3 = open StringOper in {
         Less                            = ss "is less than" ;
 
     oper
+        -- TODO: Make sure plural versions are correct
         mkArg : Str -> Str -> {s : ModType => Str} = \str,id -> {
             s = table {
                 Plus => "(" + "increase the amount of" ++ str + "s" ++ "by 1" ++ "(" + id + ")" +  ")" ;

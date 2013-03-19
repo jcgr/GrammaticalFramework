@@ -1,7 +1,12 @@
 concrete LawsDan3 of Laws3 = open StringOper in {
     
+    param
+        ModType                         = Plus | Minus | None ;
+
     lincat
-        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Arg, ArgColl, Conj, Disj, Pi, MathSymbol = {s : Str} ;
+        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Conj, Disj, Pi, MathSymbol = {s : Str} ;
+        Arg = {s : ModType => Str} ;
+        ArgColl = {s : Str} ;
 
     lin
         -- Logic
@@ -24,22 +29,35 @@ concrete LawsDan3 of Laws3 = open StringOper in {
         Atom_Math args1 sym args2       = ss (args1.s ++ sym.s ++ args2.s) ;
 
         -- Ident
+        -- TODO: Change to fit Danish
         Ident_Hopeful                   = ss "der er en forhåbningsfuld" ;
         Ident_Tally                     = ss "vi tæller stemmer" ;
         Ident_BangElectAll              = ss "der er flere åbne sæder end forhåbningsfulde" ;
         Ident_Elected                   = ss "valgt" ;
+        Ident_Defeated                  = ss "!defeated" ;
+        Ident_Quota                     = ss "!quota" ;
+        Ident_Minimum                   = ss "minimum" ;
+        Ident_DefeatMin                 = ss "defeat-min" ;
+        Ident_Transfer                  = ss "transfer" ;
+        Ident_Uncounted                 = ss "uncounted-ballot" ;
+        Ident_Counted                   = ss "counted-ballot" ;
 
         -- Arg
-        Arg_C                           = ss "kandidat C" ;
-        Arg_N                           = ss "tal N" ;
-        Arg_S                           = ss "sæde S" ;
-        Arg_H                           = ss "forhåbningsfuld H" ;
-        Arg_U                           = ss "utalt U" ;
-        Arg_0                           = ss "0" ;
-        Arg_1                           = ss "1" ;
-        _Arg arg                        = ss (arg.s) ;
-        _NextArg arg1 arg2              = ss ("[" ++ arg1.s ++ "|" ++ arg2.s ++ "]") ; -- TODO
-        _ArgColl arg1 arg2              = ss (arg1.s ++ "," ++ arg2.s) ;
+        Arg_C                           = (mkArg "kandidat" "C") ;
+        Arg_N                           = (mkArg "nummer" "N") ;
+        Arg_S                           = (mkArg "sæde" "S") ;
+        Arg_H                           = (mkArg "forhåbningsful" "H") ;
+        Arg_U                           = (mkArg "utalt stemme" "U") ;
+        Arg_Q                           = (mkArg "kvote" "Q") ;
+        Arg_L                           = (mkArg "preference list" "L") ;
+        Arg_M                           = (mkArg "mandat" "M") ;
+        Arg_0                           = (mkArg "tal" "0") ;
+        Arg_1                           = (mkArg "tal" "1") ;
+        _Arg arg                        = ss (arg.s ! None) ;
+        _ArgPlus arg                    = ss (arg.s ! Plus) ;
+        _ArgMinus arg                   = ss (arg.s ! Minus) ;
+        --_NextArg arg1 arg2              = ss ("[" ++ arg1.s ++ "|" ++ arg2.s ++ "]") ; -- TODO
+        _ArgColl arg1 arg2              = ss (arg1.s ++ arg2.s) ;
         
         _Conj2                          = ss "og" ;
         _Disj2                          = ss "eller" ;
@@ -54,16 +72,12 @@ concrete LawsDan3 of Laws3 = open StringOper in {
         Less                            = ss "er mindre end" ;
 
     oper
-        mkMath : Derp -> Str -> Str = 
-            \n,w -> case n of {
-                Word          => "antallet af" ++ w ;
-                Number        => w
-            } ;
---        mkMath2 : Str -> Str = 
---            \w -> case w of {
---                _                       => "antallet af" ++ w
---            } ;
-
-    param
-        Derp = Word | Number ;
+        -- TODO: Make sure plural versions are correct
+        mkArg : Str -> Str -> {s : ModType => Str} = \str,id -> {
+            s = table {
+                Plus => "(" + "forøg antallet af" ++ str + "er" ++ "med 1" ++ "(" + id + ")" +  ")" ;
+                Minus => "(" + "formindsk antallet af" ++ str + "er" ++ "med 1" ++ "(" + id + ")" +  ")" ;
+                None => "(" + str ++ "(" + id + ")" + ")"
+            }
+        } ;
 }
