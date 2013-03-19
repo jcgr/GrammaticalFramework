@@ -29,8 +29,8 @@ abstract Laws3 = {
         Ident_Hopeful, Ident_Tally, Ident_BangElectAll, Ident_Elected, Ident_Defeated, Ident_Quota, Ident_Minimum, Ident_DefeatMin, Ident_Transfer, Ident_Counted, Ident_Uncounted : Ident ;
         
         -- Arg
-        Arg_C, Arg_N, Arg_S, Arg_H, Arg_U, Arg_Q, Arg_L, Arg_0, Arg_1 : Arg ;
-        _Arg : Arg -> ArgColl ;
+        Arg_C, Arg_N, Arg_S, Arg_H, Arg_U, Arg_Q, Arg_L, Arg_M, Arg_0, Arg_1 : Arg ;
+        _ArgPlus, _ArgMinus, _Arg : Arg -> ArgColl ;
         --_NextArg : Arg -> Arg -> ArgColl ;
         _ArgColl : ArgColl -> ArgColl -> ArgColl ;
 
@@ -49,3 +49,4 @@ abstract Laws3 = {
 -- p -lang=LawsLin3 "!elect-all and hopeful ( C , N ) then { elected ( C ) }" | l -treebank
 -- p -lang=LawsLin3 "{ !( C >= H ) }" | l -treebank
 -- p -lang=LawsLin3 "tally-votes ( S , H , U ) and uncounted-ballot ( C , L ) and hopeful ( C , N ) and !quota ( Q ) and !( N < Q ) then { counted-ballot ( C , L ) and hopeful ( C , N ) and tally-votes ( S , H , U ) }" | l -treebank
+-- p -lang=LawsLin3 "defeat-min ( S , H , M ) and hopeful ( C , N ) then { minimum ( C , N ) and defeat-min ( S , H-1 , M-1 ) }" | l -treebank

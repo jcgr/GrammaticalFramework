@@ -1,11 +1,13 @@
 concrete LawsEng3 of Laws3 = open StringOper in {
     
     param
-        State           = With | For ;
+        State                           = With | For ;
+        ModType                         = Plus | Minus | None ;
 
     lincat
         Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Conj, Disj, Pi, MathSymbol = {s : Str} ;
-        Arg, ArgColl = {s : Str ; n : State} ;
+        Arg = {s : ModType => Str} ;
+        ArgColl = {s : Str} ;
 
     lin
         -- Logic
@@ -41,18 +43,21 @@ concrete LawsEng3 of Laws3 = open StringOper in {
         Ident_Counted                   = ss "there is a counted ballot for a bandidate" ;
 
         -- Arg
-        Arg_C                           = mkArg "(candidate C)" For ;
-        Arg_N                           = mkArg "(number N)" With ;
-        Arg_S                           = mkArg "(seat S)" For ;
-        Arg_H                           = mkArg "(hopeful H)" For ;
-        Arg_U                           = mkArg "(uncounted U)" With ;
-        Arg_Q                           = mkArg "(quota Q)" For ;
-        Arg_L                           = mkArg "(preference list L)" With ;
-        Arg_0                           = mkArg "(0)" With ;
-        Arg_1                           = mkArg "(1)" With ;
-        _Arg arg                        = mkArg (arg.s) arg.n ;
+        Arg_C                           = (mkArg "candidate" "C") ;
+        Arg_N                           = (mkArg "number" "N") ;
+        Arg_S                           = (mkArg "seat" "S") ;
+        Arg_H                           = (mkArg "hopeful" "H") ;
+        Arg_U                           = (mkArg "uncounted votes" "U") ;
+        Arg_Q                           = (mkArg "quota" "Q") ;
+        Arg_L                           = (mkArg "preference list" "L") ;
+        Arg_M                           = (mkArg "mandate" "M") ;
+        Arg_0                           = (mkArg "number" "0") ;
+        Arg_1                           = (mkArg "number" "1") ;
+        _Arg arg                        = ss (arg.s ! None) ;
+        _ArgPlus arg                    = ss (arg.s ! Plus) ;
+        _ArgMinus arg                   = ss (arg.s ! Minus) ;
         --_NextArg arg1 arg2              = ss ("[" ++ arg1.s ++ "|" ++ arg2.s ++ "]") ; -- TODO
-        _ArgColl arg1 arg2              = mkArg (mkArgColl arg1.s arg2.s arg2.n) arg1.n;
+        _ArgColl arg1 arg2              = ss (arg1.s ++ arg2.s) ;
         
         _Conj2                          = ss "and" ;
         _Disj2                          = ss "or" ;
@@ -67,14 +72,12 @@ concrete LawsEng3 of Laws3 = open StringOper in {
         Less                            = ss "is less than" ;
 
     oper
-        mkArg : Str -> State -> {s : Str ; n : State} = 
-            \x,y -> {s = x ; n = y} ;
-
-        mkArgColl : Str -> Str -> State -> Str = 
-            \str1,str2,state -> case state of
-            {
-                With        => str1 ++ "with" ++ str2 ;
-                For         => str1 ++ "for" ++ str2 
-            } ;
+        mkArg : Str -> Str -> {s : ModType => Str} = \str,id -> {
+            s = table {
+                Plus => "(" + "increase the amount of" ++ str + "s" ++ "by 1" ++ "(" + id + ")" +  ")" ;
+                Minus => "(" + "decrease the amount of" ++ str + "s" ++ "by 1" ++ "(" + id + ")" +  ")" ;
+                None => "(" + str ++ "(" + id + ")" + ")"
+            }
+        } ;
 
 }

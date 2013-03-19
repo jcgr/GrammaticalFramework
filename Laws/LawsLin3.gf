@@ -1,7 +1,11 @@
 concrete LawsLin3 of Laws3 = open StringOper in {
-    
+
+    param
+        ModType                         = Plus | Minus | None ;
+
     lincat
-        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Arg, ArgColl, Conj, Disj, Pi, MathSymbol = {s : Str} ;
+        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, ArgColl, Conj, Disj, Pi, MathSymbol = {s : Str} ;
+        Arg = {s : ModType => Str} ;
 
     lin
         -- Logic
@@ -37,16 +41,19 @@ concrete LawsLin3 of Laws3 = open StringOper in {
         Ident_Counted                   = ss "counted-ballot" ;
 
         -- Arg
-        Arg_C                           = ss "C" ;
-        Arg_N                           = ss "N" ;
-        Arg_S                           = ss "S" ;
-        Arg_H                           = ss "H" ;
-        Arg_U                           = ss "U" ;
-        Arg_Q                           = ss "Q" ;
-        Arg_L                           = ss "L" ;
-        Arg_0                           = ss "0" ;
-        Arg_1                           = ss "1" ;
-        _Arg arg                        = ss (arg.s) ;
+        Arg_C                           = mkArg "C" ;
+        Arg_N                           = mkArg "N" ;
+        Arg_S                           = mkArg "S" ;
+        Arg_H                           = mkArg "H" ;
+        Arg_U                           = mkArg "U" ;
+        Arg_Q                           = mkArg "Q" ;
+        Arg_L                           = mkArg "L" ;
+        Arg_M                           = mkArg "M" ;
+        Arg_0                           = mkArg "0" ;
+        Arg_1                           = mkArg "1" ;
+        _Arg arg                        = ss (arg.s ! None) ;
+        _ArgPlus arg                    = ss (arg.s ! Plus) ;
+        _ArgMinus arg                   = ss (arg.s ! Minus) ;
         --_NextArg arg1 arg2              = ss ("[" ++ (mkNextArg arg1.s) ++ "|" ++ arg2.s ++ "]") ;
         _ArgColl arg1 arg2              = ss (arg1.s ++ "," ++ arg2.s) ;
         
@@ -63,5 +70,12 @@ concrete LawsLin3 of Laws3 = open StringOper in {
         Less                            = ss "<" ;
 
     oper
-        mkNextArg : Str -> Str = \x -> (x ++ "'") ;
+        mkNextArg : Str -> Str = \x -> (x + "'") ;
+        mkArg : Str -> {s : ModType => Str} = \str -> {
+            s = table {
+                Plus => str + "+1" ;
+                Minus => str + "-1" ;
+                None => str
+            }
+        } ;
 }
