@@ -1,7 +1,4 @@
-concrete LawsLin3 of Laws3 = open StringOper in {
-
-    param
-        ModType                         = Plus | Minus | None ;
+concrete LawsLin3 of Laws3 = open SharedOpers in {
 
     lincat
         Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, ArgColl, Conj, Disj, Pi, MathSymbol = {s : Str} ;

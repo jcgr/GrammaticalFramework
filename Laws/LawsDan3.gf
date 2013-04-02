@@ -1,12 +1,8 @@
-concrete LawsDan3 of Laws3 = open StringOper in {
-    
-    param
-        ModType                         = Plus | Minus | None ;
+concrete LawsDan3 of Laws3 = open SharedOpers in {
 
     lincat
-        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Conj, Disj, Pi, MathSymbol = {s : Str} ;
+        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Conj, Disj, Pi, MathSymbol, ArgColl = {s : Str} ;
         Arg = {s : ModType => Str} ;
-        ArgColl = {s : Str} ;
 
     lin
         -- Logic
@@ -46,7 +42,7 @@ concrete LawsDan3 of Laws3 = open StringOper in {
         Arg_C                           = (mkArg "kandidat" "C") ;
         Arg_N                           = (mkArg "nummer" "N") ;
         Arg_S                           = (mkArg "sæde" "S") ;
-        Arg_H                           = (mkArg "forhåbningsful" "H") ;
+        Arg_H                           = (mkArg "forhåbningsfuld" "H") ;
         Arg_U                           = (mkArg "utalt stemme" "U") ;
         Arg_Q                           = (mkArg "kvote" "Q") ;
         Arg_L                           = (mkArg "preference list" "L") ;
@@ -71,12 +67,24 @@ concrete LawsDan3 of Laws3 = open StringOper in {
         Less                            = ss "er mindre end" ;
 
     oper
-        -- TODO: Make sure plural versions are correct
+        -- Formats the arguments so they are readable
         mkArg : Str -> Str -> {s : ModType => Str} = \str,id -> {
             s = table {
-                Plus => "(" + "forøg antallet af" ++ str + "er" ++ "med 1" ++ "(" + id + ")" +  ")" ;
-                Minus => "(" + "formindsk antallet af" ++ str + "er" ++ "med 1" ++ "(" + id + ")" +  ")" ;
-                None => "(" + str ++ "(" + id + ")" + ")"
+                Plus => "forøg antallet af" ++ (regNoun str).s ! Pl ++ "(" + id + ")" ++ "med 1" ;
+                Minus => "formindsk antallet af" ++ (regNoun str).s ! Pl ++ "(" + id + ")" ++ "med 1" ;
+                None => str ++ "(" + id + ")"
             }
         } ;
+
+        -- Takes care of the plural version of words
+        regNoun : Str -> {s : Number => Str} = \w -> 
+            let 
+                ws : Str = case w of {
+                "tal"                             => w ;
+                _ + "e"                           => w + "r" ;
+                _ + ("d" | "r")                   => w + "e" ; 
+                _                                 => w + "er"
+                } 
+            in 
+            mkNoun w ws ;
 }

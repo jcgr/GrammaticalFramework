@@ -1,12 +1,8 @@
-concrete LawsEng3 of Laws3 = open StringOper in {
-    
-    param
-        ModType                         = Plus | Minus | None ;
+concrete LawsEng3 of Laws3 = open SharedOpers in {
 
     lincat
-        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Conj, Disj, Pi, MathSymbol = {s : Str} ;
+        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Conj, Disj, Pi, MathSymbol, ArgColl = {s : Str} ;
         Arg = {s : ModType => Str} ;
-        ArgColl = {s : Str} ;
 
     lin
         -- Logic
@@ -70,13 +66,26 @@ concrete LawsEng3 of Laws3 = open StringOper in {
         Less                            = ss "is less than" ;
 
     oper
-        -- TODO: Make sure plural versions are correct
+        -- Formats the arguments so they are readable
         mkArg : Str -> Str -> {s : ModType => Str} = \str,id -> {
             s = table {
-                Plus => "(" + "increase the amount of" ++ str + "s" ++ "by 1" ++ "(" + id + ")" +  ")" ;
-                Minus => "(" + "decrease the amount of" ++ str + "s" ++ "by 1" ++ "(" + id + ")" +  ")" ;
-                None => "(" + str ++ "(" + id + ")" + ")"
+                Plus => "increase the amount of" ++ (regNoun str).s ! Pl ++ "(" + id + ")" ++ "by 1" ;
+                Minus => "decrease the amount of" ++ (regNoun str).s ! Pl ++ "(" + id + ")" ++ "by 1" ;
+                None => str ++ "(" + id + ")"
             }
         } ;
 
+        -- Takes care of the plural version of words
+        regNoun : Str -> {s : Number => Str} = \w -> 
+            let 
+                ws : Str = case w of {
+                _ + ("a" | "e" | "i" | "o") + "o" => w + "s" ;
+                _ + ("s" | "x" | "sh" | "o")      => w + "es" ;
+                _ + "z"                           => w + "zes" ; 
+                _ + ("a" | "e" | "o" | "u") + "y" => w + "s" ;
+                x + "y"                           => x + "ies" ;
+                _                                 => w + "s"
+                } 
+            in 
+            mkNoun w ws ;
 }
