@@ -54,7 +54,7 @@ concrete LawsEng3 of Laws3 = open StringOper in {
         Arg_1                           = (mkArg "number" "1") ;
         _Arg arg                        = ss (arg.s ! None) ;
         _ArgPlus arg                    = ss (arg.s ! Plus) ;
-        _ArgMinus arg                   = ss (arg.s ! Minus) ;/
+        _ArgMinus arg                   = ss (arg.s ! Minus) ;
         _ArgColl arg1 arg2              = ss (arg1.s ++ arg2.s) ;
         
         _Conj2                          = ss "and" ;
