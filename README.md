@@ -9,7 +9,7 @@ Laws and Logic is a project written by a bachelor student at the IT-University a
 
 ## Current program
 
-1. The program is capable of parsing simple logical formulars (see the [Test file][https://github.com/jcgr/GrammaticalFramework/blob/master/Laws/Laws4/Test.txt] for examples). It is limited to static identifiers and arguments currently.
+1. The program is capable of parsing simple logical formulars (see the [Test file](https://github.com/jcgr/GrammaticalFramework/blob/master/Laws/Laws4/Test.txt) for examples). It is limited to static identifiers and arguments currently.
 2. It is able to transform words to plural/singular version.
 3. The sentences it returns in English / Danish are understandable. They need more work, however.
 
