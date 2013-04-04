@@ -47,7 +47,8 @@
 \setlength{\parskip}{1.8ex plus 0.5ex minus 0.2ex}
 
 % Hyper setup
-\hypersetup{
+\hypersetup
+{
     colorlinks,%
     citecolor=black,%
     filecolor=black,%
@@ -55,26 +56,51 @@
     urlcolor=black
 }
 
-\lstset{
-numbers = left}
+\lstset
+{
+numbers = left,
+captionpos=b,
+numbersep=5pt,
+}
 
 % Page style
 \setlength{\headheight}{15.2pt}
 \setlength{\topskip}{20pt}
 \pagestyle{fancy}
 \cfoot{\thepage\ of \pageref{LastPage}}
-\fancypagestyle{plain}{\fancyhf{}\cfoot{\thepage\ of \pageref{LastPage}}
-}
-\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\thechapter.\ #1}}{}}
-\fancypagestyle{plain}{
+
+\fancypagestyle{plain}
+{
 \fancyhf{}
 \cfoot{\thepage\ of \pageref{LastPage}}
 }
+
+\fancypagestyle{plain}
+{
+\fancyhf{}
+\cfoot{\thepage\ of \pageref{LastPage}}
+}
+
+\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\thechapter.\ #1}}{}}
+\renewcommand{\lstlistingname}{Code}
 
 % Table of contents depth
 \settocdepth{section}
 
 % New commands and environments
+\newcommand{\note}[1]{\textbf{#1}}
+
+\newcommand{\code}[1]
+{
+\texttt{#1}
+}
+
+\newcommand{\codeFile}[3]
+{
+\lstset{caption=#2,label=code:#3}
+\lstinputlisting{#1}
+}
+
 \newcommand{\skippage}
 {
 \chapter*{}

@@ -1,0 +1,27 @@
+\section{Grammatical Framework}
+\label{04_GF}
+
+Grammatical Framework (GF) is an open-source multilingual programming language. With GF, one can write programs that can translate other languages. This works through parsing (analyzing a language), linearization (generating the language) and translation (analyzing one language to generate another one).
+
+A GF program consists of an abstract module and one or more concrete modules. The abstract module defines what meanings can be interpreted and parsed by the grammar. The concrete module maps the abstract meanings to strings, thereby forming complete sentences.
+
+The abstract module contains category declarations (\code{cat)} and function declarations (\code{fun}). The \code{cat} list the different categories (meanings) used in the language, where the \code{fun} dictates how the categories fit together to create meaning-building functions. The abstract syntax furthermore has a \code{flag startcat} that indicates what category the program should start with. 
+
+\codeFile{CodeSnippets/GF/Hello.gf}{A simple abstract syntax.}{04_GF_C01}
+
+In the abstract syntax shown in Code \ref{code:04_GF_C01}, there are two categories: \code{Greeting} and \code{Recipient}. Furthermore, there are two functions. The first function determines that \code{World}, \code{Mum} and \code{Friends} are considered \code{Recipients}. The second function determines that \code{Hello} takes a \code{Recipient} and returns a \code{Greeting}.
+
+The concrete module contains linearization type definitions (\code{lincat}) and linearization definitions
+(\code{lin}). The \code{lincat} determines the type of object for each category in the abstract syntax and the \code{lin} determines what value is assigned to each abstract meaning. 
+
+When the program parses a language, it will look for the values being held by the meanings and translate each into the abstract syntax. From the abstract syntax, the program can generate another language, assuming it is a concrete implementation of the same abstract syntax.
+
+\codeFile{CodeSnippets/GF/HelloEng.gf}{A concrete English implementation of the abstract syntax from Code \ref{code:04_GF_C01}.}{04_GF_C02}
+
+In Code \ref{code:04_GF_C01} both \code{Greeting} and \code{Recipient} have been defined as records that can hold a \code{Str} (a string). \code{World}, \code{Mum} and \code{Friends} each have simple meanings. \code{Hello} has a more advanced meaning, however, as it consists of the string \code{"hello"} concatenated with the value of \code{recip} (the \code{Recipient} it takes as an argument).
+
+\note{Code comes from http://www.grammaticalframework.org/doc/tutorial/gf-tutorial.html\#toc9}
+
+\codeFile{CodeSnippets/GF/HelloIta.gf}{A concrete Italian implementation of the abstract syntax from Code \ref{code:04_GF_C01}.}{04_GF_C03}
+
+With another concrete implementation (such as the Italian one in Code \ref{code:04_GF_C03}), the program will be able to translate the simple sentences from one language into the other. 
