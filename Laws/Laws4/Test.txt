@@ -8,3 +8,8 @@ p -lang=LawsLin4 "{ !( C >= H ) }" | l -treebank
 p -lang=LawsLin4 "tally-votes ( S , H , U ) and uncounted-ballot ( C , L ) and hopeful ( C , N ) and !quota ( Q ) and !( N < Q ) then { counted-ballot ( C , L ) and hopeful ( C , N ) and tally-votes ( S , H , U ) }" | l -treebank
 p -lang=LawsLin4 "defeat-min ( S , H , M ) and hopeful ( C , N ) then { minimum ( C , N ) and defeat-min ( S , H - 1 , M - 1 ) }" | l -treebank
 p -lang=LawsLin4 "!elect-all and hopeful ( C , N ) then { elected ( C ) }" | l -treebank
+
+Error: GFPrint.sml 22.22.
+  Variable printPreObjInCtx in signature but not in structure.
+compilation aborted: elaborate reported errors
+make: *** [mlton] Error 1
