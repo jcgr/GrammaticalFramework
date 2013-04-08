@@ -1,0 +1,23 @@
+[GF:count/1: Pi C: candidate. Pi H: nat. Pi L: list. Pi N: nat. Pi Q: nat. Pi S: nat. Pi U: nat. (count-ballots S H (s !U) * (uncounted-ballot C L * (hopeful C N * (!quota Q * !nat-less (s !N) Q)))) -o {counted-ballot C L * (hopeful C (s !N) * count-ballots S H U)}].
+[GF:count/2: Pi C: candidate. Pi H: nat. Pi L: list. Pi N: nat. Pi Q: nat. Pi S: nat. Pi U: nat. Pi W: list. (count-ballots (s !(s !S)) (s !H) (s !U) * (uncounted-ballot C L * (hopeful C N * (!quota Q * (!nat-lesseq Q (s !N) * winners W))))) -o {counted-ballot C L * (!elected C * (winners (cons !C !W) * count-ballots (s !S) H U))}].
+[GF:count/3: Pi C: candidate. Pi H: nat. Pi L: list. Pi N: nat. Pi Q: nat. Pi U: nat. Pi W: list. (count-ballots (s !z) H U * (uncounted-ballot C L * (hopeful C N * (!quota Q * (!nat-lesseq Q (s !N) * winners W))))) -o {counted-ballot C L * (!elected C * (winners (cons !C !W) * !defeat-all))}].
+[GF:count/4_1: Pi C: candidate. Pi C': candidate. Pi H: nat. Pi L: list. Pi S: nat. Pi U: nat. (count-ballots S H U * (uncounted-ballot C (cons !C' !L) * !elected C)) -o {uncounted-ballot C' L * count-ballots S H U}].
+[GF:count/4_2: Pi C: candidate. Pi C': candidate. Pi H: nat. Pi L: list. Pi S: nat. Pi U: nat. (count-ballots S H U * (uncounted-ballot C (cons !C' !L) * !defeated C)) -o {uncounted-ballot C' L * count-ballots S H U}].
+[GF:count/5_1: Pi C: candidate. Pi H: nat. Pi S: nat. Pi U: nat. (count-ballots S H (s !U) * (uncounted-ballot C nil * !elected C)) -o {count-ballots S H U}].
+[GF:count/5_2: Pi C: candidate. Pi H: nat. Pi S: nat. Pi U: nat. (count-ballots S H (s !U) * (uncounted-ballot C nil * !defeated C)) -o {count-ballots S H U}].
+[GF:count/6: Pi H: nat. Pi S: nat. count-ballots S H z -o {defeat-min S H z}].
+[GF:defeat-min/1: Pi C: candidate. Pi H: nat. Pi M: nat. Pi N: nat. Pi S: nat. (defeat-min S (s !H) M * hopeful C N) -o {minimum C N * defeat-min S H (s !M)}].
+[GF:defeat-min/2: Pi M: nat. Pi S: nat. defeat-min S z M -o {defeat-min' S z M}].
+[GF:defeat-min'/1: Pi C: candidate. Pi C': candidate. Pi H: nat. Pi M: nat. Pi N: nat. Pi N': nat. Pi S: nat. (defeat-min' S H (s !M) * (minimum C N * (minimum C' N' * !nat-less N N'))) -o {minimum C N * (hopeful C' N' * defeat-min' S (s !H) M)}].
+[GF:defeat-min'/2: Pi C: candidate. Pi H: nat. Pi N: nat. Pi S: nat. (defeat-min' S H (s !z) * minimum C N) -o {!defeated C * transfer C N S H z}].
+[GF:transfer/1: Pi C: candidate. Pi C': candidate. Pi H: nat. Pi L: list. Pi N: nat. Pi S: nat. Pi U: nat. (transfer C (s !N) S H U * counted-ballot C (cons !C' !L)) -o {uncounted-ballot C' L * transfer C N S H (s !U)}].
+[GF:transfer/2: Pi C: candidate. Pi H: nat. Pi N: nat. Pi S: nat. Pi U: nat. (transfer C (s !N) S H U * counted-ballot C nil) -o {transfer C N S H U}].
+[GF:transfer/3: Pi C: candidate. Pi H: nat. Pi S: nat. Pi U: nat. (transfer C z S H U * !nat-less S H) -o {count-ballots S H U}].
+[GF:transfer/4: Pi C: candidate. Pi H: nat. Pi S: nat. Pi U: nat. (transfer C z S H U * !nat-lesseq H S) -o {!elect-all}].
+[GF:defeat-all/1: Pi C: candidate. Pi N: nat. (!defeat-all * hopeful C N) -o {!defeated C}].
+[GF:elect-all/1: Pi C: candidate. Pi N: nat. Pi W: list. (!elect-all * (hopeful C N * winners W)) -o {!elected C * winners (cons !C !W)}].
+[GF:cleanup/1: Pi C: candidate. Pi L: list. (!defeat-all * uncounted-ballot C L) -o {1}].
+[GF:cleanup/2: Pi C: candidate. Pi L: list. (!defeat-all * counted-ballot C L) -o {1}].
+[GF:cleanup/3: Pi C: candidate. Pi L: list. (!elect-all * uncounted-ballot C L) -o {1}].
+[GF:cleanup/4: Pi C: candidate. Pi L: list. (!elect-all * counted-ballot C L) -o {1}].
+[GF:run/1: Pi H: nat. Pi Q: nat. Pi S: nat. Pi U: nat. Pi xx3: nat. (run S H U * !nat-divmod U (s !S) Q xx3) -o {!quota (s !Q) * (winners nil * count-ballots S H U)}].
