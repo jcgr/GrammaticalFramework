@@ -20,51 +20,56 @@ concrete LawsEng5 of Laws5 = open SharedOpers in {
         _Mon pos                        = ss (pos.s) ;
         
         -- Atomic
-        Atom_Test ident                 = ss (ident.s) ;
+        Atom_Test ident                 = ss ("[" ++ ident.s ++ "]") ;
         Atom_Args ident args            = ss (ident.s ++ "(" ++ args.s ++ ")") ;
         Atom_Noargs ident               = ss (ident.s) ;
         Atom_Math math                  = ss (math.s) ;
 
         -- Ident
-        Ident_Hopeful c n s h u q l m
+        Ident_Hopeful c n s h u q l m w
             = ss ("there is a hopeful" ++ c.s ++ " with" ++ n.s) ;
-        Ident_Tally c n s h u q l m
-            = ss ("we are tallying votes") ;
-        Ident_BangElectAll c n s h u q l m
+        Ident_Tally c n s h u q l m w
+            = ss ("we are tallying votes and there are" ++ s.s ++ "open," ++ h.s ++ ", and" ++ u.s ++ "cast") ;
+        Ident_BangElectAll c n s h u q l m w
             = ss ("there are more open seats than hopefuls") ;
-        Ident_Elected c n s h u q l m
-            = ss ("a candidate has been elected") ;
-        Ident_Defeated c n s h u q l m
-            = ss ("a candidate has been defeated") ;
-        Ident_Quota c n s h u q l m
-            = ss ("the votes needed to be elected") ;
-        Ident_Minimum c n s h u q l m
-            = ss ("a candidate might have enough votes") ;
-        Ident_DefeatMin c n s h u q l m
-            = ss ("we are determining which candidate has the fewest votes") ;
-        Ident_Transfer c n s h u q l m
-            = ss ("a defeated candidate's votes are being transferred") ;
-        Ident_Uncounted c n s h u q l m
+        Ident_Elected c n s h u q l m w
+            = ss (c.s ++ "has been (and will remain) elected") ;
+        Ident_Defeated c n s h u q l m w
+            = ss (c.s ++ "has been (and will remain) defeated") ;
+        Ident_Quota c n s h u q l m w
+            = ss (q.s ++ "are needed to be elected") ;
+        Ident_Minimum c n s h u q l m w
+            = ss (c.s ++ "'s count of" ++ n.s ++ "is a potential minimum") ;
+        Ident_DefeatMin c n s h u q l m w
+            = ss ("we are determining which candidate has the fewest votes and there are" ++ s.s ++ "open, " ++ h.s ++ ", and" ++ m.s ++ "remaining") ;
+        Ident_Transfer c n s h u q l m w
+            = ss ("the defeated" ++ c.s ++"'s remaining" ++ n.s ++ "are being transferred and there are" ++ s.s ++ "open, " ++ h.s ++ ", and" ++ u.s) ;
+        Ident_Uncounted c n s h u q l m w
             = ss ("there is an uncounted ballot with highest preference for a certain" ++ c.s ++ "with a" ++ l.s ++ "of lower preferences") ;
-        Ident_Counted c n s h u q l m
+        Ident_Counted c n s h u q l m w
             = ss ("there is a counted ballot with highest preference for a certain" ++ c.s ++ "with a" ++ l.s ++ "of lower preferences") ;
+        Ident_Winners c n s h u q l m w
+            = ss ("the candidates in" ++ w.s ++ "have been elected thus far") ;
+        Ident_Begin c n s h u q l m w
+            = ss ("we are beginning the tallying and there are " ++ s.s ++ "open," ++ h.s ++ ", and" ++ u.s ++ "cast") ;
 
         -- Arg
-        Arg_C                           = mkArg ("C candidate") ;
+        Arg_C                           = mkArg ("candidate C") ;
         Arg_N                           = mkArg ("N counted ballot") ;
         Arg_S                           = mkArg ("S seat") ;
-        Arg_H                           = mkArg ("H hopeful") ;
-        Arg_U                           = mkArg ("U uncounted votes") ;
-        Arg_Q                           = mkArg ("Q quota") ;
-        Arg_L                           = mkArg ("L list") ;
-        Arg_M                           = mkArg ("M mandate") ;
+        Arg_H                           = mkArg ("H hopeful candidate") ;
+        Arg_U                           = mkArg ("U uncounted ballot") ;
+        Arg_Q                           = mkArg ("Q vote") ;
+        Arg_L                           = mkArg ("list L") ;
+        Arg_M                           = mkArg ("M potential minimum") ;
+        Arg_W                           = mkArg ("list W") ;
         Arg_0                           = mkArg ("number 0") ;
         Arg_1                           = mkArg ("number 1") ;
-        Arg_Nil                         = mkArg ("nil") ;
+        Arg_Nil                         = mkArg ("no") ;
         _ArgSg arg                      = ss (arg.s ! Sg) ;
         _ArgPl arg                      = ss (arg.s ! Pl) ;
-        _ArgPlus arg                    = ss ("an amount of" ++ arg.s ! Pl ++ "1 higher than before") ;
-        _ArgMinus arg                   = ss ("an amount of" ++ arg.s ! Pl ++ "1 lower than before") ;
+        _ArgPlus arg                    = ss (arg.s ! Pl ++ "plus 1") ;
+        _ArgMinus arg                   = ss (arg.s ! Pl ++ "minus 1") ;
         _ArgListEmpty                   = ss ("empty list") ;
         _ArgList arg1 arg2              = ss ("list containing" ++ arg1.s ! Sg ++ "and" ++ arg2.s ! Sg) ;
         _ArgColl arg1 arg2              = ss (arg1.s ++ "," ++ arg2.s) ;
@@ -105,13 +110,13 @@ concrete LawsEng5 of Laws5 = open SharedOpers in {
         regNoun : Str -> {s : Number => Str} = \w -> 
             let 
                 ws : Str = case w of {
-                "number" + _                      => w ;
-                _ + ("a" | "e" | "i" | "o") + "o" => w + "s" ;
-                _ + ("s" | "x" | "sh" | "o")      => w + "es" ;
-                _ + "z"                           => w + "zes" ; 
-                _ + ("a" | "e" | "o" | "u") + "y" => w + "s" ;
-                x + "y"                           => x + "ies" ;
-                _                                 => w + "s"
+                ("number" | "list" | "candidate") + _   => w ;
+                _ + ("a" | "e" | "i" | "o") + "o"       => w + "s" ;
+                _ + ("s" | "x" | "sh" | "o")            => w + "es" ;
+                _ + "z"                                 => w + "zes" ; 
+                _ + ("a" | "e" | "o" | "u") + "y"       => w + "s" ;
+                x + "y"                                 => x + "ies" ;
+                _                                       => w + "s"
                 } 
             in 
             mkNoun w ws ;

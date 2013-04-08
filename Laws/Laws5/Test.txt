@@ -1,11 +1,12 @@
 gf
 e
 i LawsLin5.gf LawsEng5.gf LawsDan5.gf
-p -lang=LawsLin5 "( hopeful C N + ** counted-ballot C L ) -o { hopeful C ( p ! N ) }" | l -treebank
-p -lang=LawsLin5 "( transfer ( C , ( s ! N ) , S , H , U ) ** counted-ballot ( C , nil ) ) -o { transfer ( C , N , S , H , U ) }" | l -treebank
+p -lang=LawsLin5 "( hopeful C N + * counted-ballot C L ) -o { hopeful C ( p ! N ) }" | l -treebank
+p -lang=LawsLin5 "( transfer C ( s ! N ) S H U * counted-ballot C nil ) -o { transfer C N S H U }" | l -treebank
 
-(transfer C (s !N) S H U * counted-ballot C nil) -o {transfer C N S H U}
-( transfer ( C , ( s ! N ) , S , H , U ) ** counted-ballot ( C , nil ) ) -o { transfer ( C , N , S , H , U ) }
+
+
+
 
 [GF:transfer/2: Pi C: candidate. Pi H: nat. Pi N: nat. Pi S: nat. Pi U: nat. (transfer C (s !N) S H U * counted-ballot C nil) -o {transfer C N S H U}].
-[ GF : transfer/2 : Pi C : candidate . Pi H : nat . Pi N : nat . Pi S : nat . Pi U : nat . ( transfer ( C , ( s ! N ) , S , H , U ) ** counted-ballot ( C , nil ) ) -o { transfer ( C , N , S , H , U ) } ].
+[ GF : transfer/2 : Pi C : candidate . Pi H : nat . Pi N : nat . Pi S : nat . Pi U : nat . ( transfer C ( s ! N ) S H U * counted-ballot C nil ) -o { transfer C N S H U } ].
