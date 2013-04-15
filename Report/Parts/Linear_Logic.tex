@@ -1,0 +1,34 @@
+\section{Linear Logic}
+\label{LL_01}
+
+\paragraph{Linear logic} is a type of logic where truth is not free, but is a consumable resource. In traditional logic any logical assumption may be used an unlimited number of times, but in Linear Logic each assumption is “consumed” upon use.
+
+Because the resources are consumable, they may not be duplicated and can thereby only be used once. This makes the resources valuable and also means that they cannot be disposed of freely and therefore must be used once. With this, Linear Logic can be used to describe things/operations(?) that must occur only once. This is important, as voting protocols rely on things being able to occur only once (each voter can only be registered once, each ballot may only be counted once, etc.).
+
+\subsection{Connectives}
+\label{LL_02}
+
+\paragraph{Traditional Logic} contains connectives that, unfortunately, are not specific enough for the purpose of these formulas. The implies $\rightarrow$ and the logical conjunction $\wedge$ do not deal with resources. A $\rightarrow$ B means that if A is true then B is true. It says nothing about A or B being consumed. Another notation is therefore needed.
+
+As \textbf{Linear Logic} is based around the idea of resources, the connectives reflect that. Linear Logic has a lot of connectives that can be used to express logical formulas, but the logical formulas studied in the project are only concerned with some of them. They are Linear Implication, Simultaneous Conjunction, Unrestricted Modality and the Universal Quantification.
+
+\paragraph{Linear Implication, $\lolli$.} Linear implication is linear logic’s version of $\rightarrow$. $\lolli$ consumes the resources on the left side to produce the resources on the right side. The logical formula
+\centered{\formula{voting-auth-card $\lolli$ \{ blank-ballot \}}}
+therefore consumes a voter’s authorization card and gives a blank ballot to the voter in exchange.
+
+\paragraph{Simultaneous Conjunction, $\tensor$.} Simultaneous conjunction is linear logic’s version of the $\wedge$. A $\wedge$ B means “if A and B” and does not take the resources into account. It is simply concerned whether A and B are true and/or false. A $\tensor$ B means “if resource A and recourse B are given” and thereby fulfills the criteria of working with resources.The logical formula
+\centered{ \formula{ voting-auth-card $\tensor$ photo-id $\lolli$ \{ blank-ballot \} } }
+will consume a voter’s authorization card and photo ID and give a blank ballot to the voter in exchange. It should be noted that $\tensor$ binds more tightly than $\lolli$.
+There is a special unit for simultaneous conjunction, $\one$ (meaning “nothing”). $\one$ represents an empty collection of resources and is mainly used when some resources are consumed but nothing is produced.
+
+\paragraph{Unrestricted Modality, $\bang$.} The unrestricted modality is unique to linear logic. In the formula \formula{voting-auth-card $\tensor$ photo-id $\lolli$ \{ blank-ballot \}}, the photo ID of the voter is consumed, which means the voter must give up their photo ID to vote. This is a lot of lost passports/driver’s licenses!
+The unrestricted modality, $\bang$, solves that problem. $\bang$A is a version of A that is not consumed and can be used an unlimited number of times (even no times at all). Using the unrestricted modality, the logical formula
+\centered{ \formula{ voting-auth-card $\tensor$ $\bang$photo-id $\lolli$ \{ blank-ballot \} } }
+now consumes only the authorization card and checks the photo ID (without consuming it) before giving the voter a blank ballot in exchange. 
+
+\paragraph{Universal Quantification, $\forall$x:r.} The universal quantification is found both in traditional logic and linear logic and is necessary to complete the formula. As it is now, one simply needs to give an authorization card and show a photo ID. The name on the authorization card does not have to match the one on the photo ID.
+In linear logic, the universal quantification works the same was as in traditional logic and it says that “all x belongs to r”(?). Using the universal quantification, the logical formula is changed to
+\centered{\formula{$\forall$v:voter. (voting-auth-card(v) $\tensor$ $\bang$photo-id(v) $\lolli$ \{ blank-ballot \}) } }
+now requires voter \textit{v} to give \textit{his} authorization card and show \textit{his own} photo ID before \textit{he} can receive a blank ballot.
+
+\pagebreak

@@ -2,12 +2,16 @@
 \save@tocdepth \setcounter {tocdepth}{1}
 \select@language {english}
 \contentsline {chapter}{\numberline {1}Introduction}{2}{chapter.1}
-\contentsline {chapter}{\numberline {2}Project Overview}{3}{chapter.2}
-\contentsline {section}{\numberline {2.1}Background}{3}{section.2.1}
-\contentsline {section}{\numberline {2.2}NEEDS TITLE (problemformulering)}{3}{section.2.2}
-\contentsline {chapter}{\numberline {3}Problem Analysis}{4}{chapter.3}
-\contentsline {chapter}{\numberline {4}Technical Description}{5}{chapter.4}
-\contentsline {section}{\numberline {4.1}Grammatical Framework}{5}{section.4.1}
-\contentsline {chapter}{\numberline {5}Testing}{7}{chapter.5}
-\contentsline {chapter}{\numberline {6}Conclusion}{8}{chapter.6}
+\contentsline {section}{\numberline {1.1}Background}{2}{section.1.1}
+\contentsline {section}{\numberline {1.2}NEEDS TITLE (problemformulering)}{2}{section.1.2}
+\contentsline {chapter}{\numberline {2}Technical Description}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Linear Logic}{3}{section.2.1}
+\contentsline {paragraph}{Linear logic}{3}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Connectives}{3}{subsection.2.1.1}
+\contentsline {paragraph}{Traditional Logic}{3}{subsection.2.1.1}
+\contentsline {paragraph}{Linear Implication, $\multimap $.}{3}{subsection.2.1.1}
+\contentsline {paragraph}{Simultaneous Conjunction, $\otimes $.}{3}{subsection.2.1.1}
+\contentsline {paragraph}{Unrestricted Modality, $\mathord {\text {\rm !}}$.}{4}{subsection.2.1.1}
+\contentsline {paragraph}{Universal Quantification, $\forall $x:r.}{4}{subsection.2.1.1}
+\contentsline {section}{\numberline {2.2}Grammatical Framework}{5}{section.2.2}
 \contentsfinish 

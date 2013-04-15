@@ -1,0 +1,419 @@
+% All macros in this file are crucial for one reason or another,
+% please refrain from changing/removing stuff without consultance.
+% Everything works very well, but it is extremly fragile. You've been
+% warned... /Wojtek
+
+% TODO: 
+%  * make the list of Java Doc tags complete
+% (line 88, look for FIXME)
+%  * support for character constants in .key lang. (May not be really necessary)
+
+\ProvidesPackage{keylistings}
+
+\RequirePackage{bold-extra}
+\RequirePackage{listings}
+
+
+% left margin
+
+\newlength{\keylistingleftmargin}
+\settowidth{\keylistingleftmargin}{{\tiny 99}}
+\addtolength{\keylistingleftmargin}{\lst@numbersep}
+%\lstset{xleftmargin=\keylistingleftmargin}
+
+
+% Some listings hacks:
+
+\newif\ifin@string\in@stringfalse
+\newif\ifin@comment\in@commentfalse
+\newif\ifin@jmlcomment\in@jmlcommentfalse
+
+\def\@langnone{N} % None
+\def\@langjava{J} % Java, or Java + JML
+\def\@langocl{O}  % OCL
+\def\@langkey{K}  % .key/taclets
+\def\@langsql{S}  % SQL
+\def\@langgf{G}  % GF
+\let\@currlang\@langnone
+
+\lst@CCPutMacro
+  \lst@ProcessOther {"5C}{\lst@ttfamily{%
+    \ifin@jmlcomment\lst@keywordstyle\fi
+    \ifx\@currlang\@langkey
+        \ifin@string\relax\else
+           \ifin@comment\else\lst@keywordstyle\fi    
+        \fi
+    \fi
+    \char92}\textbackslash}
+  \@empty\z@\@empty
+
+\def\check@stringbold{\ifin@string\lst@basicstyle\lst@stringstyle\fi}
+\def\check@commentbold{\ifin@comment\lst@basicstyle\lst@commentstyle\fi}
+
+\lst@AddToHook{OutputBox}{%
+  \ifx\@currlang\@langjava\check@stringbold\fi
+  \ifx\@currlang\@langkey\check@commentbold\check@stringbold\fi
+}
+
+
+% Java + JML lang. definition, above hacks necessary
+% transient has been removed from the list of keywords as it
+% causes problems with <transient> which is not a keyword
+
+\lstdefinelanguage[JML]{Java}%
+  {%
+%% Normal keywords
+  morekeywords={%
+%% Java keywords
+     abstract,boolean,break,byte,case,catch,char,class,%
+     const,continue,default,do,double,else,extends,false,final,%
+     finally,float,for,goto,if,implements,import,instanceof,int,%
+     interface,label,long,native,new,null,package,private,protected,%
+     public,return,short,static,super,switch,synchronized,this,throw,%
+     throws,true,try,void,volatile,while,%
+%% JML keywords
+     abrupt_behavior,accessible_redundantly,accessible,also,and,%
+     assert_redundantly,assignable_redundantly,assignable,%
+     assume_redundantly,assume,axiom,behavior,breaks_redundantly,%
+     breaks,callable_redundantly,callable,choose_if,choose,%
+     constraint_redundantly,constraint,continues_redundantly,%
+     continues,decreases_redundantly,decreases,decreasing_redundantly,%
+     decreasing,depends_redundantly,depends,diverges_redundantly,%
+     diverges,ensures_redundantly,ensures,example,exceptional_behavior,%
+     exceptional_example,exsures_redundantly,exsures,for_example,%
+     ghost,implies_that,hence_by_redundantly,hence_by,initializer,%
+     initially,instance,invariant_redundantly,invariant,let,%
+     loop_invariant_redundantly,loop_invariant,maintaining_redundantly,%
+     maintaining,measured_by_redundantly,measured_by,model_program,%
+     model,modifiable_redundantly,modifiable,modifies_redundantly,%
+     modifies,monitored_by,monitored,non_null,normal_behavior,%
+     normal_example,nowarn,old,or,post,pre,pure,readable_if,%
+     refine,represents_redundantly,represents,requires_redundantly,%
+     requires,returns_redundantly,returns,set,signals,then,%
+     signals_only,signals_redundantly,spec_protected,spec_public,static_initializer,%
+     subclassing_contract,uninitialized,unreachable,weakly,%
+     when_redundantly,when,requires,ensures,assignable,%
+     modifiable,ensures_redundantly,invariant,spec_public,%
+     behavior,normal_behavior,exceptional_behavior,also,private,%
+     public,package,fi,od,times,end,begin,procedure,to},%
+%% JML keywords starting with '\'
+   moretexcs={elemtype,everything,exists,fields_of,%
+     forall,fresh,invariant_for,is_initialized,lblneg,lblpos,%
+     lockset,max,min,nonnullelements,nothing,not_modified,%
+     not_specified,num_of,old,other,product,reach,result,%
+     such_that,sum,type,typeof,TYPE},%
+%% Java doc tags:  FIXME: add more here
+   otherkeywords={@param,@returns,@preconditions,@postconditions,@invariants},%
+   sensitive=true,%
+   morecomment=[l]{//},%
+   morecomment=[s]{/*}{*/},%
+   morecomment=[s]{(*}{*)},%
+   morestring=[b]",%
+   morestring=[b]',%
+  }[keywords,comments,strings,tex]
+
+% transient has been removed from the list of keywords as it
+% causes problems with <transient> which is not a keyword
+
+\lstdefinelanguage{KeY}%
+  {%
+%% Normal keywords
+  morekeywords={%
+%% Java keywords
+     abstract,boolean,break,byte,case,catch,char,class,%
+     const,continue,default,do,double,else,extends,false,final,%
+     finally,float,for,goto,if,implements,import,instanceof,int,%
+     interface,label,long,native,new,null,package,private,protected,%
+     public,return,short,static,super,switch,synchronized,this,throw,%
+     throws,true,try,void,volatile,while},%
+%% Taclet lang. keywords starting with '\'
+   moretexcs={%
+     sorts,generic,extends,oneof,object,schemaVariables,schemaVar,modalOperator,%
+     program,formula,term,variables,skolemTerm,modifies,programVariables,%
+     varcond,typeof,elemTypeof,new,not,sameTypes,compatibleTypes,%
+     isSubtype,staticMethodReference,notFreeIn,static,notSameLiteral,%
+     isReferenceArray,isReference,smallerThan,dependingOn,isQuery,%
+     hasSort,isLocalVariable,notIsLocalVariable,bind,forall,exists,%
+     subst,substWary,ifEx,for,if,then,else,include,includeLDTs,%
+     javaSource,withOptions,optionsDecl,settings,sameUpdateLevel,%
+     inSequentState,closegoal,heuristicsDecl,noninteractive,displayname,%
+     helptext,replacewith,addrules,addprogvars,heuristics,recursive,%
+     find,add,assumes,predicates,functions,nonRigid,inter,rules,%
+     problem,proof,contracts,modality,endmodality,diamond,diamond_trc,%
+     diamond_tra,diamond_susp,box,box_trc,box_tra,box_susp,throughout,%
+     throughout_trc,throughout_tra,throughout_susp,includeFile,operator,%
+     location,function,same,compatible,strict,sub,containerType,%
+     isInReachableState,isAbstractOrInterface,dependingOnMod,inType},%
+%% Modalities and other:
+   otherkeywords={\#inType,\#isObject,\\<,\\>,\\[,\\],\\[[,\\]]},%
+   sensitive=true,%
+   morecomment=[l]{//},%
+   morecomment=[s]{/*}{*/},%
+   morestring=[b]",%
+%% No characters support, messes up shadow primes (will see what can be done here)
+%%   morestring=[b]',%
+  }[keywords,comments,strings,tex]
+
+% In the current form this is equivalent to 
+% OCL definition from listings decorative+OMG flavour
+\lstdefinelanguage{KeYOCL}
+  {morekeywords={context,pre,inv,post,assignable,stronginv},%
+   morekeywords=[1]{or,xor,and,not,implies,if,then,else,endif,let,in,def,modifies},%
+   morekeywords=[2]{Boolean,Integer,Real,String,Set,Sequence,Bag,%
+       OclType,OclAny,OclExpression,Enumeration,Collection,%
+       TupleType,Tuple},%
+   morekeywords=[3]{name,attributes,associatoinEnds,operations,%
+      supertypes,allSupertypes,allInstances,oclIsKindOf,oclIsTypeOf,%
+      oclAsType,oclInState,oclIsNew,evaluationType,abs,floor,round,max,%
+      min,div,mod,size,concat,toUpper,toLower,substring,includes,%
+      excludes,count,includesAll,exludesAll,isEmpty,notEmpty,sum,%
+      exists,forAll,isUnique,sortedBy,iterate,union,intersection,%
+      including,excluding,symmetricDifference,select,reject,collect,%
+      asSequence,asBag,asSequence,asSet,append,prepend,subSequence,at,%
+      first,last,true,false,isQuery}%
+   otherkeywords={@pre},%
+  sensitive=t,%
+  morecomment=[l]--,%
+  morestring=[d]'%
+  }[keywords,comments,strings]%
+
+%% This is a quick hack to fix SQL in the patterns chapter (RH)
+%\lstdefinelanguage{KeYSQL}
+%  {morekeywords={BY,FROM,GROUP,IN,HAVING,SELECT,WHERE}%
+%  sensitive=t,%
+%  }[keywords,comments,strings]%
+
+% This is copied from lstlang1.sty with GROUP kw added /Woj
+
+\lstdefinelanguage{KeYSQL}%
+  {morekeywords={ABSOLUTE,ACTION,ADD,ALLOCATE,ALTER,ARE,AS,ASSERTION,%
+      AT,BETWEEN,BIT,BIT_LENGTH,BOTH,BY,CASCADE,CASCADED,CASE,CAST,%
+      CATALOG,CHAR,CHAR_LENGTH,CHARACTER_LENGTH,CLUSTER,COALESCE,%
+      COLLATE,COLLATION,COLUMN,CONNECT,CONNECTION,CONSTRAINT,%
+      CONSTRAINTS,CONVERT,CORRESPONDING,CREATE,CROSS,CURRENT_DATE,%
+      CURRENT_TIME,CURRENT_TIMESTAMP,CURRENT_USER,DATE,DAY,DEALLOCATE,%
+      DEC,DECIMAL,DEFERRABLE,DEFERED,DESCRIBE,DESCRIPTOR,DIAGNOSTICS,%
+      DISCONNECT,DOMAIN,DROP,ELSE,END,EXEC,EXCEPT,EXCEPTION,EXECUTE,%
+      EXTERNAL,EXTRACT,FALSE,FIRST,FLOAT,FOREIGN,FROM,FULL,GET,GLOBAL,%
+      GRAPHIC,GROUP,HAVING,HOUR,IDENTITY,IMMEDIATE,INDEX,INITIALLY,INNER,%
+      INPUT,INSENSITIVE,INSERT,INT,INTO,INTEGER,INTERSECT,INTERVAL,%
+      ISOLATION,JOIN,KEY,LAST,LEADING,LEFT,LEVEL,LIMIT,LOCAL,LOWER,%
+      MATCH,MINUTE,MONTH,NAMES,NATIONAL,NATURAL,NCHAR,NEXT,NO,NOT,NULL,%
+      NULLIF,OCTET_LENGTH,ON,ONLY,ORDER,ORDERED,OUTER,OUTPUT,OVERLAPS,%
+      PAD,PARTIAL,POSITION,PREPARE,PRESERVE,PRIMARY,PRIOR,READ,%
+      RELATIVE,RESTRICT,REVOKE,RIGHT,ROWS,SCROLL,SECOND,SELECT,SESSION,%
+      SESSION_USER,SIZE,SMALLINT,SPACE,SQLSTATE,SUBSTRING,SYSTEM_USER,%
+      TABLE,TEMPORARY,THEN,TIME,TIMESTAMP,TIMEZONE_HOUR,%
+      TIMEZONE_MINUTE,TRAILING,TRANSACTION,TRANSLATE,TRANSLATION,TRIM,%
+      TRUE,UNIQUE,UNKNOWN,UPPER,USAGE,USING,VALUE,VALUES,VARCHAR,%
+      VARGRAPHIC,VARYING,WHEN,WHERE,WRITE,YEAR,ZONE},%
+   sensitive,%
+   morecomment=[l]--,%
+   morecomment=[s]{/*}{*/},%
+   morestring=[d]',%
+   morestring=[d]"%
+}[keywords,comments,strings]%
+
+\lstdefinelanguage{GF}%
+  {morekeywords={Lin,PType,Str,Strs,Tok,Type,abstract,case,cat,%
+      concrete,data,def,flags,fn,fun,grammar,in,include,incomplete,%
+      instance,interface,let,lin,lincat,lindef,lintype,of,open,%
+      oper,out,package,param,pattern,pre,printname,resource,reuse,%
+      strs,table,tokenizer,transfer,union,var,variants,where,wit},%
+   sensitive,%
+   morecomment=[l]--,%
+   morecomment=[s]{\{-}{-\}},%
+   morestring=[d]"%
+}[keywords,comments,strings]%
+
+% Numbering
+
+\newcounter{keylisting}\setcounter{keylisting}{0}
+\renewcommand\thekeylisting{\thechapter.\@arabic\c@keylisting}
+\@addtoreset{keylisting}{chapter}
+
+\def\@@@empty{}
+\def\@lstlabel{}
+
+\def\lstlabel#1{\def\@lstlabel{#1}}
+
+\def\@makekeylstnum{%
+  \ifx\@lstlabel\@@@empty\else
+    \refstepcounter{keylisting}%
+    \ (\thekeylisting)\label{\@lstlabel}
+    \gdef\@lstlabel{}%
+  \fi}
+
+% Language tag
+
+\newif\ifno@lstbar\no@lstbarfalse
+
+\def\nolstbar{\no@lstbartrue}
+
+\newdimen\@rht \@rht = .5ex \advance\@rht by .4pt
+
+\def\@shortrule{\vrule depth -.5ex height \@rht width 15pt}
+\def\@longrule{\leaders\hrule depth -.5ex height \@rht\hfill}
+
+\def\lstbartitle#1{%
+  \gdef\@lstbartitle{#1}%
+}
+
+\let\@lstbartitle\@@@empty
+
+\def\languageMarkBegin#1{%
+  \ifvmode\else\par\fi
+  \penalty-50%
+  \ifx\@lstbartitle\@@@empty
+    \gdef\@lstbartitle{#1}%
+  \fi
+  \ifno@lstbar\else
+    \medskip
+    \hbox{%
+      \ifnum\@listdepth > 0\relax
+        \hbox to \leftmargin{\hss}%
+      \fi
+      \hbox to \linewidth{\@shortrule
+      \ \@lstbartitle\@makekeylstnum\ \@longrule}}%
+    \nopagebreak[4]%
+  \fi
+}
+  
+\def\languageMarkEnd{%
+  \ifno@lstbar\global\no@lstbarfalse\else
+    \nopagebreak[4]%
+    \hbox{%
+      \ifnum\@listdepth > 0\relax
+        \hbox to \leftmargin{\hss}%
+      \fi
+      \hbox to \linewidth{\@longrule\ \@lstbartitle\ \@shortrule}}%
+    \medskip
+  \fi
+  \penalty-50%
+  \gdef\@lstbartitle{}}
+
+% This is to prevent pagebreaks right after the bar --- Lang --------------------
+
+\long\def\lst@disphook#1\relax{}
+
+% This is to prevent pagebreaks right before the ending bar ---------------- Lang ---
+% It's a bit of a mess
+
+\def\lst@DeInit{%
+    \lst@XPrintToken \lst@EOLUpdate
+    \global\advance\lst@newlines\m@ne
+    \lst@ifshowlines
+        \lst@DoNewLines
+    \else
+        \setbox\@tempboxa\vbox{\lst@DoNewLines}%
+    \fi
+    \lst@ifdisplaystyle \par\removelastskip \fi
+    \everypar{}\lsthk@ExitVars \lsthk@DeInit
+    \lst@MakeCaption b%
+    \lst@ifbox
+        \egroup $\hss \egroup
+        \vrule\@width\lst@maxwidth\@height\z@\@depth\z@
+    \else
+        \lst@ifdisplaystyle
+            \par\nopagebreak[4]\vspace\lst@belowskip
+        \fi
+    \fi
+    \ifx\lst@float\relax\else
+        \expandafter\lst@endfloat
+    \fi
+    \endgroup}
+
+% Common style
+
+\lstdefinestyle{keybook}{%
+  basicstyle=\normalfont\ttfamily,%
+  commentstyle=\color{blue}\slshape\in@commenttrue,%
+  keywordstyle=\let\slshape\upshape\bfseries,%
+  stringstyle=\in@stringtrue,%
+  basewidth=0.5em,%
+  keepspaces=true,%
+  everydisplay=\lst@disphook,%
+  aboveskip=\smallskipamount,%
+  belowskip=\smallskipamount}
+
+% Env. definitions for languages
+
+\lstnewenvironment{lstjavajml}[1][]{%
+  \lstset{style=keybook,language={[JML]Java},%
+    moredelim=*[l][\upshape\in@jmlcommenttrue]{//@},%
+    moredelim=*[s][\upshape\in@jmlcommenttrue]{/*@}{@*/},#1}%
+  \languageMarkBegin{\Java\ + JML}%
+  \let\@currlang\@langjava}{\languageMarkEnd\let\@currlang\@langnone}
+
+\lstnewenvironment{lstjml}[1][]{%
+  \lstset{style=keybook,language={[JML]Java},basicstyle=\in@jmlcommenttrue\normalfont\ttfamily,%
+     moredelim=*[l][\upshape\in@jmlcommenttrue]{//@},%
+     moredelim=*[s][\upshape]{/*@}{@*/},#1}%
+  \languageMarkBegin{JML}%
+  \let\@currlang\@langjava}{\languageMarkEnd\let\@currlang\@langnone}
+
+\lstnewenvironment{lstalgorithm}[1][]{%
+  \lstset{style=keybook,language={[JML]Java},escapechar=\#,#1}%
+  \languageMarkBegin{Algorithm}%
+  \let\@currlang\@langjava}{\languageMarkEnd\let\@currlang\@langnone}
+
+\lstnewenvironment{lstjava}[1][]{%
+  \lstset{style=keybook,language={[JML]Java},escapechar=\#,#1}%
+  \languageMarkBegin{Algorithm}%
+  \let\@currlang\@langjava}{\languageMarkEnd\let\@currlang\@langnone}
+
+\lstnewenvironment{lstjavacard}[1][]{%
+  \lstset{style=keybook,language={[JML]Java},#1}%
+  \languageMarkBegin{\JavaCard}%
+  \let\@currlang\@langjava}{\languageMarkEnd\let\@currlang\@langnone}
+
+\lstnewenvironment{lstcsharp}[1][]{%
+  \lstset{style=keybook,language={[JML]Java},#1}%
+  \languageMarkBegin{\CSharp}%
+  \let\@currlang\@langjava}{\languageMarkEnd\let\@currlang\@langnone}
+
+\lstnewenvironment{lstkey}[1][]{%
+  \lstset{style=keybook,language=KeY,#1}%
+  \languageMarkBegin{\KeY}%
+  \let\@currlang\@langkey}{\languageMarkEnd\let\@currlang\@langnone}
+
+\lstnewenvironment{lstkeyout}[1][]{%
+  \lstset{style=keybook,language=KeY,#1}%
+  \languageMarkBegin{\KeY\ Output}%
+  \let\@currlang\@langkey}{\languageMarkEnd\let\@currlang\@langnone}
+
+\lstnewenvironment{lsttooltip}[1][]{%
+  \lstset{style=keybook,language=KeY,#1}%
+  \languageMarkBegin{Tooltip}%
+  \let\@currlang\@langkey}{\languageMarkEnd\let\@currlang\@langnone}
+
+\lstnewenvironment{lstproblem}[1][]{%
+  \lstset{style=keybook,language=KeY,#1}%
+  \languageMarkBegin{\KeY\ Problem File}%
+  \let\@currlang\@langkey}{\languageMarkEnd\let\@currlang\@langnone}
+
+\lstnewenvironment{lstsyntax}[1][]{%
+  \lstset{style=keybook,language=KeY,escapechar=\`,#1}%
+  \languageMarkBegin{\KeY\ syntax}%
+  \let\@currlang\@langkey}{\languageMarkEnd\let\@currlang\@langnone}
+
+\lstnewenvironment{lsttaclet}[1][]{%
+  \lstset{style=keybook,language=KeY,#1}%
+  \languageMarkBegin{Taclet}%
+  \let\@currlang\@langkey}{\languageMarkEnd\let\@currlang\@langnone}
+
+\lstnewenvironment{lstocl}[1][]{%
+  \lstset{style=keybook,language=KeYOCL,#1}%
+  \languageMarkBegin{OCL}%
+  \let\@currlang\@langocl}{\languageMarkEnd\let\@currlang\@langnone}
+
+\lstnewenvironment{lstsql}[1][]{%
+  \lstset{style=keybook,language=KeYSQL,#1}%
+  \languageMarkBegin{SQL}%
+  \let\@currlang\@langsql}{\languageMarkEnd\let\@currlang\@langnone}
+
+\lstnewenvironment{lstgf}[1][]{%
+  \lstset{style=keybook,language=GF,#1}%
+  \languageMarkBegin{GF}%
+  \let\@currlang\@langgf}{\languageMarkEnd\let\@currlang\@langnone}
+  
