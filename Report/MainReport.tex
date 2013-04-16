@@ -3,28 +3,26 @@
 % Packages
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
-\usepackage{graphicx}
-\usepackage{fullpage}
-\usepackage{fancyhdr}
 \usepackage[final]{pdfpages}
 \usepackage[font=sl]{caption}
+\usepackage[bottom]{footmisc}
+\usepackage{fullpage}
+\usepackage{fancyhdr}
 \usepackage{listings}
-\usepackage{longtable}
-\usepackage{appendix}
-\usepackage{fancyvrb}
 \usepackage{hyperref}
 \usepackage{tocvsec2}
 \usepackage{titlesec}
-\usepackage{listings}
 \usepackage{enumitem}
 \usepackage{inconsolata}
-\usepackage[bottom]{footmisc}
 \usepackage{titletoc}
 \usepackage{lastpage}
 \usepackage{code}
 \usepackage{keylistings}
+
 \usepackage{amssymb}
 \usepackage[fleqn]{amsmath}
+
+\usepackage{varwidth}% http://ctan.org/pkg/varwidth
 
 % Chapter and section spacings
 \titleformat{\chapter}{\normalfont\huge\bfseries}{{\thechapter} }{0pt}{\Huge}
@@ -92,31 +90,23 @@
 \settocdepth{section}
 
 % New commands and environments
+% Linear Logic syntax
 \newcommand{\lolli}{\multimap}
 \newcommand{\tensor}{\otimes}
 \newcommand{\one}{\mathord{\text{\rm\bf 1}}}
 \newcommand{\bang}{\mathord{\text{\rm !}}}
 
-\newcommand{\note}[1]
-{
-	\textbf{#1}
-}
+% Text formatting
+\newcommand{\note}[1]{\textbf{Note: #1}}
+\newcommand{\testCode}[1]{\texttt{#1}}
+\newcommand{\formula}[1]{\textit{#1}}
+\newcommand{\super}[1]{\textsuperscript{#1}}
+\newcommand{\pushRight}[2]{{\addtolength{\leftskip}{#1mm} #2}}
 
-\newcommand{\testCode}[1]
-{
-	\texttt{#1}
-}
+% Reference
+\newcommand{\refCode}[1]{Code \ref{code:#1}}
 
-\newcommand{\refCode}[1]
-{
-	Code \ref{code:#1}
-}
-
-\newcommand{\formula}[1]
-{
-	\textit{#1}
-}
-
+% Other
 \newcommand{\inputCodeFile}[3]
 {
 	\lstset{caption=#2,label=code:#3,style=,language=}
@@ -138,6 +128,15 @@
 	\pagebreak
 }
 
+\newenvironment{texto}{%
+  \begin{center} % so the minipage is centered
+  \begin{varwidth}[t]{\textwidth}
+  \raggedright % so the minipage's text is left justified
+}{%
+  \end{varwidth}
+  \end{center}
+}
+
 % Title
 \title{
 	\Huge{Laws and Logic}\\
@@ -156,5 +155,6 @@
 \maketitle
 \tableofcontents
 \input{Parts/01_Introduction.tex}
-\input{Parts/04_Technical_Description.tex}
+\input{Parts/02_Overview.tex}
+\input{Parts/03_Technologies.tex}
 \end{document}

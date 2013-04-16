@@ -3,7 +3,7 @@ concrete HelloIta of Hello = {
         Recipient, Greeting = {s : Str} ;
     lin 
         World = {s = "mondo"} ;
-        Mum = {s = "mamma"} ;
-        Friends = {s = "amici"} ;
+        Friend = {s = "amico"} ;
+        Enemy = {s = "nemico"} ;
         Hello recip = {s = "ciao" ++ recip.s} ;
 }

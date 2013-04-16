@@ -3,7 +3,7 @@ concrete HelloEng of Hello = {
         Recipient, Greeting = {s : Str} ;
     lin 
         World = {s = "world"} ;
-        Mum = {s = "mum"} ;
-        Friends = {s = "friends"} ;
+        Friend = {s = "friend"} ;
+        Enemy = {s = "enemy"} ;
         Hello recip = {s = "hello" ++ recip.s} ;
 }

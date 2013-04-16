@@ -3,7 +3,7 @@ concrete HelloEng of Hello = open StringOper in {
         Recipient, Greeting = SS ;
     lin 
         World = ss ("world") ;
-        Mum = ss ("mum") ;
-        Friends = ss ("friends") ;
+        Friend = ss ("friend") ;
+        Enemy = ss ("enemy") ;
         Hello recip = ss ("hello" ++ recip.s) ;
 }

@@ -1,0 +1,76 @@
+\section{Grammatical Framework}
+\label{GF}
+
+Grammatical Framework (GF) is an open-source multilingual programming language. With GF, one can write programs that can translate other languages. This works through parsing (analyzing a language), linearization (generating the language) and translation (analyzing one language to generate another one).
+
+A GF program consists of an abstract module and one or more concrete modules. The abstract module defines what meanings can be interpreted and parsed by the grammar. The concrete module maps the abstract meanings to strings, thereby forming complete sentences.
+
+The abstract module contains category declarations (\testCode{cat)} and function declarations (\testCode{fun}). The \testCode{cat} list the different categories (meanings) used in the language, where the \testCode{fun} dictates how the categories fit together to create meaning-building functions. The abstract syntax furthermore has a \testCode{flag startcat} that indicates what category the program should start with. 
+
+\inputCodeFile{CodeSnippets/GF/Hello.gf}{A simple abstract syntax.}{GF_C01}
+
+In the abstract syntax shown in \refCode{GF_C01}, there are two categories: \testCode{Greeting} and \testCode{Recipient}. Furthermore, there are two functions. The first function determines that \testCode{World}, \testCode{Mum} and \testCode{Friends} are considered \testCode{Recipients}. The second function determines that \testCode{Hello} takes a \testCode{Recipient} and returns a \testCode{Greeting}.
+
+The concrete module contains linearization type definitions (\testCode{lincat}) and linearization definitions
+(\testCode{lin}). The \testCode{lincat} determines the type of object for each category in the abstract syntax and the \testCode{lin} determines what value is assigned to each abstract meaning. 
+
+When the program parses a language, it will look for the values being held by the meanings and translate each into the abstract syntax. Using the abstract syntax, the program turn the abstract syntax into an actual language through a concrete implementation.
+
+\inputCodeFile{CodeSnippets/GF/HelloEng.gf}{A concrete English implementation of the abstract syntax from \refCode{GF_C01}.}{GF_C02}
+
+In \refCode{GF_C01} both \testCode{Greeting} and \testCode{Recipient} have been defined as records that can hold a \testCode{Str} (a string). \testCode{World}, \testCode{Mum} and \testCode{Friends} each have simple meanings. \testCode{Hello} has a more advanced meaning, however, as it consists of the string \testCode{"hello"} concatenated with the value of \testCode{recip} (the \testCode{Recipient} it takes as an argument).
+
+\note{Remember to write that the code comes from http://www.grammaticalframework.org/doc/tutorial/gf-tutorial.html\#toc9}
+
+\inputCodeFile{CodeSnippets/GF/HelloIta.gf}{A concrete Italian implementation of the abstract syntax from \refCode{GF_C01}.}{GF_C03}
+
+With another concrete implementation (such as the Italian one in \refCode{GF_C03}), the program will be able to translate the simple sentences from one language into the other. 
+
+Another feature of GF is operations (\testCode{oper}), also known as functions in other programming languages.
+
+\inputCodeFile{CodeSnippets/GF/Oper.gf}{A simple operation in GF.}{GF_C04}
+
+Operations can do two things. They can define a new type and they can be used with arguments to produce something. The latter type of operation consists of the following:
+\begin{itemize}
+\item \textbf{A name} that defines the \testCode{oper} and is used when calling it. The operation in \refCode{GF_C04} has the name "cc" (concatenate).
+
+\item \textbf{Arguments, their types and the return type.} The operation in \refCode{GF_C04} takes two arguments of the type Str called "x" and "y" and returns something of the type Str.
+
+\item \textbf{The actual operation}. The operation in \refCode{GF_C04} concatenates the two given strings and returns the result.
+\end{itemize}
+
+\inputCodeFile{CodeSnippets/GF/StringOper.gf}{A simple resource module.}{GF_C05}
+
+An operation can be placed in a concrete implementation (if it is only needed in one of them) or in a so-called \testCode{resource} module (see \refCode{GF_C05}), which can be accessed by multiple concrete implementations. To access the resource module, one adds "open $<$nameOfModule$>$ in" to the first line of a concrete implementation, as shown in \ref{code:GF_C06}
+
+\inputCodeFile{CodeSnippets/GF/HelloEngResource.gf}{Using the resource module.}{GF_C06}
+
+GF also features parameters that can be used to change words. A parameter consists of the parameter's name and its values, seperated by a horizonal line. Parameters can be added to either a resource module (by which the implementations using the resource module have access to it) or to a concrete implementation (limiting the parameter to that implementation).
+
+\inputCodeFile{CodeSnippets/GF/Param1.gf}{Defining a parameter for singular and plural versions of a word.}{GF_C07}
+
+The \testCode{lincat} of a type also needs to reflect the fact that it takes a parameter. This is done as shown in \ref{code:GF_C07}.
+
+\inputCodeFile{CodeSnippets/GF/Param2.gf}{Telling the \testCode{lincat} that it takes a parameter and generates a Str.}{GF_C07}
+
+The last thing that needs to change, is the \testCode{lin} of the category that has been changed. Tables are used for this purpose. A table holds the different possibilities for the parameter, along with what is returned based on the parameter. \refCode{GF_C08} shows a table for Friend.
+
+\inputCodeFile{CodeSnippets/GF/Param3.gf}{A table for Friend that returns the singular or plural version of the word depending on the parameter.}{GF_C08}
+
+\refCode{GF_C09} shows how the parameters are used in the Hello program. Assuming Friend is the recip, line 1 creates a string saying "hello friend" where line 2 creates a string saying "hello friends".
+
+\inputCodeFile{CodeSnippets/GF/Param4.gf}{Giving the parameter as an argument.}{GF_C09}
+
+\note{Need some sort of ending here.}
+
+%\begin{lstgf}
+%abstract Hello = {
+%    flags startcat = Greeting ;
+%    
+%    cat 
+%        Recipient ; Greeting ;
+%    fun 
+%        World, Mum, Friends : Recipient ;
+%        Hello : Recipient -> Greeting ;
+%}
+%\end{lstgf}

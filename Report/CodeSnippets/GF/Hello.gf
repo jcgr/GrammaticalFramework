@@ -4,6 +4,6 @@ abstract Hello = {
     cat 
         Recipient ; Greeting ;
     fun 
-        World, Mum, Friends : Recipient ;
+        World, Friend, Enemy : Recipient ;
         Hello : Recipient -> Greeting ;
 }

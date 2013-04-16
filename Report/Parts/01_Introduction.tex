@@ -1,25 +1,22 @@
 \chapter{Introduction}
 \label{01}
 
-This report is the result of a bachelor project on the bachelor line in Software Development at the IT-University of Copenhagen spanning from the 2nd of February 2013 to the 22nd of May 2013.
-
-The goal of the project was to write a program using Grammatical Framework\footnote{http://www.grammaticalframework.org/} that could translate formulas written in linear logic into a natrual language. The idea behind the program was to translate logical formulas describing the laws about voting protocols into sentences more descriptive than the current ones. (?)
+This paper is the result of a bachelor project on the bachelor line in Software Development at the IT-University of Copenhagen spanning from the February 2nd, 2013 to May 22nd, 2013.
 
 \section{Background}
 \label{01_01}
+
 When it comes to elections, there are a lot of laws describing how votes are to be distributed. These laws are often short and to the point, which can be both good and bad. It is good because they are not hard to read. It is bad because there are situations where they are not informative enough, especially when it comes to writing computer programs to assist in the distribution.
 
 When people write code following the legal text, they have to make assumptions about certain things that are not fully described. If a person has to make assumptions, how can others then trust the end result? They cannot and that is a problem. Even if the program is correct, it is not easy to certify that the code meets the legal specifications.
 
-One way to get around these issues is to introduce something that can describe the legal specifications fully, while still being easy to convert to code. This is where linear logic enters the picture. Linear logic is a type of formal logic well-suited to write trustworthy specifications and implementations of voting protocols. (?)
+One way to get around these issues is to introduce something that can describe the legal specifications fully, while still being easy to convert to code. This is where linear logic enters the picture. Linear logic is a type of formal logic well-suited to write trustworthy specifications and implementations of voting protocols. \note{rewrite}
 
-Translating legal text into linear logic results in logical formulas. These formulas are basically algorithms at a high level of abstraction, which makes it easy to translate into code. It is also possible to use the formulas as source code directly.
+Translating legal text into linear logic results in logical formulas. These formulas are basically algorithms at a high level of abstraction, which makes it easy to translate into code and can actually be used as source code. Logical formulas are also well-suited for proving the correctness of what they describe and can thus bridge the gap between the legal text and code. 
 
-\section{NEEDS TITLE (problemformulering)}
+\section{Goal of the project}
 \label{01_02}
 
-All of the above does not change the original issue; the legal text is the same and is still translated wrongly into code. This could be avoided if the legal text was changed, for example to a textified(?) version of the logical formulas mentioned above.
+Another possibility is to change the legal text based on the logical formulas. This way, the logical formulas will only have to be written once, after which the legal text will be easier to translate into code (and understand in general).
 
-This project will explore the possibilities of using Grammatical Framework\footnote{http://www.grammaticalframework.org/} to translate linear logic into understandable sentences in one or more natrual languages, for the purpose of using them as law texts.
-
-\note{See if it is possible to do this}
+The goal of this project is to explore the possibility of writing a program in Grammatical Framework\footnote{http://www.grammaticalframework.org/} to translate linear logic formulas into understandable sentences in one or more natural languages, for the purpose of using them as law texts.

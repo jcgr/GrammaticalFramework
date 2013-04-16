@@ -1,14 +1,14 @@
 \section{Linear Logic}
-\label{LL_01}
+\label{LL}
 
 \paragraph{Linear logic} is a type of logic where truth is not free, but is a consumable resource. In traditional logic any logical assumption may be used an unlimited number of times, but in Linear Logic each assumption is “consumed” upon use.
 
 Because the resources are consumable, they may not be duplicated and can thereby only be used once. This makes the resources valuable and also means that they cannot be disposed of freely and therefore must be used once. With this, Linear Logic can be used to describe things/operations(?) that must occur only once. This is important, as voting protocols rely on things being able to occur only once (each voter can only be registered once, each ballot may only be counted once, etc.).
 
 \subsection{Connectives}
-\label{LL_02}
+\label{LL_01}
 
-\paragraph{Traditional Logic} contains connectives that, unfortunately, are not specific enough for the purpose of these formulas. The implies $\rightarrow$ and the logical conjunction $\wedge$ do not deal with resources. A $\rightarrow$ B means that if A is true then B is true. It says nothing about A or B being consumed. Another notation is therefore needed.
+\paragraph{Traditional Logic} contains connectives that, unfortunately, are not specific enough for the purpose of these formulas. The implies $\rightarrow$ and the logical conjunction $\wedge$ do not deal with resources. A $\rightarrow$ B means that if A is true then B is true. It says nothing about A or B being consumed. The same goes for $\wedge$. Another notation is therefore needed. 
 
 As \textbf{Linear Logic} is based around the idea of resources, the connectives reflect that. Linear Logic has a lot of connectives that can be used to express logical formulas, but the logical formulas studied in the project are only concerned with some of them. They are Linear Implication, Simultaneous Conjunction, Unrestricted Modality and the Universal Quantification.
 
@@ -30,5 +30,19 @@ now consumes only the authorization card and checks the photo ID (without consum
 In linear logic, the universal quantification works the same was as in traditional logic and it says that “all x belongs to r”(?). Using the universal quantification, the logical formula is changed to
 \centered{\formula{$\forall$v:voter. (voting-auth-card(v) $\tensor$ $\bang$photo-id(v) $\lolli$ \{ blank-ballot \}) } }
 now requires voter \textit{v} to give \textit{his} authorization card and show \textit{his own} photo ID before \textit{he} can receive a blank ballot.
+
+\subsection{Celf}
+\label{LL_02}
+
+\note{Rewrite this section}
+To assign a logic programming interpretation, restrictions must be placed on the ways in which these connectives fit together so that proof search becomes more deterministic. Using the Celf \note{reference needed} framework, the formulas are split into positive and negative classes, along with a monad that is used to prevent interference between them. As only few of linear logic’s connectives are used during this project, only some fragments of polarized monadic linear logic is needed:
+
+\centered{
+Negative Formulas A\super{-}, B\super{-} ::= P\super{-} $|$ $\forall$x:r. A\super{-} $|$ A\super{+} $\lolli$ \{ B\super{+} \}\\
+Positive Formulas A\super{+}, B\super{+} ::= A\super{+} $\tensor$ B\super{+} $|$ $\one$ $|$ $\bang$A\super{-} $|$ A\super{-}}
+
+This fragment includes atomic formulas P\super{-}, universal quantification $\forall$x:r. A\super{-}, linear implication A\super{+} $\lolli$ \{ B\super{+} \}, simultaneous conjunction A\super{+} $\tensor$ B\super{+} (and $\one$), the unrestricted modality $\bang$A\super{-}, and an inclusion, A\super{-}, of negative formulas as positive formulas.
+
+\note{Go more in-depth with how it works?}
 
 \pagebreak
