@@ -15,6 +15,6 @@
 \contentsline {paragraph}{Simultaneous Conjunction, $\otimes $.}{4}{subsection.3.1.1}
 \contentsline {paragraph}{Unrestricted Modality, $\mathord {\text {\rm !}}$.}{5}{subsection.3.1.1}
 \contentsline {paragraph}{Universal Quantification, $\forall $x:r.}{5}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}Celf}{5}{subsection.3.1.2}
-\contentsline {section}{\numberline {3.2}Grammatical Framework}{6}{section.3.2}
+\contentsline {subsection}{\numberline {3.1.2}Splitting the connectives}{5}{subsection.3.1.2}
+\contentsline {section}{\numberline {3.2}Grammatical Framework}{7}{section.3.2}
 \contentsfinish 
