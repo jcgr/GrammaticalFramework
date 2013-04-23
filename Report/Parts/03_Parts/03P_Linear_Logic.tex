@@ -71,23 +71,45 @@ Negative Types $A^- ::= P^- \; | \; \forall x:A^+. \; | \; A^+ \lolli \{ A^+ \}$
 Positive Types \hspace{0.8pt} $A^+ ::= A^+ \tensor A^+ \; | \; \one \; | \; \bang A^- \; | \; A^-$
 \end{texto}
 With the types split up like this, we have eliminated the cases that were not supposed to happen. It will also help when it comes to writing the program, as Grammatical Framework is built up around types.
-\\ \note{Something about how that ties in with Celf here?}
-\\ \note{Need some sort of ending.}
 
 \subsection{Celf}
 \label{LL_03}
 
-While humans easily understand signs like $\tensor$, $\lolli$ and $\forall$, they are not easy to reproduce in some computer programs. To get around this issue, the Celf framework is used. 
+The negative and positive types are all well and good, but while humans can read and understand signs like $\tensor$, $\lolli$ and $\forall$, they are not easy to represent in some computer programs (for example in Grammatical Framework). To get around this issue, the Celf framework is used.
 
-"CLF (Concurrent LF) is a logical framework for specifying and implementing deductive and concurrent systems from areas, such as programming language theory, security protocol analysis, process algebras, and logics. Celf is an implementation of the CLF type theory that extends the LF type theory by linear types to support representation of state and a monad to support representation of concurrency."\cite{Celf}
-
-Celf has it's own syntax for the connectives of linear logic, which can be used in other programs as well. The syntax in Celf is the following:
 \begin{texto}
-	$\tensor$\hspace{10pt} ::= * \\
-	$\lolli$\hspace{10pt}::= -o \\
-	$\forall$x:r ::= Pi x : r
+\textit{"CLF (Concurrent LF) is a logical framework for specifying and implementing deductive \\
+and concurrent systems from areas, such as programming language theory, security \\
+protocol analysis, process algebras, and logics. Celf is an implementation of the CLF \\
+type theory that extends the LF type theory by linear types to support representation \\
+of state and a monad to support representation of concurrency."} \cite{Celf}
 \end{texto}
-Furthermore, some operations (such as +/- and equality operators) are different in Celf as well. Using the example from \ref{E}, it becomes the following in Celf:
-\begin{texto}
 
+Celf has its own syntax for the connectives of linear logic, which will be used as the standard for the GF program. Furthermore, some operations (such as minus and equality operators) are different in Celf as well. The differences are the following:
+\begin{texto}
+	$\tensor$\hspace{40pt} ::= * \\
+	$\lolli$\hspace{40pt}::= -o \\
+	$\forall$x:r\hspace{30pt} ::= Pi x : r \\
+	x $>$ y\hspace{22.8pt} ::= !nat-greater x y \\
+	x $>=$ y\hspace{15pt} ::= !nat-greatereq x y \\
+	x $=$ y\hspace{22.8pt} ::= !nat-eq x y \\
+	x $<=$ y\hspace{15pt} ::= !nat-lesseq x y \\
+	x $<$ y\hspace{22.8pt} ::= !nat-less x y \\
+ 	x $-$ 1\hspace{22.8pt} ::= (s ! x) \\
+ 	x $+$ 1\hspace{22.8pt} ::= (p ! x) \\
+	$\lbrack$ x $|$ y$\rbrack$ \hspace{15pt} ::= (cons x y)
 \end{texto}
+This can be used to translate linear logic formulas into something a program can read more easily. The example from section \ref{E} therefore becomes:
+\begin{texto}
+	\formula{tally-votes S H U * \\
+	uncounted-ballot C L * \\
+	hopeful C N * \\
+	!quota Q * !nat-lesseq Q (p ! N) * \\
+	\hspace{10pt}-o \{ counted-ballot C L * \\
+	\hspace{30pt}!elected C * \\
+	\hspace{30pt}tally-votes (s ! S) (s ! H) (s ! U) \} }
+\end{texto}
+
+Now we have an understanding of how linear logic works and how to represent it in an easy way on the computer. \\
+\note{Other things that needs to be said about Celf?} \\
+\note{Other ending?}
