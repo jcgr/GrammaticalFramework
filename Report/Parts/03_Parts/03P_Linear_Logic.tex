@@ -74,4 +74,17 @@ With the types split up like this, we have eliminated the cases that were not su
 \\ \note{Something about how that ties in with Celf here?}
 \\ \note{Need some sort of ending.}
 
-\pagebreak
+\subsection{Celf}
+\label{LL_03}
+
+While humans easily understand signs like $\tensor$, $\lolli$ and $\forall$, they are not easy to reproduce in some computer programs. To get around this issue, the Celf framework is used. 
+
+"CLF (Concurrent LF) is a logical framework for specifying and implementing deductive and concurrent systems from areas, such as programming language theory, security protocol analysis, process algebras, and logics. Celf is an implementation of the CLF type theory that extends the LF type theory by linear types to support representation of state and a monad to support representation of concurrency."\cite{Celf}
+
+Celf has it's own syntax for the connectives of linear logic, which can be used in other programs as well. The syntax in Celf is the following:
+\begin{texto}
+	$\tensor$\hspace{10pt} ::= * \\
+	$\lolli$\hspace{10pt}::= -o \\
+	$\forall$x:r ::= Pi x : r
+\end{texto}
+
