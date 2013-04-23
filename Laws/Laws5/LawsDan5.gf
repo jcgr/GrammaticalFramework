@@ -23,7 +23,7 @@ concrete LawsDan5 of Laws5 = open SharedOpers in {
         Atom_Test ident                 = ss ("[" ++ ident.s ++ "]") ;
         Atom_Args ident args            = ss (ident.s ++ "(" ++ args.s ++ ")") ;
         Atom_Noargs ident               = ss (ident.s) ;
-        Atom_Math math                  = ss (math.s) ;
+        Atom_Math math                  = ss ("[" ++ math.s ++ "]") ;
 
         -- Ident
         Ident_Hopeful c n s h u q l m w
@@ -66,10 +66,10 @@ concrete LawsDan5 of Laws5 = open SharedOpers in {
         Arg_0                           = mkArg ("tal 0") ;
         Arg_1                           = mkArg ("tal 1") ;
         Arg_Nil                         = mkArg ("ingen") ;
-        _ArgSg arg                      = ss (arg.s ! Sg) ;
+        --_ArgSg arg                      = ss (arg.s ! Sg) ;
         _ArgPl arg                      = ss (arg.s ! Pl) ;
-        _ArgPlus arg                    = ss (arg.s ! Pl ++ "plus 1") ;
-        _ArgMinus arg                   = ss (arg.s ! Pl ++ "minus 1") ;
+        _ArgPlus arg                    = ss (arg.s ++ "plus 1") ;
+        _ArgMinus arg                   = ss (arg.s ++ "minus 1") ;
         _ArgListEmpty                   = ss ("en tom liste") ;
         _ArgList arg1 arg2              = ss ("en liste der inderholder" ++ arg1.s ! Pl ++ "og" ++ arg2.s ! Pl) ;
         _ArgColl arg1 arg2              = ss (arg1.s ++ "," ++ arg2.s) ;
@@ -80,8 +80,8 @@ concrete LawsDan5 of Laws5 = open SharedOpers in {
         _Bang2                          = ss ("som ikke bliver konsumeret") ;
 
         -- Math
-        _FinalFormula m1 ms m2          = ss ("(" ++ m1.s ++ ms.s ++ m2.s ++ ")") ;
-        _Math arg1                      = ss ("antallet af" ++ arg1.s ! Pl) ;
+        _FinalFormula m1 ms m2          = ss (m1.s ++ ms.s ++ m2.s) ;
+        _Math arg1                      = ss ("antallet af" ++ arg1.s) ;
         _MathArgs arg1 mo arg2          = ss ("(" ++ "antallet af" ++ arg1.s ! Pl ++ mo.s ++ "antallet af" ++ arg2.s ! Pl ++ ")") ;
         _MultipleMath m1 mo m2          = ss (m1.s ++ mo.s ++ m2.s) ;
 

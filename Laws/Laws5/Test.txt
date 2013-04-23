@@ -10,3 +10,6 @@ p -lang=LawsLin5 "( transfer C ( s ! N ) S H U * counted-ballot C nil ) -o { tra
 
 [GF:transfer/2: Pi C: candidate. Pi H: nat. Pi N: nat. Pi S: nat. Pi U: nat. (transfer C (s !N) S H U * counted-ballot C nil) -o {transfer C N S H U}].
 [ GF : transfer/2 : Pi C : candidate . Pi H : nat . Pi N : nat . Pi S : nat . Pi U : nat . ( transfer C ( s ! N ) S H U * counted-ballot C nil ) -o { transfer C N S H U } ].
+
+( count-ballots ( s ! ( s ! S ) ) ( s ! H ) ( s ! U ) * uncounted-ballot C L * hopeful C N * !quota Q * !nat-lesseq Q ( s ! N ) * winners W ) -o { counted-ballot C L * !elected C * winners ( cons ! C ! W ) * count-ballots ( s ! S ) H U }
+[GF:count/2: Pi C: candidate. Pi H: nat. Pi L: list. Pi N: nat. Pi Q: nat. Pi S: nat. Pi U: nat. Pi W: list. (count-ballots (s !(s !S)) (s !H) (s !U) * (uncounted-ballot C L * (hopeful C N * (!quota Q * (!nat-lesseq Q (s !N) * winners W))))) -o {counted-ballot C L * (!elected C * (winners (cons !C !W) * count-ballots (s !S) H U))}].

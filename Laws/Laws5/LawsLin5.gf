@@ -26,13 +26,13 @@ concrete LawsLin5 of Laws5 = open SharedOpers in {
         Atom_Noargs ident               
             = ss (ident.s) ;
         Atom_Math mathf                 
-            = ss ("!(" ++ mathf.s ++ ")") ;
+            = ss (mathf.s) ;
 
         -- Ident
         Ident_Hopeful c n s h u q l m w
             = ss ("hopeful" ++ c.s ++ n.s) ;
         Ident_Tally c n s h u q l m w
-            = ss ("tally-votes" ++ s.s ++ h.s ++ u.s) ;
+            = ss ("tally-votes" ++ s.s ++ h.s ++ u.s | "count-ballots" ++ s.s ++ h.s ++ u.s) ;
         Ident_BangElectAll c n s h u q l m w
             = ss ("!elect-all") ;
         Ident_Elected c n s h u q l m w
@@ -69,8 +69,8 @@ concrete LawsLin5 of Laws5 = open SharedOpers in {
         Arg_0                           = ss ("0") ;
         Arg_1                           = ss ("1") ;
         Arg_Nil                         = ss ("nil") ;
-        _ArgSg arg                      = ss (arg.s) ;
-        _ArgPl arg                      = ss (arg.s ++ "+") ;
+        --_ArgSg arg                      = ss (arg.s) ;
+        _ArgPl arg                      = ss (arg.s) ;
         _ArgPlus arg                    = ss ("( p !" ++ arg.s ++ ")") ;
         _ArgMinus arg                   = ss ("( s !" ++ arg.s ++ ")") ;
         -- FIX LISTS
@@ -84,7 +84,7 @@ concrete LawsLin5 of Laws5 = open SharedOpers in {
         _Bang2                          = ss ("!") ;
 
         -- Math
-        _FinalFormula m1 ms m2          = ss (m1.s ++ ms.s ++ m2.s) ;
+        _FinalFormula m1 ms m2          = ss (ms.s ++ m1.s ++ m2.s) ;
         _Math arg1                      = ss (arg1.s) ;
         _MathArgs arg1 mo arg2          = ss ("(" ++ arg1.s ++ mo.s ++ arg2.s ++ ")") ;
         _MultipleMath m1 mo m2          = ss (m1.s ++ mo.s ++ m2.s) ;
@@ -96,9 +96,9 @@ concrete LawsLin5 of Laws5 = open SharedOpers in {
         _Subtraction                    = ss ("-") ;
 
         -- InequalityOperation
-        Greater                         = ss (">") ;
-        GreaterEqual                    = ss (">=") ;
-        Equal                           = ss ("=") ;
-        LessEqual                       = ss ("<=") ;
-        Less                            = ss ("<") ;
+        Greater                         = ss ("!nat-greater") ;
+        GreaterEqual                    = ss ("!nat-greatereq") ;
+        Equal                           = ss ("!nat-eq") ;
+        LessEqual                       = ss ("!nat-lesseq") ;
+        Less                            = ss ("!nat-less") ;
 }

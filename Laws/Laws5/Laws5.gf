@@ -31,7 +31,9 @@ abstract Laws5 = {
         
         -- Arg
         Arg_C, Arg_N, Arg_S, Arg_H, Arg_U, Arg_Q, Arg_L, Arg_M, Arg_W, Arg_0, Arg_1, Arg_Nil : Arg ;
-        _ArgPlus, _ArgMinus, _ArgSg, _ArgPl : Arg -> ArgColl ;
+        --_ArgSg, 
+        _ArgPl : Arg -> ArgColl ;
+        _ArgPlus, _ArgMinus : ArgColl -> ArgColl ;
         _ArgListEmpty : ArgColl ;
         _ArgList : Arg -> Arg ->  ArgColl ;
         _ArgColl : ArgColl -> ArgColl -> ArgColl ;
@@ -41,9 +43,10 @@ abstract Laws5 = {
         _Lolli2 : Lolli ;
         _Bang2 : Bang ;
 
+        -- TODO: Check if math needs more change
         -- Math
         _FinalFormula : Math -> InequalityOperation -> Math -> MathFormula ;
-        _Math : Arg -> Math ;
+        _Math : ArgColl -> Math ;
         _MathArgs : Arg -> ArithmeticOperation -> Arg -> Math ;
         _MultipleMath : Math -> ArithmeticOperation -> Math -> Math ;
 
