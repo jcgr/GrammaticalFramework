@@ -105,14 +105,9 @@
 
 % Reference
 \newcommand{\refCode}[1]{Code \ref{code:#1}}
+\newcommand{\lstCode}[2]{\lstset{caption=#1,label=code:#2}}
 
 % Other
-\newcommand{\inputCodeFile}[3]
-{
-	\lstset{caption=#2,label=code:#3,style=,language=}
-	\lstinputlisting{#1}
-}
-
 \newcommand{\centered}[1]
 {
 	\begin{center}
@@ -157,5 +152,7 @@
 \input{Parts/01_Introduction.tex}
 \input{Parts/02_Overview.tex}
 \input{Parts/03_Technologies.tex}
+\input{Parts/04_Implementation.tex}
+\input{Parts/05_Conclusion.tex}
 \input{Parts/98_Bibliography.tex}
 \end{document}
