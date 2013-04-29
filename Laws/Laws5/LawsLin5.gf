@@ -19,14 +19,8 @@ concrete LawsLin5 of Laws5 = open SharedOpers in {
         _Mon pos                        = ss ("{" ++ pos.s ++ "}") ;
         
         -- Atomic
-        Atom_Test ident
-            = ss (ident.s) ;
-        Atom_Args ident args            
-            = ss (ident.s ++ "(" ++ args.s ++ ")") ;
-        Atom_Noargs ident               
-            = ss (ident.s) ;
-        Atom_Math mathf                 
-            = ss (mathf.s) ;
+        Atom_Ident ident                = ss (ident.s) ;
+        Atom_Math mathf                 = ss (mathf.s) ;
 
         -- Ident
         Ident_Hopeful c n s h u q l m w

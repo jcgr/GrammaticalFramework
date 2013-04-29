@@ -21,9 +21,7 @@ abstract Laws5 = {
         _Mon : Pos -> Neg ;
 
         -- Atomic
-        Atom_Test : Ident -> Atomic ;
-        Atom_Args : Ident -> ArgColl -> Atomic ;
-        Atom_Noargs : Ident -> Atomic ;
+        Atom_Ident : Ident -> Atomic ;
         Atom_Math : MathFormula -> Atomic ;
 
         -- Ident

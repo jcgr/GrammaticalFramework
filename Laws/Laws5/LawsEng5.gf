@@ -20,9 +20,7 @@ concrete LawsEng5 of Laws5 = open SharedOpers in {
         _Mon pos                        = ss (pos.s) ;
         
         -- Atomic
-        Atom_Test ident                 = ss ("[" ++ ident.s ++ "]") ;
-        Atom_Args ident args            = ss (ident.s ++ "(" ++ args.s ++ ")") ;
-        Atom_Noargs ident               = ss (ident.s) ;
+        Atom_Ident ident                = ss ("[" ++ ident.s ++ "]") ;
         Atom_Math math                  = ss ("[" ++ math.s ++ "]") ;
 
         -- Ident
