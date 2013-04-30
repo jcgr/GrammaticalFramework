@@ -77,7 +77,6 @@ concrete LawsDan of Laws = open SharedOpers in {
         _FinalFormula m1 ms m2          = ss (m1.s ++ ms.s ++ m2.s) ;
         _Math arg1                      = ss ("antallet af" ++ arg1.s) ;
         _MathArgs arg1 mo arg2          = ss ("(" ++ "mængden af" ++ arg1.s ++ mo.s ++ "mængden af" ++ arg2.s ++ ")") ;
-        _MultipleMath m1 mo m2          = ss (m1.s ++ mo.s ++ m2.s) ;
 
         -- ArithmeticOperation
         _Division                       = ss ("divideret med") ;

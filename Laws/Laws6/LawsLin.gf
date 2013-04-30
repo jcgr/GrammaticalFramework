@@ -76,7 +76,6 @@ concrete LawsLin of Laws = open SharedOpers in {
         _FinalFormula m1 ms m2          = ss (ms.s ++ m1.s ++ m2.s) ;
         _Math arg1                      = ss (arg1.s) ;
         _MathArgs arg1 mo arg2          = ss ("(" ++ arg1.s ++ mo.s ++ arg2.s ++ ")") ;
-        _MultipleMath m1 mo m2          = ss (m1.s ++ mo.s ++ m2.s) ;
 
         -- ArithmeticOperation
         _Division                       = ss ("/") ;
