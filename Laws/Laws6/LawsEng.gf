@@ -1,8 +1,8 @@
-concrete LawsEng5 of Laws5 = open SharedOpers in {
+concrete LawsEng of Laws = open SharedOpers in {
 
     lincat
-        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, ArgColl, Conj, Disj, Pi, Math, MathFormula, ArithmeticOperation, InequalityOperation = {s : Str} ;
-        Arg = {s : Number => Str} ;
+        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Arg, ArgColl, Conj, Disj, Pi, Math, MathFormula, ArithmeticOperation, InequalityOperation = {s : Str} ;
+        --Arg = {s : Number => Str} ;
 
     lin
         -- Logic
@@ -20,7 +20,7 @@ concrete LawsEng5 of Laws5 = open SharedOpers in {
         _Mon pos                        = ss (pos.s) ;
         
         -- Atomic
-        Atom_Test ident                 = ss ("[" ++ ident.s ++ "]") ;
+        Atom_Ident ident                = ss ("[" ++ ident.s ++ "]") ;
         Atom_Math math                  = ss ("[" ++ math.s ++ "]") ;
 
         -- Ident
@@ -43,32 +43,32 @@ concrete LawsEng5 of Laws5 = open SharedOpers in {
         Ident_Transfer c n s h u q l m w
             = ss ("the defeated" ++ c.s ++"'s remaining" ++ n.s ++ "are being transferred and there are" ++ s.s ++ "open, " ++ h.s ++ ", and" ++ u.s) ;
         Ident_Uncounted c n s h u q l m w
-            = ss ("there is an uncounted ballot with highest preference for a certain" ++ c.s ++ "with a" ++ l.s ++ "of lower preferences") ;
+            = ss ("there is an uncounted ballot with highest preference for a certain" ++ c.s ++ "with" ++ l.s ++ "of lower preferences") ;
         Ident_Counted c n s h u q l m w
-            = ss ("there is a counted ballot with highest preference for a certain" ++ c.s ++ "with a" ++ l.s ++ "of lower preferences") ;
+            = ss ("there is a counted ballot with highest preference for a certain" ++ c.s ++ "with" ++ l.s ++ "of lower preferences") ;
         Ident_Winners c n s h u q l m w
             = ss ("the candidates in" ++ w.s ++ "have been elected thus far") ;
         Ident_Begin c n s h u q l m w
             = ss ("we are beginning the tallying and there are " ++ s.s ++ "open," ++ h.s ++ ", and" ++ u.s ++ "cast") ;
 
         -- Arg
-        Arg_C                           = mkArg ("candidate C") ;
-        Arg_N                           = mkArg ("N counted ballot") ;
-        Arg_S                           = mkArg ("S seat") ;
-        Arg_H                           = mkArg ("H hopeful candidate") ;
-        Arg_U                           = mkArg ("U uncounted ballot") ;
-        Arg_Q                           = mkArg ("Q vote") ;
-        Arg_L                           = mkArg ("list L") ;
-        Arg_M                           = mkArg ("M potential minimum") ;
-        Arg_W                           = mkArg ("list W") ;
-        Arg_0                           = mkArg ("number 0") ;
-        Arg_1                           = mkArg ("number 1") ;
-        Arg_Nil                         = mkArg ("nil") ;
-        _Arg arg                        = ss (arg.s ! Pl) ;
+        Arg_C                           = ss ("candidate (C)") ;
+        Arg_N                           = ss ("a set of counted ballots (N)") ;
+        Arg_S                           = ss ("a set of seats (S)") ;
+        Arg_H                           = ss ("a set of hopeful candidates (H)") ;
+        Arg_U                           = ss ("a set of uncounted ballots (U)") ;
+        Arg_Q                           = ss ("a set of votes (Q)") ;
+        Arg_L                           = ss ("a list (L)") ;
+        Arg_M                           = ss ("a set of potential minimums (M)") ;
+        Arg_W                           = ss ("a list of winners (W)") ;
+        Arg_0                           = ss ("0") ;
+        Arg_1                           = ss ("1") ;
+        Arg_Nil                         = ss ("nil") ;
+        _Arg arg                        = ss (arg.s) ;
         _ArgPlus arg                    = ss (arg.s ++ "plus 1") ;
         _ArgMinus arg                   = ss (arg.s ++ "minus 1") ;
         _ArgListEmpty                   = ss ("empty list") ;
-        _ArgList arg1 arg2              = ss ("list containing" ++ arg1.s ! Sg ++ "and" ++ arg2.s ! Sg) ;
+        _ArgList arg1 arg2              = ss ("list containing" ++ arg1.s ++ "and" ++ arg2.s) ;
         _ArgColl arg1 arg2              = ss (arg1.s ++ "," ++ arg2.s) ;
         
         _Conj2                          = ss ("and") ;
@@ -79,7 +79,7 @@ concrete LawsEng5 of Laws5 = open SharedOpers in {
         -- Math
         _FinalFormula m1 ms m2          = ss (m1.s ++ ms.s ++ m2.s) ;
         _Math arg1                      = ss ("the amount of" ++ arg1.s) ;
-        _MathArgs arg1 mo arg2          = ss ("(" ++ "the amount of" ++ arg1.s ! Pl ++ mo.s ++ "the amount of" ++ arg2.s ! Pl ++ ")") ;
+        _MathArgs arg1 mo arg2          = ss ("(" ++ "the amount of" ++ arg1.s ++ mo.s ++ "the amount of" ++ arg2.s ++ ")") ;
         _MultipleMath m1 mo m2          = ss (m1.s ++ mo.s ++ m2.s) ;
 
         -- ArithmeticOperation
@@ -96,13 +96,6 @@ concrete LawsEng5 of Laws5 = open SharedOpers in {
         Less                            = ss ("is less than") ;
 
     oper
-        mkArg : Str -> {s : Number => Str} = \str -> {
-            s = table {
-                Sg => (regNoun str).s ! Sg ;
-                Pl => (regNoun str).s ! Pl
-            }
-        } ;
-
         -- Takes care of the plural version of words
         regNoun : Str -> {s : Number => Str} = \w -> 
             let 

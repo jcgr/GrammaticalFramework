@@ -1,8 +1,8 @@
-concrete LawsDan5 of Laws5 = open SharedOpers in {
+concrete LawsDan of Laws = open SharedOpers in {
 
     lincat
-        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, ArgColl, Conj, Disj, Pi, Math, MathFormula, ArithmeticOperation, InequalityOperation = {s : Str} ;
-        Arg = {s : Number => Str} ;
+        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Arg, ArgColl, Conj, Disj, Pi, Math, MathFormula, ArithmeticOperation, InequalityOperation = {s : Str} ;
+        --Arg = {s : Number => Str} ;
 
     lin
         -- Logic
@@ -41,34 +41,34 @@ concrete LawsDan5 of Laws5 = open SharedOpers in {
         Ident_DefeatMin c n s h u q l m w
             = ss ("vi er ved at finde kandidaten med færrest stemmer og der er" ++ s.s ++ "open, " ++ h.s ++ ", og" ++ m.s ++ "tilbage") ;
         Ident_Transfer c n s h u q l m w
-            = ss ("den besejret" ++ c.s ++"'s tilbageværende" ++ n.s ++ "bliver overflyttet og der er" ++ s.s ++ "åbne, " ++ h.s ++ ", og" ++ u.s) ;
+            = ss ("den besejret" ++ c.s ++" tilbageværende" ++ n.s ++ "bliver overflyttet og der er" ++ s.s ++ "åbne, " ++ h.s ++ ", og" ++ u.s) ;
         Ident_Uncounted c n s h u q l m w
-            = ss ("der er en utalt stemmeseddel med højest preference for en bestemt" ++ c.s ++ "med en" ++ l.s ++ "af lavere preferencer for andre") ;
+            = ss ("der er en utalt stemmeseddel med højest preference for en bestemt" ++ c.s ++ "med" ++ l.s ++ "af lavere preferencer for andre") ;
         Ident_Counted c n s h u q l m w
-            = ss ("der er en talt stemmeseddel med højest preference for en bestemt" ++ c.s ++ "med en" ++ l.s ++ "af lavere preferencer for andre") ;
+            = ss ("der er en talt stemmeseddel med højest preference for en bestemt" ++ c.s ++ "med" ++ l.s ++ "af lavere preferencer for andre") ;
         Ident_Winners c n s h u q l m w
             = ss ("kandidaterne i" ++ w.s ++ "er blevet valgt indtil videre") ;
         Ident_Begin c n s h u q l m w
             = ss ("we begynder på optællingen og der er" ++ s.s ++ "åbne," ++ h.s ++ ", og" ++ u.s ++ "i spil") ;
 
         -- Arg
-        Arg_C                           = mkArg ("kandidat C") ;
-        Arg_N                           = mkArg ("N talt stemmeseddel") ;
-        Arg_S                           = mkArg ("S sæde") ;
-        Arg_H                           = mkArg ("H forhåbningsfuld") ;
-        Arg_U                           = mkArg ("U utalt stemmeseddel") ;
-        Arg_Q                           = mkArg ("Q kvote") ;
-        Arg_L                           = mkArg ("liste L") ;
-        Arg_M                           = mkArg ("M mandat") ;
-        Arg_W                           = mkArg ("liste W") ;
-        Arg_0                           = mkArg ("tal 0") ;
-        Arg_1                           = mkArg ("tal 1") ;
-        Arg_Nil                         = mkArg ("ingen") ;
-        _Arg arg                        = ss (arg.s ! Pl) ;
+        Arg_C                           = ss ("kandidat (C)") ;
+        Arg_N                           = ss ("et sæt af talte stemmeseddeler (N)") ;
+        Arg_S                           = ss ("et sæt af sæder (S)") ;
+        Arg_H                           = ss ("et sæt af forhåbningsfulde (H)") ;
+        Arg_U                           = ss ("et sæt af utalte stemmeseddeler (U)") ;
+        Arg_Q                           = ss ("et sæt af stemmer (Q)") ;
+        Arg_L                           = ss ("en liste (L)") ;
+        Arg_M                           = ss ("et sæt af mandater (M)") ;
+        Arg_W                           = ss ("en vinder liste (W)") ;
+        Arg_0                           = ss ("0") ;
+        Arg_1                           = ss ("1") ;
+        Arg_Nil                         = ss ("nil") ;
+        _Arg arg                        = ss (arg.s) ;
         _ArgPlus arg                    = ss (arg.s ++ "plus 1") ;
         _ArgMinus arg                   = ss (arg.s ++ "minus 1") ;
         _ArgListEmpty                   = ss ("en tom liste") ;
-        _ArgList arg1 arg2              = ss ("en liste der inderholder" ++ arg1.s ! Pl ++ "og" ++ arg2.s ! Pl) ;
+        _ArgList arg1 arg2              = ss ("en liste der inderholder" ++ arg1.s ++ "og" ++ arg2.s) ;
         _ArgColl arg1 arg2              = ss (arg1.s ++ "," ++ arg2.s) ;
 
         _Conj2                          = ss ("og") ;
@@ -79,7 +79,7 @@ concrete LawsDan5 of Laws5 = open SharedOpers in {
         -- Math
         _FinalFormula m1 ms m2          = ss (m1.s ++ ms.s ++ m2.s) ;
         _Math arg1                      = ss ("antallet af" ++ arg1.s) ;
-        _MathArgs arg1 mo arg2          = ss ("(" ++ "mængden af" ++ arg1.s ! Pl ++ mo.s ++ "mængden af" ++ arg2.s ! Pl ++ ")") ;
+        _MathArgs arg1 mo arg2          = ss ("(" ++ "mængden af" ++ arg1.s ++ mo.s ++ "mængden af" ++ arg2.s ++ ")") ;
         _MultipleMath m1 mo m2          = ss (m1.s ++ mo.s ++ m2.s) ;
 
         -- ArithmeticOperation
@@ -96,13 +96,6 @@ concrete LawsDan5 of Laws5 = open SharedOpers in {
         Less                            = ss ("er mindre end") ;
 
     oper
-        mkArg : Str -> {s : Number => Str} = \str -> {
-            s = table {
-                Sg => (regNoun str).s ! Sg ;
-                Pl => (regNoun str).s ! Pl
-            }
-        } ;
-
         -- Takes care of the plural version of words
         regNoun : Str -> {s : Number => Str} = \w -> 
             let 
