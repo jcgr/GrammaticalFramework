@@ -31,7 +31,7 @@ abstract Laws = {
         _Arg : Arg -> ArgColl ;
         _ArgPlus, _ArgMinus : ArgColl -> ArgColl ;
         _ArgListEmpty : ArgColl ;
-        _ArgList : Arg -> Arg ->  ArgColl ;
+        _ArgList : ArgColl -> ArgColl ->  ArgColl ;
 
         _Conj2 : Conj ;
         _Lolli2 : Lolli ;
