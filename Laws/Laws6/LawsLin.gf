@@ -1,7 +1,7 @@
 concrete LawsLin of Laws = open SharedOpers in {
 
     lincat
-        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Arg, ArgColl, Conj, Disj, Pi, Math, MathFormula, ArithmeticOperation, InequalityOperation = {s : Str} ;
+        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Arg, ArgColl, Conj, Pi, Math, MathFormula, ArithmeticOperation, InequalityOperation = {s : Str} ;
 
     lin
         -- Logic
@@ -11,7 +11,6 @@ concrete LawsLin of Laws = open SharedOpers in {
         _Atom atom                      = ss atom.s ;
         _Bang bang atom                 = ss (bang.s ++ atom.s) ;
         _Conj pos1 conj pos2            = ss (pos1.s ++ conj.s ++ pos2.s) ;
-        _Disj pos1 disj pos2            = ss (pos1.s ++ disj.s ++ pos2.s) ;
         
         -- Neg
         _Pi _ neg                       = ss (neg.s) ;
@@ -66,13 +65,10 @@ concrete LawsLin of Laws = open SharedOpers in {
         _Arg arg                        = ss (arg.s) ;
         _ArgPlus arg                    = ss ("( p !" ++ arg.s ++ ")") ;
         _ArgMinus arg                   = ss ("( s !" ++ arg.s ++ ")") ;
-        -- FIX LISTS
         _ArgListEmpty                   = ss ("[]") ;
         _ArgList arg1 arg2              = ss ("( cons !" ++ arg1.s ++ "!" ++ arg2.s ++ ")") ;
-        _ArgColl arg1 arg2              = ss (arg1.s ++ "," ++ arg2.s) ;
         
         _Conj2                          = ss ("*") ;
-        _Disj2                          = ss ("or") ;
         _Lolli2                         = ss ("-o") ;
         _Bang2                          = ss ("!") ;
 

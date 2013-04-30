@@ -1,7 +1,7 @@
 concrete LawsDan of Laws = open SharedOpers in {
 
     lincat
-        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Arg, ArgColl, Conj, Disj, Pi, Math, MathFormula, ArithmeticOperation, InequalityOperation = {s : Str} ;
+        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Arg, ArgColl, Conj, Pi, Math, MathFormula, ArithmeticOperation, InequalityOperation = {s : Str} ;
         --Arg = {s : Number => Str} ;
 
     lin
@@ -12,7 +12,6 @@ concrete LawsDan of Laws = open SharedOpers in {
         _Atom atom                      = ss (atom.s) ;
         _Bang bang atom                 = ss (atom.s ++ bang.s) ;
         _Conj pos1 conj pos2            = ss (pos1.s ++ conj.s ++ pos2.s) ;
-        _Disj pos1 disj pos2            = ss (pos1.s ++ disj.s ++ pos2.s) ;
 
         -- Neg
         _Pi _ neg                       = ss (neg.s) ;
@@ -69,10 +68,8 @@ concrete LawsDan of Laws = open SharedOpers in {
         _ArgMinus arg                   = ss (arg.s ++ "minus 1") ;
         _ArgListEmpty                   = ss ("en tom liste") ;
         _ArgList arg1 arg2              = ss ("en liste der inderholder" ++ arg1.s ++ "og" ++ arg2.s) ;
-        _ArgColl arg1 arg2              = ss (arg1.s ++ "," ++ arg2.s) ;
 
         _Conj2                          = ss ("og") ;
-        _Disj2                          = ss ("eller") ;
         _Lolli2                         = ss ("så") ;
         _Bang2                          = ss ("som ikke bliver konsumeret") ;
 
