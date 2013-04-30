@@ -63,8 +63,7 @@ concrete LawsLin5 of Laws5 = open SharedOpers in {
         Arg_0                           = ss ("0") ;
         Arg_1                           = ss ("1") ;
         Arg_Nil                         = ss ("nil") ;
-        --_ArgSg arg                      = ss (arg.s) ;
-        _ArgPl arg                      = ss (arg.s) ;
+        _Arg arg                        = ss (arg.s) ;
         _ArgPlus arg                    = ss ("( p !" ++ arg.s ++ ")") ;
         _ArgMinus arg                   = ss ("( s !" ++ arg.s ++ ")") ;
         -- FIX LISTS

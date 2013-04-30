@@ -29,8 +29,7 @@ abstract Laws5 = {
         
         -- Arg
         Arg_C, Arg_N, Arg_S, Arg_H, Arg_U, Arg_Q, Arg_L, Arg_M, Arg_W, Arg_0, Arg_1, Arg_Nil : Arg ;
-        --_ArgSg, 
-        _ArgPl : Arg -> ArgColl ;
+        _Arg : Arg -> ArgColl ;
         _ArgPlus, _ArgMinus : ArgColl -> ArgColl ;
         _ArgListEmpty : ArgColl ;
         _ArgList : Arg -> Arg ->  ArgColl ;

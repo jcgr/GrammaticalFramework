@@ -1,12 +1,12 @@
 \section{Example}
-\label{E}
+\label{02_01}
 
 As described in section \ref{01_01}, the legal text is short, to the point and not that good for translating into source code. An example of the legal text can be seen here:
 \centered{\formula{“If a candidate reaches the quota, he is declared elected.”}}
 This piece of text shows the lack of detail. How do we ensure the candidate has reached the quota? What do we do with the ballot that makes him reach the quota? What happens with him when he is elected? And most importantly, can he be elected even if there are no open seats? The latter is a very important question, one that is not answered by the legal text. Common sense dictates that the answer is “no”, but that is an assumption one has to make and assumptions are best avoided when it comes to voting.
 
 \note{Make sure first sentence is actually correct when it comes to facts} \\
-According to the \note{insert reference to deyoung-schuuermann-voteid2011}, translating the legal text into linear logic results in this formula (how linear logic works is explained in section \ref{LL}):
+According to the \note{insert reference to deyoung-schuuermann-voteid2011}, translating the legal text into linear logic results in this formula (how linear logic works is explained in section \ref{03_01}):
 
 \begin{texto}
 \formula{tally-votes(S, H, U) $\tensor$ \\
@@ -19,7 +19,7 @@ $\bang$ (S $\geq$ 1) \\
 \pushRight{13}{tally-votes(S-1, H-1, U-1) \}\\}}
 \end{texto}
 
-This formula accurately describes the entire process involved in checking if a candidate reaches the quota and then marking him as elected. Understanding this formula requires knowledge of how linear logic works (see section \ref{LL}) and is definitely not suited for use as legal text. DeYoung and Schürmann has taken this into account, however, and have come up with a formalized version of it:
+This formula accurately describes the entire process involved in checking if a candidate reaches the quota and then marking him as elected. Understanding this formula requires knowledge of how linear logic works (see section \ref{03_01}) and is definitely not suited for use as legal text. DeYoung and Schürmann has taken this into account, however, and have come up with a formalized version of it:
 
 \begin{texto} 
 If we are tallying votes and \\
