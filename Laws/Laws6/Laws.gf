@@ -37,7 +37,6 @@ abstract Laws = {
         _Lolli2 : Lolli ;
         _Bang2 : Bang ;
 
-        -- TODO: Check if math needs more change
         -- Math
         _FinalFormula : Math -> InequalityOperation -> Math -> MathFormula ;
         _Math : ArgColl -> Math ;

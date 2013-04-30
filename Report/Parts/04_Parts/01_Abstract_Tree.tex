@@ -1,4 +1,151 @@
 \section{Building the Abstract Syntax}
 \label{04_01}
 
-The first step in building the program, was to build the abstract syntax. The first step in doing this, was to convert the connectives and types from linear logic/Celf into an abstract syntax
+The first step in building the program, was to build the abstract syntax. Using the types from \ref{03_01_02}, we can construct the following abstract syntax.
+
+\lstCode{The first abstract syntax.}{04_01_C01}
+\begin{lstgf}
+abstract Laws = {
+    
+    flags startcat = Logic ;
+
+    cat
+        Logic ; Neg ; Pos ; Lolli ; Bang ; Atomic ; Conj ;
+        Pi Pos ;
+
+    fun
+        Formular : Neg -> Logic ;               -- Represents the entire logical formula
+
+        -- Positive types
+        _Atom : Atomic -> Pos ;                 -- Turning an atomic into a positive type
+        _Bang : Bang -> Atomic -> Pos ;         -- Using the unrestricted modality
+        _Conj : Pos -> Conj -> Pos -> Pos ;     -- Using the simultaneous conjunction
+
+        -- Negative types
+        _Pi : (k : Pos) -> Neg -> Neg ;         -- Using the universal quantification
+        _Lolli : Pos -> Lolli -> Neg -> Neg ;   -- Using the linear implication
+        _Mon : Pos -> Neg ;                     -- Turning a positive into a negative
+
+        _Conj2 : Conj ;                         -- Simultaneous conjunction
+        _Lolli2 : Lolli ;                       -- Linear implication
+        _Bang2 : Bang ;                         -- Unrestricted modality
+}
+\end{lstgf}
+Going through the abstract syntax, one will notice two oddities: There is something called an \cf{"Atomic"} (line 13) and the \cf{\_Pi} has a strange syntax compared to the rest. The \cf{Atomic} is used to represent the "variables" (\textit{voting-auth-card} and \textit{blank-ballot} for example) along with the arguments they take. Looking at the example at the end of section \ref{03_01_03}, \cf{tally-votes S H U} would be considered an \cf{Atomic}. They will be explored more deeply later in the paper. \\
+The syntax for \cf{\_Pi} is a so-called "dependent type" in GF. It can be used for binding variables in GF, which would make it possible to use the program for virtually anything written in linear logic/Celf. Unfortunately, due to time constraints, it was not implemented and \cf{\_Pi} is actually not used in the program. \note{Should I write this or say it in another way?}
+
+The next step is to flesh out the abstract syntax. As we already have \cf{Atomic} mentioned in \refCode{04_01_C01}, we need to define the function for that. We need two kinds of atomics, one for variables and one for mathematical operations. We therefore extend the above syntax with the following:
+
+\lstCode{Defining the \cf{Atomic} in the abstract syntax.}{04_01_C02}
+\begin{lstgf}
+    cat
+        Atomic ; Ident ; MathFormula ;
+
+    fun
+        -- Atomic
+        Atom_Ident : Ident -> Atomic ;
+        Atom_Math : MathFormula -> Atomic ;
+\end{lstgf}
+
+Now we have the \cf{Atomic} defined, but we have introduced two new categories at the same time; \cf{Ident} and \cf{MathFormula}. The \cf{Ident} represents the variables through the variable name and the arguments it takes. Therefore, we need to define not just the \cf{Ident}, but also the arguments needed. Again, we extend the abstract syntax from \refCode{04_01_C01}:
+
+\lstCode{Defining the \cf{Ident} and the arguments it needs.}{04_01_C03}
+\begin{lstgf}
+    cat
+        Ident ; Arg ; ArgColl ;
+
+    fun
+        -- Identifiers
+        Ident_Hopeful, Ident_Tally, Ident_BangElectAll, Ident_Elected, Ident_Defeated, Ident_Quota, Ident_Minimum,
+        Ident_DefeatMin, Ident_Transfer, Ident_Counted, Ident_Uncounted, Ident_Winners, Ident_Begin : ArgColl ->
+        ArgColl -> ArgColl -> ArgColl -> ArgColl -> ArgColl -> ArgColl -> ArgColl -> ArgColl -> Ident ;
+        
+        -- Arguments
+        Arg_C, Arg_N, Arg_S, Arg_H, Arg_U, Arg_Q, Arg_L, Arg_M, Arg_W, Arg_0, Arg_1, Arg_Nil : Arg ;
+        _Arg : Arg -> ArgColl ;
+        _ArgPlus, _ArgMinus : ArgColl -> ArgColl ;
+        _ArgListEmpty : ArgColl ;
+        _ArgList : ArgColl -> ArgColl ->  ArgColl ;
+\end{lstgf}
+
+This looks confusing, but there is a method to the madness. Starting with the arguments, there are a lot of \cf{Arg\_something}. Each of them represents one of the arguments used by the different variables. The \cf{Arg}s have to be converted into \cf{ArgColl} to be used. This is done to make it possible to use lists of arguments along with Celf's notation of plus and minus. \\
+Both \cf{\_ArgPlus} and \cf{\_ArgMinus} take an \cf{ArgColl} as argument and produces an \cf{ArgColl}. The reason behind this, is that a logical formula can say "(S - 1) - 1". If they took an \cf{Arg} as the argument, it would not be possible to represent such a case.\\
+\cf{\_ArgListEmpty} is simply an \cf{ArgColl}. It does not take any arguments. \cf{\_ArgList}, on the other hand, takes two \cf{ArgColl}s to produce an \cf{ArgColl}. This way, it is possible to use \cf{\_ArgPlus}/\cf{\_ArgMinus} inside the list, which may or may not be needed.
+
+Having understood the arguments, the identifiers are a bit simpler. Each variable used for the logical formulas concering laws (\note{Appendix with them?}) is represented by an \cf{Identifier}. Each \cf{Identifier} takes up to nine \cf{ArgColl}s and produces an \cf{Ident}. Nine arguments may seem excessive, but it is up to the concrete implementations to decide how many of the arguments that are used. An \cf{Ident} does not have to use all nine.
+
+With the \cf{Ident}s in place (and thereby half the \cf{Atomic}s),  it is time to look at the other \cf{Atomic}: The one concerning mathematical formulas. The mathematical formulas needs arithemetic operations and inequality operations, so we extend the abstract syntax with the following:
+
+\lstCode{Defining the mathematical operations.}{04_01_C04}
+\begin{lstgf}
+    cat
+        ArgColl ; Math ; MathFormula ; ArithmeticOperation ; InequalityOperation ;
+
+    fun
+        -- Mathematic operations
+        _FinalFormula : Math -> InequalityOperation -> Math -> MathFormula ;
+        _Math : ArgColl -> Math ;
+        _MathArgs : Math -> ArithmeticOperation -> Math -> Math ;
+
+        _Division, _Addition, _Subtraction, _Multiplication : ArithmeticOperation ;
+        Greater, GreaterEqual, Equal, LessEqual, Less : InequalityOperation ;
+\end{lstgf}
+
+All mathematical formulas in the logical formulas have some sort of inequality operation. Therefore, \cf{\_FinalFormula} is the only \cf{MathFormula}, and it is made from a \cf{Math}, an \cf{InequalityOperation} and a second \cf{Math}.\\
+\cf{\_Math} simply takes an \cf{ArgColl} and produces a \cf{Math}. This can be used either for the \cf{\_FinalFormula} directly, or for the \cf{\_MathArgs} that takes two \cf{Math}s and a \cf{ArithmeticOperation} and returns a \cf{Math}. That way, arithmetic operations can be either a simple operation, or the \cf{Math}(s) it is made of can be made \cf{\_MathArgs}.\\
+The \cf{InequalityOperation} and \cf{ArithmeticOperation} are simple and need no futher explanation.
+
+With the connectives, atomics, identifiers, arguments and mathematical operations explained, the final abstract syntax is the following:
+\lstCode{The full abstract syntax.}{04_01_C05}
+\begin{lstgf}
+abstract Laws = {
+    
+    flags startcat = Logic ;
+
+    cat
+        Logic ; Prod ; Neg ; Pos ; Lolli ; Bang ; Atomic ; Ident ; Arg ; ArgColl ; Conj ; Math ; MathFormula ; 
+        ArithmeticOperation ; InequalityOperation ;
+        Pi Pos ;
+
+    fun
+        Formular : Neg -> Logic ;
+
+        -- Pos
+        _Atom : Atomic -> Pos ;
+        _Bang : Bang -> Atomic -> Pos ;
+        _Conj : Pos -> Conj -> Pos -> Pos ;
+
+        -- Neg
+        _Pi : (k : Pos) -> Neg -> Neg ;
+        _Lolli : Pos -> Lolli -> Neg -> Neg ;
+        _Mon : Pos -> Neg ;
+
+        -- Atomic
+        Atom_Ident : Ident -> Atomic ;
+        Atom_Math : MathFormula -> Atomic ;
+
+        -- Ident
+        Ident_Hopeful, Ident_Tally, Ident_BangElectAll, Ident_Elected, Ident_Defeated, Ident_Quota, Ident_Minimum,
+        Ident_DefeatMin, Ident_Transfer, Ident_Counted, Ident_Uncounted, Ident_Winners, Ident_Begin : ArgColl ->
+        ArgColl -> ArgColl -> ArgColl -> ArgColl -> ArgColl -> ArgColl -> ArgColl -> ArgColl -> Ident ;
+        
+        -- Arg
+        Arg_C, Arg_N, Arg_S, Arg_H, Arg_U, Arg_Q, Arg_L, Arg_M, Arg_W, Arg_0, Arg_1, Arg_Nil : Arg ;
+        _Arg : Arg -> ArgColl ;
+        _ArgPlus, _ArgMinus : ArgColl -> ArgColl ;
+        _ArgListEmpty : ArgColl ;
+        _ArgList : ArgColl -> ArgColl ->  ArgColl ;
+
+        _Conj2 : Conj ;
+        _Lolli2 : Lolli ;
+        _Bang2 : Bang ;
+
+        -- Math
+        _FinalFormula : Math -> InequalityOperation -> Math -> MathFormula ;
+        _Math : ArgColl -> Math ;
+        _MathArgs : Math -> ArithmeticOperation -> Math -> Math ;
+
+        _Division, _Addition, _Subtraction, _Multiplication : ArithmeticOperation ;
+        Greater, GreaterEqual, Equal, LessEqual, Less : InequalityOperation ;
+}
+\end{lstgf}

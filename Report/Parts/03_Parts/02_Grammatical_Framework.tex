@@ -7,7 +7,7 @@ Grammatical Framework (GF) is an open-source multilingual programming language. 
 
 A GF program consists of an abstract module and one or more concrete modules. The abstract module defines what meanings can be interpreted and parsed by the grammar. The concrete module maps the abstract meanings to strings, thereby forming complete sentences.
 
-The abstract module contains category declarations (\testCode{cat)} and function declarations (\testCode{fun}). The \testCode{cat} list the different categories (meanings) used in the language, where the \testCode{fun} dictates how the categories fit together to create meaning-building functions. The abstract syntax furthermore has a \testCode{flag startcat} that indicates what category the program should start with. 
+The abstract module contains category declarations (\cf{cat}) and function declarations (\cf{fun}). The \cf{cat} list the different categories (meanings) used in the language, where the \cf{fun} dictates how the categories fit together to create meaning-building functions. The abstract syntax furthermore has a \cf{flag startcat} that indicates what category the program should start with. 
 
 \lstCode{A simple abstract syntax.}{03_02_C01}
 \begin{lstgf}
@@ -23,10 +23,10 @@ abstract AbstractLinearLogic = {
 }
 \end{lstgf}
 
-In the abstract syntax shown in \refCode{03_02_C01}, there are three categories: \testCode{Formula}, \testCode{Connective} and \testCode{Ident}. Furthermore, there are three functions. The first function says that \testCode{\_VoteCard} and \testCode{\_BlankBallot} are of the type \testCode{Ident}. The second function says that \testCode{\_Lolli} is of the type \testCode{Connective}. The last function says that \testCode{\_Formula} takes three arguments (an \testCode{Ident}, a \testCode{Connective} and an \testCode{Ident}) and returns something of the type \testCode{Formula}.
+In the abstract syntax shown in \refCode{03_02_C01}, there are three categories: \cf{Formula}, \cf{Connective} and \cf{Ident}. Furthermore, there are three functions. The first function says that \cf{\_VoteCard} and \cf{\_BlankBallot} are of the type \cf{Ident}. The second function says that \cf{\_Lolli} is of the type \cf{Connective}. The last function says that \cf{\_Formula} takes three arguments (an \cf{Ident}, a \cf{Connective} and an \cf{Ident}) and returns something of the type \cf{Formula}.
 
-The concrete module contains linearization type definitions (\testCode{lincat}) and linearization definitions
-(\testCode{lin}). The \testCode{lincat} determines the type of object for each category in the abstract syntax and the \testCode{lin} determines what value is assigned to each abstract meaning. 
+The concrete module contains linearization type definitions (\cf{lincat}) and linearization definitions
+(\cf{lin}). The \cf{lincat} determines the type of object for each category in the abstract syntax and the \cf{lin} determines what value is assigned to each abstract meaning. 
 
 When the program parses a language, it will look for the values being held by the meanings and translate each into the abstract syntax. This abstract syntax forms an abstract syntax tree. The program can then turn the abstract syntax tree into any language supported by concrete implementations.
 
@@ -43,8 +43,8 @@ concrete ConcreteLinearLogic of AbstractLinearLogic = {
 }
 \end{lstgf}
 
-In \refCode{03_02_C02} \testCode{Formula}, \testCode{Connective} and \testCode{Ident} have been defined as records that can hold a \testCode{Str} (a string). \testCode{\_VoteCard}, \testCode{\_BlankBallot } and \testCode{\_Lolli} corresponds to a certain string. 
-\testCode{\_Formula} has a more advanced meaning, however, as it consists of the value of \testCode{i1} concatenated with the value of \testCode{c} and \testCode{i2} inside curly brackets. \testCode{i1}, \testCode{c} and \testCode{i2} are the arguments it takes according to the abstract syntax.
+In \refCode{03_02_C02} \cf{Formula}, \cf{Connective} and \cf{Ident} have been defined as records that can hold a \cf{Str} (a string). \cf{\_VoteCard}, \cf{\_BlankBallot } and \cf{\_Lolli} corresponds to a certain string. 
+\cf{\_Formula} has a more advanced meaning, however, as it consists of the value of \cf{i1} concatenated with the value of \cf{c} and \cf{i2} inside curly brackets. \cf{i1}, \cf{c} and \cf{i2} are the arguments it takes according to the abstract syntax.
 
 \lstCode{A concrete implementation of the abstract syntax from \refCode{03_02_C01} that understands English.}{03_02_C03}
 \begin{lstgf}
@@ -63,11 +63,11 @@ With another concrete implementation (such as the English one in \refCode{03_02_
 
 Using the modules above, one would be able to translate "voting-auth-card -o \{ blank-ballot \}" into "if i give an authorization card then i get a blank ballot".
 
-Some thing may happen a lot of times in a concrete implementation (such as concatenating two strings). GF can make this easier through operations (\testCode{oper}), also known as functions in other programming languages. 
+Some thing may happen a lot of times in a concrete implementation (such as concatenating two strings). GF can make this easier through operations (\cf{oper}), also known as functions in other programming languages. 
 
 Operations can do two things. They can define a new type and they can be used with arguments to produce something. The latter type of operation consists of the following:
 \begin{itemize}
-\item \textbf{A name} that defines the \testCode{oper} and is used when calling it. The operation in \refCode{03_02_C04} has the name "cc" (concatenate).
+\item \textbf{A name} that defines the \cf{oper} and is used when calling it. The operation in \refCode{03_02_C04} has the name "cc" (concatenate).
 
 \item \textbf{Arguments, their types and the return type.} The operation in \refCode{03_02_C04} takes two arguments of the type Str called "x" and "y" and returns something of the type Str.
 
@@ -80,7 +80,7 @@ oper
     cc : Str -> Str -> Str = \x,y -> (x.s ++ y.s) ;
 \end{lstgf}
 
-An operation can be placed in a concrete implementation (if it is only needed in one of them) or in a so-called \testCode{resource} module (see \refCode{03_02_C05}), which can be accessed by multiple concrete implementations. To access the resource module, one adds "open $<$nameOfModule$>$ in" to the first line of a concrete implementation, as shown in \ref{code:03_02_C06}
+An operation can be placed in a concrete implementation (if it is only needed in one of them) or in a so-called \cf{resource} module (see \refCode{03_02_C05}), which can be accessed by multiple concrete implementations. To access the resource module, one adds "open $<$nameOfModule$>$ in" to the first line of a concrete implementation, as shown in \ref{code:03_02_C06}
 
 \lstCode{A simple resource module.}{03_02_C05}
 \begin{lstgf}
@@ -106,7 +106,7 @@ concrete HelloEng of AbstractLinearLogic = open StringOper in {
 }
 \end{lstgf}
 
-Looking back at line 8 in \refCode{03_02_C03}, \testCode{\_VoteCard} and \testCode{\_BlankBallot} only exist in singular version. Suppose we want to be able to use the plural version of them, we could do two things: We could make a \testCode{\_VoteCardSg} and a \testCode{\_VoteCardPl} that holds the singular and plural version respectively. Or we could use parameters to choose.
+Looking back at line 8 in \refCode{03_02_C03}, \cf{\_VoteCard} and \cf{\_BlankBallot} only exist in singular version. Suppose we want to be able to use the plural version of them, we could do two things: We could make a \cf{\_VoteCardSg} and a \cf{\_VoteCardPl} that holds the singular and plural version respectively. Or we could use parameters to choose.
 
 A parameter consists of the parameter's name and its values, seperated by a horizonal line. Parameters can be added to either a resource module (by which the implementations using the resource module have access to it) or to a concrete implementation (limiting the parameter to that implementation).
 
@@ -116,15 +116,15 @@ param
     Number = Sg | Pl ;
 \end{lstgf}
 
-The \testCode{lincat} of a type also needs to reflect the fact that it takes a parameter. This is done as shown in \ref{code:03_02_C07}.
+The \cf{lincat} of a type also needs to reflect the fact that it takes a parameter. This is done as shown in \ref{code:03_02_C07}.
 
-\lstCode{Telling the \testCode{lincat} that it takes a parameter and generates a Str.}{03_02_C08}
+\lstCode{Telling the \cf{lincat} that it takes a parameter and generates a Str.}{03_02_C08}
 \begin{lstgf}
 lincat 
     Recipient = {s : Number => Str} ;
 \end{lstgf}
 
-The last thing that needs to be changed is the \testCode{lin} of the category that has been changed. Tables are used for this purpose. A table holds the different possibilities for the parameter, along with what is returned based on the parameter. \refCode{03_02_C08} shows a table for \_VoteCard.
+The last thing that needs to be changed is the \cf{lin} of the category that has been changed. Tables are used for this purpose. A table holds the different possibilities for the parameter, along with what is returned based on the parameter. \refCode{03_02_C08} shows a table for \_VoteCard.
 
 \lstCode{A table for \_VoteCard that returns the singular or plural version of the word depending on the parameter.}{03_02_C09}
 \begin{lstgf}
@@ -137,7 +137,7 @@ lin
     } ;
 \end{lstgf}
 
-\refCode{03_02_C10} shows how the parameters are used in the ConcreteEnglish program. Assuming i1 is \testCode{\_VoteCard}, and i2 is \testCode{\_BlankBallot}, FormulaSg creates a string saying "if i give an authorization card then i get a blank ballot" where line 2 creates a string saying "if i give multiple authorization cards i get multiple blank ballots".
+\refCode{03_02_C10} shows how the parameters are used in the ConcreteEnglish program. Assuming i1 is \cf{\_VoteCard}, and i2 is \cf{\_BlankBallot}, FormulaSg creates a string saying "if i give an authorization card then i get a blank ballot" where line 2 creates a string saying "if i give multiple authorization cards i get multiple blank ballots".
 
 \lstCode{Giving the parameter as an argument.}{03_02_C10}
 \begin{lstgf}

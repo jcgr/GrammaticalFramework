@@ -14,9 +14,9 @@ uncounted-ballot(C, L) $\tensor$ \\
 hopeful(C, N) $\tensor$ \\
 $\bang$quota(Q) $\tensor$ $\bang$ (N + 1 $<$ Q) $\tensor$ \\
 $\bang$ (S $\geq$ 1) \\
-\pushRight{5}{$\lolli$ \{ counted-ballot(C, L) $\tensor$ \\}
-\pushRight{13}{$\bang$elected(C) $\tensor$ \\}
-\pushRight{13}{tally-votes(S-1, H-1, U-1) \}\\}}
+\hspace{5pt}$\lolli$ \{ counted-ballot(C, L) $\tensor$ \\
+\hspace{29pt}$\bang$elected(C) $\tensor$ \\
+\hspace{29pt}tally-votes(S-1, H-1, U-1) \}\\}
 \end{texto}
 
 This formula accurately describes the entire process involved in checking if a candidate reaches the quota and then marking him as elected. Understanding this formula requires knowledge of how linear logic works (see section \ref{03_01}) and is definitely not suited for use as legal text. DeYoung and Schürmann has taken this into account, however, and have come up with a formalized version of it:
