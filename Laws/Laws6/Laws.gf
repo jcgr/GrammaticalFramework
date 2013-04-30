@@ -41,7 +41,7 @@ abstract Laws = {
         -- Math
         _FinalFormula : Math -> InequalityOperation -> Math -> MathFormula ;
         _Math : ArgColl -> Math ;
-        _MathArgs : ArgColl -> ArithmeticOperation -> ArgColl -> Math ;
+        _MathArgs : Math -> ArithmeticOperation -> Math -> Math ;
 
         _Division, _Addition, _Subtraction, _Multiplication : ArithmeticOperation ;
         Greater, GreaterEqual, Equal, LessEqual, Less : InequalityOperation ;
