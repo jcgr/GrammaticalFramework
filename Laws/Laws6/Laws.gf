@@ -3,11 +3,11 @@ abstract Laws = {
     flags startcat = Logic ;
 
     cat
-        Logic ; Prod ; Neg ; Pos ; Lolli ; Bang ; Atomic ; Ident ; Arg ; ArgColl ; Conj ; Math ; MathFormula ; ArithmeticOperation ; InequalityOperation ;
-        Pi Pos ;
+        Logic ; Prod ; Neg ; Pos ; Lolli ; Bang ; Atomic ; Ident ; Arg ; ArgColl ; Conj ; Math ; MathFormula ; ArithmeticOperation ; InequalityOperation ; Pi ;
+        --Pi Pos ;
 
     fun
-        Formular : Neg -> Logic ;
+        Formular : Pi -> Neg -> Logic ;
 
         -- Pos
         _Atom : Atomic -> Pos ;
@@ -15,7 +15,9 @@ abstract Laws = {
         _Conj : Pos -> Conj -> Pos -> Pos ;
 
         -- Neg
-        _Pi : (k : Pos) -> Neg -> Neg ;
+        --_Pi : (k : Pos) -> Neg -> Neg ;
+        _Pi : ArgColl -> Pi ;
+        _MPi : Pi -> Pi -> Pi ;
         _Lolli : Pos -> Lolli -> Neg -> Neg ;
         _Mon : Pos -> Neg ;
 

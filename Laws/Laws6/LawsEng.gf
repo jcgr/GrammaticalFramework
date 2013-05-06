@@ -2,11 +2,10 @@ concrete LawsEng of Laws = open SharedOpers in {
 
     lincat
         Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Arg, ArgColl, Conj, Pi, Math, MathFormula, ArithmeticOperation, InequalityOperation = {s : Str} ;
-        --Arg = {s : Number => Str} ;
 
     lin
         -- Logic
-        Formular neg                    = ss (neg.s) ;
+        Formular pi neg                 = ss (neg.s) ;
         
         -- Pos
         _Atom atom                      = ss (atom.s) ;
@@ -14,7 +13,8 @@ concrete LawsEng of Laws = open SharedOpers in {
         _Conj pos1 conj pos2            = ss (pos1.s ++ conj.s ++ pos2.s) ;
         
         -- Neg
-        _Pi _ neg                       = ss (neg.s) ;
+        _Pi arg                         = ss (arg.s ++ "is" ++ ("a list" | "a set" | "a candidate")) ;
+        _MPi p1 p2                      = ss (p1.s ++ "and" ++ p2.s) ;
         _Lolli pos lolli neg            = ss ("if" ++ pos.s ++ lolli.s ++ "{" ++ neg.s ++ "}") ;
         _Mon pos                        = ss (pos.s) ;
         

@@ -5,7 +5,7 @@ concrete LawsLin of Laws = open SharedOpers in {
 
     lin
         -- Logic
-        Formular neg                    = ss (neg.s) ;
+        Formular pi neg                 = ss (pi.s ++ neg.s) ;
         
         -- Pos
         _Atom atom                      = ss (atom.s) ;
@@ -13,7 +13,8 @@ concrete LawsLin of Laws = open SharedOpers in {
         _Conj pos1 conj pos2            = ss (pos1.s ++ conj.s ++ pos2.s) ;
         
         -- Neg
-        _Pi _ neg                       = ss (neg.s) ;
+        _Pi arg                         = ss ("Pi" ++ arg.s ++ ":" ++ ("nat" | "list" | "candidate") ++ ".") ;
+        _MPi p1 p2                      = ss (p1.s ++ p2.s) ;
         _Lolli pos lolli neg            = ss ("(" ++ pos.s ++ ")" ++ lolli.s ++ neg.s) ;
         _Mon pos                        = ss ("{" ++ pos.s ++ "}") ;
         
