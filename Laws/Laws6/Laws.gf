@@ -7,17 +7,19 @@ abstract Laws = {
         --Pi Pos ;
 
     fun
-        Formular : Pi -> Neg -> Logic ;
+        Formular : Neg -> Logic ;
 
         -- Pos
         _Atom : Atomic -> Pos ;
         _Bang : Bang -> Atomic -> Pos ;
         _Conj : Pos -> Conj -> Pos -> Pos ;
+        _Unit : Neg -> Pos ;
+        _MPos : Pos -> Pos -> Pos ;
 
         -- Neg
-        --_Pi : (k : Pos) -> Neg -> Neg ;
         _Pi : ArgColl -> Pi ;
         _MPi : Pi -> Pi -> Pi ;
+        _NegPi : Pi -> Neg ;
         _Lolli : Pos -> Lolli -> Neg -> Neg ;
         _Mon : Pos -> Neg ;
 

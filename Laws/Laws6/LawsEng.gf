@@ -5,16 +5,19 @@ concrete LawsEng of Laws = open SharedOpers in {
 
     lin
         -- Logic
-        Formular pi neg                 = ss (neg.s) ;
+        Formular neg                    = ss (neg.s) ;
         
         -- Pos
         _Atom atom                      = ss (atom.s) ;
         _Bang bang atom                 = ss (atom.s ++ bang.s) ;
         _Conj pos1 conj pos2            = ss (pos1.s ++ conj.s ++ pos2.s) ;
+        _Unit neg                       = ss (neg.s) ;
+        _MPos pos1 pos2                 = ss (pos1.s ++ pos2.s) ;
         
         -- Neg
         _Pi arg                         = ss (arg.s ++ "is" ++ ("a list" | "a set" | "a candidate")) ;
         _MPi p1 p2                      = ss (p1.s ++ "and" ++ p2.s) ;
+        _NegPi pi                       = ss ("") ;
         _Lolli pos lolli neg            = ss ("if" ++ pos.s ++ lolli.s ++ "{" ++ neg.s ++ "}") ;
         _Mon pos                        = ss (pos.s) ;
         
@@ -26,9 +29,9 @@ concrete LawsEng of Laws = open SharedOpers in {
         Ident_Hopeful c n s h u q l m w
             = ss ("there is a hopeful" ++ c.s ++ " with" ++ n.s) ;
         Ident_Tally c n s h u q l m w
-            = ss ("we are tallying votes and there are" ++ s.s ++ "open," ++ h.s ++ ", and" ++ u.s ++ "cast") ;
+            = ss ("we are tallying votes and there is" ++ s.s ++ "open," ++ h.s ++ ", and" ++ u.s ++ "cast") ;
         Ident_BangElectAll c n s h u q l m w
-            = ss ("there are more open seats than hopefuls") ;
+            = ss ("there is more open seats than hopefuls") ;
         Ident_Elected c n s h u q l m w
             = ss (c.s ++ "has been (and will remain) elected") ;
         Ident_Defeated c n s h u q l m w
@@ -38,17 +41,17 @@ concrete LawsEng of Laws = open SharedOpers in {
         Ident_Minimum c n s h u q l m w
             = ss (c.s ++ "'s count of" ++ n.s ++ "is a potential minimum") ;
         Ident_DefeatMin c n s h u q l m w
-            = ss ("we are determining which candidate has the fewest votes and there are" ++ s.s ++ "open, " ++ h.s ++ ", and" ++ m.s ++ "remaining") ;
+            = ss ("we are determining which candidate has the fewest votes and there is" ++ s.s ++ "open, " ++ h.s ++ ", and" ++ m.s ++ "remaining") ;
         Ident_Transfer c n s h u q l m w
-            = ss ("the defeated" ++ c.s ++"'s remaining" ++ n.s ++ "are being transferred and there are" ++ s.s ++ "open, " ++ h.s ++ ", and" ++ u.s) ;
+            = ss ("the defeated" ++ c.s ++"'s remaining" ++ n.s ++ "are being transferred and there is" ++ s.s ++ "open, " ++ h.s ++ ", and" ++ u.s) ;
         Ident_Uncounted c n s h u q l m w
-            = ss ("there is an uncounted ballot with highest preference for a certain" ++ c.s ++ "with" ++ l.s ++ "of lower preferences") ;
+            = ss ("there is an uncounted ballot with highest preference for a certain" ++ c.s ++ "with" ++ l.s ++ " lower preferences") ;
         Ident_Counted c n s h u q l m w
-            = ss ("there is a counted ballot with highest preference for a certain" ++ c.s ++ "with" ++ l.s ++ "of lower preferences") ;
+            = ss ("there is a counted ballot with highest preference for a certain" ++ c.s ++ "with" ++ l.s ++ " lower preferences") ;
         Ident_Winners c n s h u q l m w
             = ss ("the candidates in" ++ w.s ++ "have been elected thus far") ;
         Ident_Begin c n s h u q l m w
-            = ss ("we are beginning the tallying and there are " ++ s.s ++ "open," ++ h.s ++ ", and" ++ u.s ++ "cast") ;
+            = ss ("we are beginning the tallying and there is " ++ s.s ++ "open," ++ h.s ++ ", and" ++ u.s ++ "cast") ;
 
         -- Arg
         Arg_C                           = ss ("candidate (C)") ;

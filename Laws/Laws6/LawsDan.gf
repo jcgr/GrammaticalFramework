@@ -5,16 +5,19 @@ concrete LawsDan of Laws = open SharedOpers in {
 
     lin
         -- Logic
-        Formular pi neg                 = ss (neg.s) ;
+        Formular neg                    = ss (neg.s) ;
 
         -- Pos
         _Atom atom                      = ss (atom.s) ;
         _Bang bang atom                 = ss (atom.s ++ bang.s) ;
         _Conj pos1 conj pos2            = ss (pos1.s ++ conj.s ++ pos2.s) ;
+        _Unit neg                       = ss (neg.s) ;
+        _MPos pos1 pos2                 = ss (pos1.s ++ pos2.s) ;
 
         -- Neg
         _Pi arg                         = ss (arg.s ++ "er" ++ ("en liste" | "et sæt" | "en kandidat")) ;
         _MPi p1 p2                      = ss (p1.s ++ "og" ++ p2.s) ;
+        _NegPi pi                       = ss ("") ;
         _Lolli pos lolli neg            = ss ("hvis" ++ pos.s ++ lolli.s ++ "{" ++ neg.s ++ "}") ;
         _Mon pos                        = ss (pos.s) ;
 
