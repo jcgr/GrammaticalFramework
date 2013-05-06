@@ -12,19 +12,20 @@ abstract Laws = {
     flags startcat = Logic ;
 
     cat
-        Logic ; Neg ; Pos ; Pi ; Lolli ; Bang ; Atomic ; Conj ;
+        Logic ; Neg ; Pos ; Lolli ; Bang ; Atomic ; Conj ;
 
     fun
-        Formular : Neg -> Logic ;               -- Represents the entire logical formula
+        Formular : Neg -> Logic ;
 
-        -- Positive types
+        -- Pos
         _Atom : Atomic -> Pos ;                 -- Turning an atomic into a positive type
         _Bang : Bang -> Atomic -> Pos ;         -- Using the unrestricted modality
         _Conj : Pos -> Conj -> Pos -> Pos ;     -- Using the simultaneous conjunction
+        _Unit : Neg -> Pos ;                    -- Turns a negative into a positve
+        _MPos : Pos -> Pos -> Pos ;             -- Attaches multiple positives to each other
 
-        -- Negative types
-        _Pi : ArgColl -> Pi ; 					-- The universal quantification
-        _MPi : Pi -> Pi -> Pi ; 				-- Multiple universal quantifiers
+        -- Neg
+        _Pi : ArgColl -> Neg ;                  -- The universal quantification
         _Lolli : Pos -> Lolli -> Neg -> Neg ;   -- Using the linear implication
         _Mon : Pos -> Neg ;                     -- Turning a positive into a negative
 
@@ -33,9 +34,8 @@ abstract Laws = {
         _Bang2 : Bang ;                         -- Unrestricted modality
 }
 \end{lstgf}
-Going through the abstract syntax, one will notice two things that do not stem from the connectives: There is something called an \cf{"Atomic"} (line 13) and the \cf{\_Pi} has a strange syntax compared to the rest. The \cf{Atomic} is used to represent "variables/functions(?)" along with the arguments they take. They will be explained later in this section. \\
-\note{Check if this part is factually right} \\
-The syntax for \cf{\_Pi} is a so-called "dependent type" in GF. It can be used for binding variables in GF, which would make it possible to use the program for virtually anything written in linear logic/Celf. Unfortunately, due to time constraints, it was not implemented and \cf{\_Pi} is actually not used in the program. \note{Should I write this or say it in another way?}
+Going through the abstract syntax, one will notice two things that do not stem from the connectives: There is something called an \cf{"Atomic"} (line 13) and the \cf{\_Pi} has been split into mutiple parts. The \cf{Atomic} is used to represent "variables/functions(?)" along with the arguments they take. They will be explained later in this section. \\
+The universal quantification (\cf{\_Pi}) has been split into three parts: One where it takes an ArgColl (more about that later) and produces a \cf{Pi}, one where it takes two \cf{Pi}s as arguments and produces a \cf{Pi} and one where it takes a \cf{Pi} and produces a \cf{Neg}. This allows multiple universan quantifiers to follow each other
 
 The abstract syntax in \refCode{04_01_C01} introduced the \cf{Atomic}. The \cf{Atomic} needs an explanation and it needs to be defined as a function before the rest of the syntax can be written. An \cf{Atomic} represents a variable/function(?) in linear logic. This could be the \cf{voting-auth-card} or the \cf{blank-ballot} mentioned in section \ref{03_01_01}. An \cf{Atomic} can also represent a variable/function(?) that takes parameters, such as the ones in the example in section \ref{02_01}. \\
 Looking at the example in section \ref{02_01}, one will notice that the formula not only contains variables/functions(?), but that it also contains arithmetic and inequality operations (for example  $\bang$(N + 1 $<$ Q)). This is in place of a function/variable(?), so the \cf{Atomic} needs to be able to represent that as well. \\
