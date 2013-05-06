@@ -103,14 +103,14 @@ The connectives are not the only things in linear logic. It is also possible to 
 	x $<$ y\hspace{22.8pt} ::= !nat-less x y \\
  	x $-$ 1\hspace{22.8pt} ::= (s ! x) \\
  	x $+$ 1\hspace{22.8pt} ::= (p ! x) \\
-	$\lbrack$ x $|$ y $\rbrack$ \hspace{12pt} ::= (cons x y)
+	$\lbrack$ x $|$ y $\rbrack$ \hspace{12pt} ::= (cons ! x ! y)
 \end{texto}
-Using the Celf syntax, we can translate a formula written in linear logic into something a computer can read more easily. The example from section \ref{E} therefore becomes:
+Using the Celf syntax, we can translate a formula written in linear logic into something a computer can read more easily. The example from section \ref{02_01} therefore becomes:
 \begin{texto}
-	\formula{tally-votes S H U * \\
+	\formula{( tally-votes S H U * \\
 	uncounted-ballot C L * \\
 	hopeful C N * \\
-	!quota Q * !nat-lesseq Q (p ! N) * \\
+	!quota Q * !nat-lesseq Q (p ! N) )\\
 	\hspace{10pt}-o \{ counted-ballot C L * \\
 	\hspace{30pt}!elected C * \\
 	\hspace{30pt}tally-votes (s ! S) (s ! H) (s ! U) \} }

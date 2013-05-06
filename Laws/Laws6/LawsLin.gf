@@ -5,10 +5,10 @@ concrete LawsLin of Laws = open SharedOpers in {
 
     lin
         -- Logic
-        Formular neg                    = ss neg.s ;
+        Formular neg                    = ss (neg.s) ;
         
         -- Pos
-        _Atom atom                      = ss atom.s ;
+        _Atom atom                      = ss (atom.s) ;
         _Bang bang atom                 = ss (bang.s ++ atom.s) ;
         _Conj pos1 conj pos2            = ss (pos1.s ++ conj.s ++ pos2.s) ;
         
@@ -59,7 +59,7 @@ concrete LawsLin of Laws = open SharedOpers in {
         Arg_L                           = ss ("L") ;
         Arg_M                           = ss ("M") ;
         Arg_W                           = ss ("W") ;
-        Arg_0                           = ss ("0") ;
+        Arg_0                           = ss ("z") ;
         Arg_1                           = ss ("1") ;
         Arg_Nil                         = ss ("nil") ;
         _Arg arg                        = ss (arg.s) ;
