@@ -15,9 +15,8 @@ concrete LawsDan of Laws = open SharedOpers in {
         _MPos pos1 pos2                 = ss (pos1.s ++ pos2.s) ;
 
         -- Neg
-        _Pi arg                         = ss (arg.s ++ "er" ++ ("en liste" | "et sæt" | "en kandidat")) ;
-        _MPi p1 p2                      = ss (p1.s ++ "og" ++ p2.s) ;
-        _NegPi pi                       = ss ("") ;
+        --_Pi arg                         = ss (arg.s ++ "er" ++ ("en liste" | "et sæt" | "en kandidat")) ;
+        _Pi arg                         = ss ("") ;
         _Lolli pos lolli neg            = ss ("hvis" ++ pos.s ++ lolli.s ++ "{" ++ neg.s ++ "}") ;
         _Mon pos                        = ss (pos.s) ;
 

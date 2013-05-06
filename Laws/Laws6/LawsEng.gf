@@ -15,9 +15,8 @@ concrete LawsEng of Laws = open SharedOpers in {
         _MPos pos1 pos2                 = ss (pos1.s ++ pos2.s) ;
         
         -- Neg
-        _Pi arg                         = ss (arg.s ++ "is" ++ ("a list" | "a set" | "a candidate")) ;
-        _MPi p1 p2                      = ss (p1.s ++ "and" ++ p2.s) ;
-        _NegPi pi                       = ss ("") ;
+        --_Pi arg                         = ss (arg.s ++ "is" ++ ("a list" | "a set" | "a candidate")) ;
+        _Pi arg                         = ss ("") ;
         _Lolli pos lolli neg            = ss ("if" ++ pos.s ++ lolli.s ++ "{" ++ neg.s ++ "}") ;
         _Mon pos                        = ss (pos.s) ;
         

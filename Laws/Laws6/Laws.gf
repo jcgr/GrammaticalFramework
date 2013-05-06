@@ -17,9 +17,7 @@ abstract Laws = {
         _MPos : Pos -> Pos -> Pos ;
 
         -- Neg
-        _Pi : ArgColl -> Pi ;
-        _MPi : Pi -> Pi -> Pi ;
-        _NegPi : Pi -> Neg ;
+        _Pi : ArgColl -> Neg ;
         _Lolli : Pos -> Lolli -> Neg -> Neg ;
         _Mon : Pos -> Neg ;
 

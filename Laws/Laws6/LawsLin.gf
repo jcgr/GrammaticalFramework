@@ -16,8 +16,6 @@ concrete LawsLin of Laws = open SharedOpers in {
         
         -- Neg
         _Pi arg                         = ss ("Pi" ++ arg.s ++ ":" ++ ("nat" | "list" | "candidate") ++ ".") ;
-        _MPi p1 p2                      = ss (p1.s ++ p2.s) ;
-        _NegPi pi                       = ss (pi.s) ;
         _Lolli pos lolli neg            = ss (pos.s ++ lolli.s ++ neg.s) ;
         _Mon pos                        = ss ("{" ++ pos.s ++ "}") ;
         
