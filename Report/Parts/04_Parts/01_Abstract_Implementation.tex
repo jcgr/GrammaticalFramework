@@ -12,8 +12,7 @@ abstract Laws = {
     flags startcat = Logic ;
 
     cat
-        Logic ; Neg ; Pos ; Lolli ; Bang ; Atomic ; Conj ;
-        Pi Pos ;
+        Logic ; Neg ; Pos ; Pi ; Lolli ; Bang ; Atomic ; Conj ;
 
     fun
         Formular : Neg -> Logic ;               -- Represents the entire logical formula
@@ -24,7 +23,8 @@ abstract Laws = {
         _Conj : Pos -> Conj -> Pos -> Pos ;     -- Using the simultaneous conjunction
 
         -- Negative types
-        _Pi : (k : Pos) -> Neg -> Neg ;         -- Using the universal quantification
+        _Pi : ArgColl -> Pi ; 					-- The universal quantification
+        _MPi : Pi -> Pi -> Pi ; 				-- Multiple universal quantifiers
         _Lolli : Pos -> Lolli -> Neg -> Neg ;   -- Using the linear implication
         _Mon : Pos -> Neg ;                     -- Turning a positive into a negative
 

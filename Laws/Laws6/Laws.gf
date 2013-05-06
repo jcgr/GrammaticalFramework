@@ -3,8 +3,7 @@ abstract Laws = {
     flags startcat = Logic ;
 
     cat
-        Logic ; Prod ; Neg ; Pos ; Lolli ; Bang ; Atomic ; Ident ; Arg ; ArgColl ; Conj ; Math ; MathFormula ; ArithmeticOperation ; InequalityOperation ; Pi ;
-        --Pi Pos ;
+        Logic ; Prod ; Neg ; Pos ; Pi ; Lolli ; Bang ; Atomic ; Ident ; Arg ; ArgColl ; Conj ; Math ; MathFormula ; ArithmeticOperation ; InequalityOperation ;
 
     fun
         Formular : Neg -> Logic ;
