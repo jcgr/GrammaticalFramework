@@ -34,8 +34,8 @@ abstract Laws = {
         _Bang2 : Bang ;                         -- Unrestricted modality
 }
 \end{lstgf}
-Going through the abstract syntax, one will notice two things that do not stem from the connectives: There is something called an \cf{"Atomic"} (line 13) and the \cf{\_Pi} has been split into mutiple parts. The \cf{Atomic} is used to represent "variables/functions(?)" along with the arguments they take. They will be explained later in this section. \\
-The universal quantification (\cf{\_Pi}) has been split into three parts: One where it takes an ArgColl (more about that later) and produces a \cf{Pi}, one where it takes two \cf{Pi}s as arguments and produces a \cf{Pi} and one where it takes a \cf{Pi} and produces a \cf{Neg}. This allows multiple universan quantifiers to follow each other
+Going through the abstract syntax, one will notice two things that do not stem from the connectives: There is something called an \cf{"Atomic"} (line 13) and there is an \cf{ArgColl} at the \cf{\_Pi}.The \cf{ArgColl} will be explained later. The \cf{Atomic} is used to represent "variables/functions(?)" along with the arguments they take. They will be explained in more detail later in this section. \\
+There are two other things that needs an explanation as well. The \cf{\_Unit} turns a negative type into a positive type (it is actually a positive type, so there is no cheating here). The \cf{\_MPos} allows for multiple positive types to follow each other without connectives and is mainly used for allowing multiple universan quantifiers to follow each other.
 
 The abstract syntax in \refCode{04_01_C01} introduced the \cf{Atomic}. The \cf{Atomic} needs an explanation and it needs to be defined as a function before the rest of the syntax can be written. An \cf{Atomic} represents a variable/function(?) in linear logic. This could be the \cf{voting-auth-card} or the \cf{blank-ballot} mentioned in section \ref{03_01_01}. An \cf{Atomic} can also represent a variable/function(?) that takes parameters, such as the ones in the example in section \ref{02_01}. \\
 Looking at the example in section \ref{02_01}, one will notice that the formula not only contains variables/functions(?), but that it also contains arithmetic and inequality operations (for example  $\bang$(N + 1 $<$ Q)). This is in place of a function/variable(?), so the \cf{Atomic} needs to be able to represent that as well. \\
@@ -100,57 +100,5 @@ All mathematical formulas in the logical formulas have some sort of inequality o
 \cf{\_Math} simply takes an \cf{ArgColl} and produces a \cf{Math}. This can be used either for the \cf{\_FinalFormula} directly, or for the \cf{\_MathArgs} that takes two \cf{Math}s and a \cf{ArithmeticOperation} and returns a \cf{Math}. That way, arithmetic operations can be either a simple operation, or the \cf{Math}(s) it is made of can be made \cf{\_MathArgs}.\\
 The \cf{InequalityOperation} and \cf{ArithmeticOperation} are simple and need no futher explanation.
 
-With the connectives, atomics, identifiers, arguments and mathematical operations explained, the final abstract syntax is the following: \note{Put this into appendix?}
-\lstCode{The full abstract syntax.}{04_01_C05}
-\begin{lstgf}
-abstract Laws = {
-    
-    flags startcat = Logic ;
-
-    cat
-        Logic ; Prod ; Neg ; Pos ; Lolli ; Bang ; Atomic ; Ident ; Arg ; ArgColl ; Conj ; Math ; MathFormula ; 
-        ArithmeticOperation ; InequalityOperation ;
-        Pi Pos ;
-
-    fun
-        Formular : Neg -> Logic ;
-
-        -- Pos
-        _Atom : Atomic -> Pos ;
-        _Bang : Bang -> Atomic -> Pos ;
-        _Conj : Pos -> Conj -> Pos -> Pos ;
-
-        -- Neg
-        _Pi : (k : Pos) -> Neg -> Neg ;
-        _Lolli : Pos -> Lolli -> Neg -> Neg ;
-        _Mon : Pos -> Neg ;
-
-        -- Atomic
-        Atom_Ident : Ident -> Atomic ;
-        Atom_Math : MathFormula -> Atomic ;
-
-        -- Ident
-        Ident_Hopeful, Ident_Tally, Ident_BangElectAll, Ident_Elected, Ident_Defeated, Ident_Quota, Ident_Minimum,
-        Ident_DefeatMin, Ident_Transfer, Ident_Counted, Ident_Uncounted, Ident_Winners, Ident_Begin : ArgColl ->
-        ArgColl -> ArgColl -> ArgColl -> ArgColl -> ArgColl -> ArgColl -> ArgColl -> ArgColl -> Ident ;
-        
-        -- Arg
-        Arg_C, Arg_N, Arg_S, Arg_H, Arg_U, Arg_Q, Arg_L, Arg_M, Arg_W, Arg_0, Arg_1, Arg_Nil : Arg ;
-        _Arg : Arg -> ArgColl ;
-        _ArgPlus, _ArgMinus : ArgColl -> ArgColl ;
-        _ArgListEmpty : ArgColl ;
-        _ArgList : ArgColl -> ArgColl ->  ArgColl ;
-
-        _Conj2 : Conj ;
-        _Lolli2 : Lolli ;
-        _Bang2 : Bang ;
-
-        -- Math
-        _FinalFormula : Math -> InequalityOperation -> Math -> MathFormula ;
-        _Math : ArgColl -> Math ;
-        _MathArgs : Math -> ArithmeticOperation -> Math -> Math ;
-
-        _Division, _Addition, _Subtraction, _Multiplication : ArithmeticOperation ;
-        Greater, GreaterEqual, Equal, LessEqual, Less : InequalityOperation ;
-}
-\end{lstgf}
+\note{Some sort of ending}. \\
+The full abstract implementation can be found in appendix \ref{A_01}.

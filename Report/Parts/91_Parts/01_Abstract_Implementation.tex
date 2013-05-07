@@ -1,9 +1,15 @@
+\chapter{Abstract Implementation}
+\label{A_01}
+
+\lstCode{The full abstract syntax.}{A_C01}
+\begin{lstgf}
 abstract Laws = {
     
     flags startcat = Logic ;
 
     cat
-        Logic ; Prod ; Neg ; Pos ; Lolli ; Bang ; Atomic ; Ident ; Arg ; ArgColl ; Conj ; Math ; MathFormula ; ArithmeticOperation ; InequalityOperation ;
+        Logic ; Prod ; Neg ; Pos ; Lolli ; Bang ; Atomic ; Ident ; Arg ; ArgColl ; Conj ; Math ;
+        MathFormula ; ArithmeticOperation ; InequalityOperation ;
 
     fun
         Formular : Neg -> Logic ;
@@ -25,7 +31,9 @@ abstract Laws = {
         Atom_Math : MathFormula -> Atomic ;
 
         -- Ident
-        Ident_Hopeful, Ident_Tally, Ident_BangElectAll, Ident_Elected, Ident_Defeated, Ident_Quota, Ident_Minimum, Ident_DefeatMin, Ident_Transfer, Ident_Counted, Ident_Uncounted, Ident_Winners, Ident_Begin : ArgColl -> ArgColl -> ArgColl -> ArgColl -> ArgColl -> ArgColl -> ArgColl -> ArgColl -> ArgColl -> Ident ;
+        Ident_Hopeful, Ident_Tally, Ident_BangElectAll, Ident_Elected, Ident_Defeated, Ident_Quota, Ident_Minimum,
+        Ident_DefeatMin, Ident_Transfer, Ident_Counted, Ident_Uncounted, Ident_Winners, Ident_Begin : ArgColl ->
+        ArgColl -> ArgColl -> ArgColl -> ArgColl -> ArgColl -> ArgColl -> ArgColl -> ArgColl -> Ident ;
         
         -- Arg
         Arg_C, Arg_N, Arg_S, Arg_H, Arg_U, Arg_Q, Arg_L, Arg_M, Arg_W, Arg_0, Arg_1, Arg_Nil : Arg ;
@@ -46,3 +54,4 @@ abstract Laws = {
         _Division, _Addition, _Subtraction, _Multiplication : ArithmeticOperation ;
         Greater, GreaterEqual, Equal, LessEqual, Less : InequalityOperation ;
 }
+\end{lstgf}

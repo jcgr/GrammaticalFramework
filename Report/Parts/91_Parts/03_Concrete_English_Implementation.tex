@@ -1,7 +1,13 @@
+\chapter{Concrete English Implementation}
+\label{A_03}
+
+\lstCode{The full concrete English implementation}{A_C03}
+\begin{lstgf}
 concrete LawsEng of Laws = open SharedOpers in {
 
     lincat
-        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Arg, ArgColl, Conj, Pi, Math, MathFormula, ArithmeticOperation, InequalityOperation = {s : Str} ;
+        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Arg, ArgColl, Conj, Pi, Math, MathFormula, 
+	ArithmeticOperation, InequalityOperation = {s : Str} ;
 
     lin
         -- Logic
@@ -40,13 +46,17 @@ concrete LawsEng of Laws = open SharedOpers in {
         Ident_Minimum c n s h u q l m w
             = ss (c.s ++ "'s count of" ++ n.s ++ "is a potential minimum") ;
         Ident_DefeatMin c n s h u q l m w
-            = ss ("we are determining which candidate has the fewest votes and there is" ++ s.s ++ "open, " ++ h.s ++ ", and" ++ m.s ++ "remaining") ;
+            = ss ("we are determining which candidate has the fewest votes and there is" ++ s.s ++ "open, " 
+		     ++ h.s ++ ", and" ++ m.s ++ "remaining") ;
         Ident_Transfer c n s h u q l m w
-            = ss ("the defeated" ++ c.s ++"'s remaining" ++ n.s ++ "are being transferred and there is" ++ s.s ++ "open, " ++ h.s ++ ", and" ++ u.s) ;
+            = ss ("the defeated" ++ c.s ++"'s remaining" ++ n.s ++ "are being transferred and there is" ++ 
+		     s.s ++ "open, " ++ h.s ++ ", and" ++ u.s) ;
         Ident_Uncounted c n s h u q l m w
-            = ss ("there is an uncounted ballot with highest preference for a certain" ++ c.s ++ "with" ++ l.s ++ " lower preferences") ;
+            = ss ("there is an uncounted ballot with highest preference for a certain" ++ c.s ++ "with" ++ l.s ++ 
+		     " lower preferences") ;
         Ident_Counted c n s h u q l m w
-            = ss ("there is a counted ballot with highest preference for a certain" ++ c.s ++ "with" ++ l.s ++ " lower preferences") ;
+            = ss ("there is a counted ballot with highest preference for a certain" ++ c.s ++ "with" ++ l.s ++ 
+		     " lower preferences") ;
         Ident_Winners c n s h u q l m w
             = ss ("the candidates in" ++ w.s ++ "have been elected thus far") ;
         Ident_Begin c n s h u q l m w
@@ -93,3 +103,4 @@ concrete LawsEng of Laws = open SharedOpers in {
         LessEqual                       = ss ("is less than or equal to") ;
         Less                            = ss ("is less than") ;
 }
+\end{lstgf}

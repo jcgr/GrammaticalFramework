@@ -1,4 +1,4 @@
-\section{Building the concrete implementation}
+\section{Constructing the Concrete Implementation}
 \label{04_02}
 
 With the abstract syntax in place, the concrete syntax is the next step. The goal here, is to give each function from the abstract syntax a proper linearization so it can understand linear logic. We will need two concrete implementations in total. One for reading and understanding the Celf syntax for linear logic (like the example at the end of section \ref{03_01_03}), and one for understanding English.
@@ -58,8 +58,10 @@ Next after the arguments, \cf{Math} and \cf{Ident} are the simplest. As they tak
         LessEqual                       = ss ("!nat-lesseq") ;
         Less                            = ss ("!nat-less") ;
 \end{lstgf}
-The values for the \cf{ArithmeticOperation}s are their normal symbol. The \cf{InequalityOperation}s, however, use the syntax described in section \ref{03_01_02}. For example, $>$ becomes "!nat-less". \\
-Looking at the \cf{Math} part, it is a bit more advanced. \cf{\_Math} is simple enough. It has the value of any argumet (we will get to them later). \cf{\_MathArgs} is the function that takes care of arithmetic operations between arguments and is surronded by a pair of paratheses. Throughout the voting protocol formulas, this is actually not used, but we will support it anyway. \\
+The values for the \cf{ArithmeticOperation}s are their normal symbol. The \cf{InequalityOperation}s, however, use the syntax described in section \ref{03_01_02}. For example, $>$ becomes "!nat-less".
+
+Looking at the \cf{Math} part, it is a bit more advanced. \cf{\_Math} is simple enough. It has the value of any argumet (we will get to them later). \cf{\_MathArgs} is the function that takes care of arithmetic operations between arguments and is surronded by a pair of paratheses. Throughout the voting protocol formulas, this is actually not used, but we will support it anyway.
+
 \cf{\_FinalFormula} is the formula that handles inequality operations. Looking at it, one will see that the value it returns has the inequality operation first followed by the two parameters. This is the syntax Celf uses and is thus not an error. One may also notice that the order of the parameters for \cf{\_FinalFormula} is not the same as the linearization of it. The normal way to read "x is greater than y" is "x $>$ y" and is how the abstract tree is put together (see line 7 in \refCode{04_01_C04} on page \pageref{code:04_01_C04}). The concrete implementation is allowed to choose its own way of using the parameters, and can therefore use Celf's notation easily. The formula will be parsed correctly into the abstract syntax anyway.
 
 \lstCode{The linearization of \cf{Ident}}{04_02_C08}
@@ -92,12 +94,13 @@ Looking at the \cf{Math} part, it is a bit more advanced. \cf{\_Math} is simple 
         Ident_Begin c n s h u q l m w
             = ss ("begin" ++ s.s ++ h.s ++ u.s) ;
 \end{lstgf}
-There are a couple of things to note here. The first is that all the \cf{Ident}s can take nine arguments (\cf{c n s h u q l m w}), but none of them use more than five. The abstract syntax for all the \cf{Ident} was given nine arguments to avoid having to make a seperate abstract for each \cf{Ident}. The reason for choosing nine arguments instead of five (the highest number used), was to have each argument represented. Each argument corresponds to one of the \cf{Arg}s (with the exception of z, 1 and nil), making it easy to figoure out what the \cf{Ident} uses. It is important to note that while "s" is used to represent \cf{Arg\_S}, it does not mean the value has to be the value of \cf{Arg\_S}. It can be any of the \cf{Arg}s. \\
+There are a couple of things to note here. The first is that all the \cf{Ident}s can take nine arguments (\cf{c n s h u q l m w}), but none of them use more than five. The abstract syntax for all the \cf{Ident} was given nine arguments to avoid having to make a seperate abstract for each \cf{Ident}. The reason for choosing nine arguments instead of five (the highest number used), was to have each argument represented. Each argument corresponds to one of the \cf{Arg}s (with the exception of z, 1 and nil), making it easy to figoure out what the \cf{Ident} uses. It is important to note that while "s" is used to represent \cf{Arg\_S}, it does not mean the value has to be the value of \cf{Arg\_S}. It can be any of the \cf{Arg}s. 
+
 Just like the \cf{\_FinalFormula}, the arguments do not have to be used in the order listed. They do not even have to be used. \cf{Ident\_Hopeful} will only look for any two arguments following and only use those two arguments. The rest will be ignored. The same goes for the rest of the \cf{Ident}s. \\
 The other thing to note is in \cf{Ident\_Tally}, where there is a $|$ in the value of the ident. This line means that value for \cf{Ident\_Tally} can be any of the strings on either side of the $|$. It is an easy way of letting a function use multiple keywords.
 
 The last things to examine are the positive and negative types and the atomics.
-\lstCode{The linearization of the positive/negative types and the atomics}{04_02C09}
+\lstCode{The linearization of the positive/negative types and the atomics}{04_02_C09}
 \begin{lstgf}
         -- Logic
         Formular neg                    = ss (neg.s) ;
@@ -106,10 +109,12 @@ The last things to examine are the positive and negative types and the atomics.
         _Atom atom                      = ss (atom.s) ;
         _Bang bang atom                 = ss (bang.s ++ atom.s) ;
         _Conj pos1 conj pos2            = ss (pos1.s ++ conj.s ++ pos2.s) ;
+        _Unit neg                       = ss (neg.s) ;
+        _MPos pos1 pos2                 = ss (pos1.s ++ pos2.s) ;
         
         -- Neg
-        _Pi _ neg                       = ss (neg.s) ;
-        _Lolli pos lolli neg            = ss ("(" ++ pos.s ++ ")" ++ lolli.s ++ neg.s) ;
+        _Pi arg                         = ss ("Pi" ++ arg.s ++ ":" ++ ("nat" | "list" | "candidate") ++ ".") ;
+        _Lolli pos lolli neg            = ss (pos.s ++ lolli.s ++ neg.s) ;
         _Mon pos                        = ss ("{" ++ pos.s ++ "}") ;
         
         -- Atomic
@@ -117,8 +122,38 @@ The last things to examine are the positive and negative types and the atomics.
         Atom_Math mathf                 = ss (mathf.s) ;
 \end{lstgf}
 
-Like the \cf{\_Arg} in \refCode{04_02_C06}, the \cf{Atomic}s return the value of the \cf{Ident} or \cf{Math} it takes as a parameter. \cf{\_Atom} and \cf{Formular} work in the same way, though with different parameter types. \\
-\cf{\_Pi}, as described right after \refCode{04_01_C01}, is
+Like the \cf{\_Arg} in \refCode{04_02_C06}, the \cf{Atomic}s return the value of the \cf{Ident} or \cf{Math} it takes as a parameter. \cf{\_Atom}, \cf{\_Neg} and \cf{Formular} work in the same way, though with different parameter types. \cf{\_MPos} glues two positives together. This is necessary to attach the universal quantifiers to the rest of the formula.
+
+\cf{\_Pi} looks for a string that describes the universal quantification according to Celf's syntax (Pi x : t). It uses an argument as the x with the t being either "nat", "list" or "candidate". Originally, the idea was to use GF's variable bindings. They would allow the user to specify variables with certain meanings (like saying that "S" should be "a set of seats"), making it possible to define variables dynamically for each formula. However, due to a lack of time and lack of information about the variable bindings, this idea was scrapped and the variables were made static (hard-coded into the program with predefined values).
+
+\note{Some sort of ending}. \\
+The full concrete implementation can be found in appendix \ref{A_02}.
 
 \subsection{Concrete English implementation}
 \label{04_02_02}
+
+The concrete English implementation is similar in structure to the concrete linear logic implementation. The main difference is in how the strings are put together and we will therefore only examine a few parts of the code. The full implementation can be found in appendix \ref{A_03}.
+
+\lstCode{The universal quantification in the English implementation}{04_02_C10}
+\begin{lstgf}
+        -- Neg
+        --_Pi arg                         = ss (arg.s ++ "is" ++ ("a list" | "a set" | "a candidate")) ;
+        _Pi arg                         = ss ("") ;
+\end{lstgf}
+
+As stated adter \refCode{04_02_C09}, \cf{\_Pi} does not work the way originally intended. It was therefore decided that, to avoid a huge mess, the lineariation of \cf{\_Pi} should not print anything.
+
+\lstCode{\cf{Ident}s and \cf{Arg}s}{04_02_C11}
+\begin{lstgf}
+        -- Ident
+        Ident_Hopeful c n s h u q l m w
+            = ss ("there is a hopeful" ++ c.s ++ " with" ++ n.s) ;
+
+        -- Arg
+        Arg_C                           = ss ("candidate (C)") ;
+        Arg_N                           = ss ("a set of counted ballots (N)") ;
+\end{lstgf}
+
+Both \cf{Ident}s and \cf{Arg}s have been given predefined values in the English implementation. This can be done, as each \cf{Ident} and \cf{Arg} mean something specific in relation to the voting protocols. Each \cf{Ident} has a certain meaning, where the \cf{Arg}s are used to specify what the sentence talks about. Likewise, each \cf{Arg} has a certain meaning, which can either be about something specific (such as a candidate) or something that can be one or more things. The latter is referred to as "a set of things", as that can indicate both plural and singular values. \\
+\note{More interesting?}\\
+\note{Some sort of ending.}

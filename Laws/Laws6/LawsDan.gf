@@ -92,18 +92,4 @@ concrete LawsDan of Laws = open SharedOpers in {
         Equal                           = ss ("er lig med") ;
         LessEqual                       = ss ("er mindre end eller lig med") ;
         Less                            = ss ("er mindre end") ;
-
-    oper
-        -- Takes care of the plural version of words
-        regNoun : Str -> {s : Number => Str} = \w -> 
-            let 
-                ws : Str = case w of {
-                ("tal" | "liste" | "kandidat") + _  => w ;
-                _ + "e"                             => w + "r" ;
-                _ + ("d" | "r")                     => w + "e" ;
-                x + "del"                           => x + "dler" ;
-                _                                   => w + "er"
-                } 
-            in 
-            mkNoun w ws ;
 }
