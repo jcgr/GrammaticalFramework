@@ -1,7 +1,7 @@
 concrete LawsEng of Laws = open SharedOpers in {
 
     lincat
-        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Arg, ArgColl, Conj, Pi, Math, MathFormula, ArithmeticOperation, InequalityOperation = {s : Str} ;
+        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Arg, ArgColl, Conj, Math, MathFormula, ArithmeticOperation, InequalityOperation = {s : Str} ;
 
     lin
         -- Logic
@@ -42,7 +42,7 @@ concrete LawsEng of Laws = open SharedOpers in {
         Ident_DefeatMin c n s h u q l m w
             = ss ("we are in the first step of determining which candidate has the fewest votes and there is" ++ s.s ++ "open, " ++ h.s ++ ", and" ++ m.s ++ "remaining") ;
         Ident_DefeatMin' c n s h u q l m w
-            = ss ("defeat-min'" ++ s.s ++ h.s ++ m.s) ;
+            = ss ("we are in the second step of determining which candidate has the fewest votes and there is" ++ s.s ++ "open, " ++ h.s ++ ", and" ++ m.s ++ "remaining") ;
         Ident_Transfer c n s h u q l m w
             = ss ("we are in the second step of determining which candidate has the fewest votes and there is" ++ s.s ++ "open, " ++ h.s ++ ", and" ++ m.s ++ "remaining") ;
         Ident_Uncounted c n s h u q l m w
@@ -56,9 +56,9 @@ concrete LawsEng of Laws = open SharedOpers in {
 
         -- Arg
         Arg_C                           = ss ("candidate (C)") ;
-        Arg_C'                          = ss ("another candidate (C')") ;
+        Arg_C'                          = ss ("second candidate (C')") ;
         Arg_N                           = ss ("a set of counted ballots (N)") ;
-        Arg_N'                          = ss ("another set of counted ballots (N)") ;
+        Arg_N'                          = ss ("a modified set of counted ballots (N)") ;
         Arg_S                           = ss ("a set of seats (S)") ;
         Arg_H                           = ss ("a set of hopeful candidates (H)") ;
         Arg_U                           = ss ("a set of uncounted ballots (U)") ;
