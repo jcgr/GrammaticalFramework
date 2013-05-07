@@ -1,7 +1,7 @@
 concrete LawsLin of Laws = open SharedOpers in {
 
     lincat
-        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Arg, ArgColl, Conj, Pi, Math, MathFormula, ArithmeticOperation, InequalityOperation = {s : Str} ;
+        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Arg, ArgColl, Conj, Math, MathFormula, ArithmeticOperation, InequalityOperation = {s : Str} ;
 
     lin
         -- Logic

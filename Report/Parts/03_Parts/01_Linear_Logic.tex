@@ -107,10 +107,10 @@ The connectives are not the only things in linear logic. It is also possible to 
 \end{texto}
 Using the Celf syntax, we can translate a formula written in linear logic into something a computer can read more easily. The example from section \ref{02_01} therefore becomes:
 \begin{texto}
-	\formula{( tally-votes S H U * \\
+	\formula{tally-votes S H U * \\
 	uncounted-ballot C L * \\
 	hopeful C N * \\
-	!quota Q * !nat-lesseq Q (p ! N) )\\
+	!quota Q * !nat-lesseq Q (p ! N)\\
 	\hspace{10pt}-o \{ counted-ballot C L * \\
 	\hspace{30pt}!elected C * \\
 	\hspace{30pt}tally-votes (s ! S) (s ! H) (s ! U) \} }

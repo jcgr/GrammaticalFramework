@@ -1,0 +1,30 @@
+\section{Running the Program}
+\label{04_02}
+
+With the program written, all that is left is to test it. To do that, I decided to use three formulas, as they gave a nice spread of the functions and arguments. The formulas I chose were GF:count/2, GF:count/4\_1 and GF:defeat-min'/1. \note{Reference to where they have been acquired from.}
+
+We start with GF:count/2. \note{Make sure it's like the one from the example}
+\begin{texto}
+\formula{GF:count/2 \\
+LawsLin: Pi C : nat . Pi H : nat . Pi L : nat . Pi N : nat . Pi Q : nat . Pi S : nat . Pi U : nat . Pi W : nat . tally-votes ( s ! ( s ! S ) ) ( s ! H ) ( s ! U ) * uncounted-ballot C L * hopeful C N * !quota Q * !nat-lesseq Q ( s ! N ) * winners W -o \{ counted-ballot C L * !elected C * winners ( cons ! C ! W ) * tally-votes ( s ! S ) H U \} }
+\end{texto}
+\begin{texto}
+\formula{LawsEng: if [ we are tallying votes and there is a set of seats (S) minus 1 minus 1 open, a set of hopeful candidates (H) minus 1 , and a set of uncounted ballots (U) minus 1 cast ] and [ there is an uncounted ballot with highest preference for a certain candidate (C) with a list (L) lower preferences ] and [ there is a hopeful candidate (C) with a set of counted ballots (N) ] and [ a set of votes (Q) are needed to be elected ] and [ the amount of a set of votes (Q) is less than or equal to the amount of a set of counted ballots (N) minus 1 ] and [ the candidates in a list of winners (W) have been elected thus far ] then \{ [ there is a counted ballot with highest preference for a certain candidate (C) with a list (L) lower preferences ] and [ candidate (C) has been (and will remain) elected ] and [ the candidates in list containing candidate (C) and a list of winners (W) have been elected thus far ] and [ we are tallying votes and there is a set of seats (S) minus 1 open, a set of hopeful candidates (H) , and a set of uncounted ballots (U) cast ] \} }
+\end{texto}
+\note{Something about the results.}
+
+\begin{texto}
+\formula{GF:count/4\_1 \\
+LawsLin: Pi C : nat . Pi C' : nat . Pi H : nat . Pi L : nat . Pi S : nat . Pi U : nat . tally-votes S H U * uncounted-ballot C ( cons ! C' ! L ) * !elected C -o \{ uncounted-ballot C' L * tally-votes S H U \} }
+\end{texto}
+\begin{texto}
+\formula{LawsEng: if [ we are tallying votes and there is a set of seats (S) open, a set of hopeful candidates (H) , and a set of uncounted ballots (U) cast ] and [ there is an uncounted ballot with highest preference for a certain candidate (C) with list containing second candidate (C') and a list (L) lower preferences ] and [ candidate (C) has been (and will remain) elected ] then \{ [ there is an uncounted ballot with highest preference for a certain second candidate (C') with a list (L) lower preferences ] and [ we are tallying votes and there is a set of seats (S) open, a set of hopeful candidates (H) , and a set of uncounted ballots (U) cast ] \} }
+\end{texto}
+
+\begin{texto}
+\formula{GF:defeat-min'/1 \\
+LawsLin: Pi C : nat . Pi C' : nat . Pi H : nat . Pi M : nat . Pi N : nat . Pi N' : nat . Pi S : nat . defeat-min' S H ( s ! M ) * minimum C N * minimum C' N' * !nat-less N N' -o \{ minimum C N * hopeful C' N' * defeat-min' S ( s ! H ) M \} }
+\end{texto}
+\begin{texto}
+\formula{LawsEng: if [ we are in the second step of determining which candidate has the fewest votes and there is a set of seats (S) open, a set of hopeful candidates (H) , and a set of potential minimums (M) minus 1 remaining ] and [ candidate (C) 's count of a set of counted ballots (N) is a potential minimum ] and [ second candidate (C') 's count of a modified set of counted ballots (N) is a potential minimum ] and [ the amount of a set of counted ballots (N) is less than the amount of a modified set of counted ballots (N) ] then \{ [ candidate (C) 's count of a set of counted ballots (N) is a potential minimum ] and [ there is a hopeful second candidate (C') with a modified set of counted ballots (N) ] and [ we are in the second step of determining which candidate has the fewest votes and there is a set of seats (S) open, a set of hopeful candidates (H) minus 1 , and a set of potential minimums (M) remaining ] \} }
+\end{texto}
