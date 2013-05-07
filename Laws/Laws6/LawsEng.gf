@@ -40,9 +40,11 @@ concrete LawsEng of Laws = open SharedOpers in {
         Ident_Minimum c n s h u q l m w
             = ss (c.s ++ "'s count of" ++ n.s ++ "is a potential minimum") ;
         Ident_DefeatMin c n s h u q l m w
-            = ss ("we are determining which candidate has the fewest votes and there is" ++ s.s ++ "open, " ++ h.s ++ ", and" ++ m.s ++ "remaining") ;
+            = ss ("we are in the first step of determining which candidate has the fewest votes and there is" ++ s.s ++ "open, " ++ h.s ++ ", and" ++ m.s ++ "remaining") ;
+        Ident_DefeatMin' c n s h u q l m w
+            = ss ("defeat-min'" ++ s.s ++ h.s ++ m.s) ;
         Ident_Transfer c n s h u q l m w
-            = ss ("the defeated" ++ c.s ++"'s remaining" ++ n.s ++ "are being transferred and there is" ++ s.s ++ "open, " ++ h.s ++ ", and" ++ u.s) ;
+            = ss ("we are in the second step of determining which candidate has the fewest votes and there is" ++ s.s ++ "open, " ++ h.s ++ ", and" ++ m.s ++ "remaining") ;
         Ident_Uncounted c n s h u q l m w
             = ss ("there is an uncounted ballot with highest preference for a certain" ++ c.s ++ "with" ++ l.s ++ " lower preferences") ;
         Ident_Counted c n s h u q l m w
@@ -54,7 +56,9 @@ concrete LawsEng of Laws = open SharedOpers in {
 
         -- Arg
         Arg_C                           = ss ("candidate (C)") ;
+        Arg_C'                          = ss ("another candidate (C')") ;
         Arg_N                           = ss ("a set of counted ballots (N)") ;
+        Arg_N'                          = ss ("another set of counted ballots (N)") ;
         Arg_S                           = ss ("a set of seats (S)") ;
         Arg_H                           = ss ("a set of hopeful candidates (H)") ;
         Arg_U                           = ss ("a set of uncounted ballots (U)") ;
@@ -92,20 +96,4 @@ concrete LawsEng of Laws = open SharedOpers in {
         Equal                           = ss ("is equal to") ;
         LessEqual                       = ss ("is less than or equal to") ;
         Less                            = ss ("is less than") ;
-
-    oper
-        -- Takes care of the plural version of words
-        regNoun : Str -> {s : Number => Str} = \w -> 
-            let 
-                ws : Str = case w of {
-                ("number" | "list" | "candidate") + _   => w ;
-                _ + ("a" | "e" | "i" | "o") + "o"       => w + "s" ;
-                _ + ("s" | "x" | "sh" | "o")            => w + "es" ;
-                _ + "z"                                 => w + "zes" ; 
-                _ + ("a" | "e" | "o" | "u") + "y"       => w + "s" ;
-                x + "y"                                 => x + "ies" ;
-                _                                       => w + "s"
-                } 
-            in 
-            mkNoun w ws ;
 }

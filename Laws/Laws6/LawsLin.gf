@@ -40,6 +40,8 @@ concrete LawsLin of Laws = open SharedOpers in {
             = ss ("minimum" ++ c.s ++ n.s) ;
         Ident_DefeatMin c n s h u q l m w
             = ss ("defeat-min" ++ s.s ++ h.s ++ m.s) ;
+        Ident_DefeatMin' c n s h u q l m w
+            = ss ("defeat-min'" ++ s.s ++ h.s ++ m.s) ;
         Ident_Transfer c n s h u q l m w
             = ss ("transfer" ++ c.s ++ n.s ++ s.s ++ h.s ++ u.s) ;
         Ident_Uncounted c n s h u q l m w
@@ -53,7 +55,9 @@ concrete LawsLin of Laws = open SharedOpers in {
 
         -- Arg
         Arg_C                           = ss ("C") ;
+        Arg_C'                          = ss ("C'") ;
         Arg_N                           = ss ("N") ;
+        Arg_N'                          = ss ("N'") ;
         Arg_S                           = ss ("S") ;
         Arg_H                           = ss ("H") ;
         Arg_U                           = ss ("U") ;

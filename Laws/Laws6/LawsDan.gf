@@ -40,7 +40,9 @@ concrete LawsDan of Laws = open SharedOpers in {
         Ident_Minimum c n s h u q l m w
             = ss (c.s ++ "s mængde af " ++ n.s ++ " er et potentielt minimum") ;
         Ident_DefeatMin c n s h u q l m w
-            = ss ("vi er ved at finde kandidaten med færrest stemmer og der er" ++ s.s ++ "open, " ++ h.s ++ ", og" ++ m.s ++ "tilbage") ;
+            = ss ("vi er på første skridt af at finde kandidaten med færrest stemmer og der er" ++ s.s ++ "open, " ++ h.s ++ ", og" ++ m.s ++ "tilbage") ;
+        Ident_DefeatMin' c n s h u q l m w
+            = ss ("vi er på andet skridt af at finde kandidaten med færrest stemmer og der er" ++ s.s ++ "open, " ++ h.s ++ ", og" ++ m.s ++ "tilbage") ;
         Ident_Transfer c n s h u q l m w
             = ss ("den besejret" ++ c.s ++" tilbageværende" ++ n.s ++ "bliver overflyttet og der er" ++ s.s ++ "åbne, " ++ h.s ++ ", og" ++ u.s) ;
         Ident_Uncounted c n s h u q l m w
@@ -54,7 +56,9 @@ concrete LawsDan of Laws = open SharedOpers in {
 
         -- Arg
         Arg_C                           = ss ("kandidat (C)") ;
+        Arg_C'                          = ss ("en anden kandidat (C')") ;
         Arg_N                           = ss ("et sæt af talte stemmeseddeler (N)") ;
+        Arg_N'                          = ss ("et andet sæt af talte stemmeseddeler (N)") ;
         Arg_S                           = ss ("et sæt af sæder (S)") ;
         Arg_H                           = ss ("et sæt af forhåbningsfulde (H)") ;
         Arg_U                           = ss ("et sæt af utalte stemmeseddeler (U)") ;
@@ -92,18 +96,4 @@ concrete LawsDan of Laws = open SharedOpers in {
         Equal                           = ss ("er lig med") ;
         LessEqual                       = ss ("er mindre end eller lig med") ;
         Less                            = ss ("er mindre end") ;
-
-    oper
-        -- Takes care of the plural version of words
-        regNoun : Str -> {s : Number => Str} = \w -> 
-            let 
-                ws : Str = case w of {
-                ("tal" | "liste" | "kandidat") + _  => w ;
-                _ + "e"                             => w + "r" ;
-                _ + ("d" | "r")                     => w + "e" ;
-                x + "del"                           => x + "dler" ;
-                _                                   => w + "er"
-                } 
-            in 
-            mkNoun w ws ;
 }
