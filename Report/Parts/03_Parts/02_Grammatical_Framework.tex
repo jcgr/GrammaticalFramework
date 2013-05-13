@@ -7,6 +7,9 @@ Grammatical Framework (GF) is an open-source multilingual programming language. 
 
 A GF program consists of an abstract module and one or more concrete modules. The abstract module defines what meanings can be interpreted and parsed by the grammar. The concrete module maps the abstract meanings to strings, thereby forming complete sentences.
 
+\subsection{The abstract module}
+\label{03_02_01}
+
 The abstract module contains category declarations (\cf{cat}) and function declarations (\cf{fun}). The \cf{cat} list the different categories (meanings) used in the language, where the \cf{fun} dictates how the categories fit together to create meaning-building functions. The abstract syntax furthermore has a \cf{flag startcat} that indicates what category the program should start with. 
 
 \lstCode{A simple abstract syntax.}{03_02_C01}
@@ -25,8 +28,10 @@ abstract AbstractLinearLogic = {
 
 In the abstract syntax shown in \refCode{03_02_C01}, there are three categories: \cf{Formula}, \cf{Connective} and \cf{Ident}. Furthermore, there are three functions. The first function says that \cf{\_VoteCard} and \cf{\_BlankBallot} are of the type \cf{Ident}. The second function says that \cf{\_Lolli} is of the type \cf{Connective}. The last function says that \cf{\_Formula} takes three arguments (an \cf{Ident}, a \cf{Connective} and an \cf{Ident}) and returns something of the type \cf{Formula}.
 
-The concrete module contains linearization type definitions (\cf{lincat}) and linearization definitions
-(\cf{lin}). The \cf{lincat} determines the type of object for each category in the abstract syntax and the \cf{lin} determines what value is assigned to each abstract meaning. 
+\subsection{The concrete module}
+\label{03_02_02}
+
+The concrete module contains linearization type definitions (\cf{lincat}) and linearization definitions (\cf{lin}). The \cf{lincat} determines the type of object for each category in the abstract syntax and the \cf{lin} determines what value is assigned to each abstract meaning. 
 
 When the program parses a language, it will look for the values being held by the meanings and translate each into the abstract syntax. This abstract syntax forms an abstract syntax tree. The program can then turn the abstract syntax tree into any language supported by concrete implementations.
 
@@ -62,6 +67,9 @@ concrete ConcreteEnglish of AbstractLinearLogic = {
 With another concrete implementation (such as the English one in \refCode{03_02_C03}), the program will be able to translate sentences from one language into the other, as long as the sentences adhere to the structure set by the abstract syntax. Or in this case, translate linear logic into English or the other way around.
 
 Using the modules above, one would be able to translate "voting-auth-card -o \{ blank-ballot \}" into "if i give an authorization card then i get a blank ballot".
+
+\subsection{Operations}
+\label{03_02_03}
 
 Some thing may happen a lot of times in a concrete implementation (such as concatenating two strings). GF can make this easier through operations (\cf{oper}), also known as functions in other programming languages. 
 
@@ -106,6 +114,9 @@ concrete HelloEng of AbstractLinearLogic = open StringOper in {
 }
 \end{lstgf}
 
+\subsection{Parameters}
+\label{03_02_04}
+
 Looking back at line 8 in \refCode{03_02_C03}, \cf{\_VoteCard} and \cf{\_BlankBallot} only exist in singular version. Suppose we want to be able to use the plural version of them, we could do two things: We could make a \cf{\_VoteCardSg} and a \cf{\_VoteCardPl} that holds the singular and plural version respectively. Or we could use parameters to choose.
 
 A parameter consists of the parameter's name and its values, seperated by a horizonal line. Parameters can be added to either a resource module (by which the implementations using the resource module have access to it) or to a concrete implementation (limiting the parameter to that implementation).
@@ -146,4 +157,6 @@ lin
     FormulaPl i1 c i2 = {s = "if i give" ++ i1.s ! Pl ++ c.s ++ "i get" ++ i2.s ! Pl} ;
 \end{lstgf}
 
-\note{Need some sort of ending here.}
+\subsection{Dependent types and variable bindings}
+\label{03_02_05}
+
