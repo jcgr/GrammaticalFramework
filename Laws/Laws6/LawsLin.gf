@@ -21,7 +21,7 @@ concrete LawsLin of Laws = open SharedOpers in {
         
         -- Atomic
         Atom_Ident ident                = ss (ident.s) ;
-        Atom_Math mathf                 = ss (mathf.s) ;
+        Atom_Arg arg                    = ss (arg.s) ;
 
         -- Ident
         Ident_Hopeful c n s h u q l m w
