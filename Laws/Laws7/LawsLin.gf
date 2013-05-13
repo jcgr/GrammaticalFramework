@@ -1,7 +1,7 @@
 concrete LawsLin of Laws = open Prelude in {
 
     lincat
-        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Arg, Conj, Math, MathFormula, ArithmeticOperation, InequalityOperation, El = SS ;
+        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Arg, ArgType, Conj, Math, MathFormula, ArithmeticOperation, InequalityOperation, El = SS ;
 
     lin
         -- Logic
@@ -19,11 +19,11 @@ concrete LawsLin of Laws = open Prelude in {
         _Lolli pos lolli neg            = ss (pos.s ++ lolli.s ++ neg.s) ;
         _Mon pos                        = ss ("{" ++ pos.s ++ "}") ;
         
-        -- Atomic
+        -- Atomics
         Atom_Ident ident                = ss (ident.s) ;
         Atom_Math math                  = ss (math.s) ;
 
-        -- Ident
+        -- Identifiers
         Ident_Uncounted a b             = ss ("uncounted-ballot" ++ a.s ++ b.s) ;
         Ident_Counted a b               = ss ("counted-ballot" ++ a.s ++ b.s) ;
         Ident_Hopeful a b               = ss ("hopeful" ++ a.s ++ b.s) ;
@@ -39,7 +39,7 @@ concrete LawsLin of Laws = open Prelude in {
         Ident_DefeatMin' a b c          = ss ("defeat-min'" ++ a.s ++ b.s ++ c.s) ;
         Ident_Minimum a b               = ss ("minimum" ++ a.s ++ b.s) ;
         Ident_Transfer a b c d e        = ss ("transfer" ++ a.s ++ b.s ++ c.s ++ d.s ++ e.s) ;
-        Ident_Empty a                   = ss (a.s) ; -- Necessary for the unit 1
+        Ident_UnitOne                   = ss ("1") ;
 
         -- Arguments
         _Arg A a                        = ss (a.s) ;

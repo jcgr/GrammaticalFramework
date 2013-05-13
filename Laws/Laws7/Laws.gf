@@ -3,7 +3,7 @@ abstract Laws = {
     flags startcat = Logic ;
 
     cat
-        Logic ; Prod ; Neg ; Pos ; Lolli ; Bang ; Atomic ; Ident ; Arg ; Conj ; Math ; MathFormula ; ArithmeticOperation ; InequalityOperation ; El Neg ;
+        Logic ; Prod ; Neg ; Pos ; Lolli ; Bang ; Atomic ; Ident ; Arg ; ArgType ; Conj ; Math ; MathFormula ; ArithmeticOperation ; InequalityOperation ; El ArgType ;
 
     fun
         Formular : Neg -> Logic ;
@@ -16,11 +16,11 @@ abstract Laws = {
         _MPos : Pos -> Pos -> Pos ;
 
         -- Neggative types
-        _Pi : (A : Neg) -> (El A -> Neg) -> Neg ;
+        _Pi : (A : ArgType) -> (El A -> Neg) -> Neg ;
         _Lolli : Pos -> Lolli -> Neg -> Neg ;
         _Mon : Pos -> Neg ;
 
-        -- Atomic
+        -- Atomics
         Atom_Ident : Ident -> Atomic ;
         Atom_Math : MathFormula -> Atomic ;
 
@@ -40,17 +40,17 @@ abstract Laws = {
         Ident_DefeatMin' : Arg -> Arg -> Arg -> Ident ;
         Ident_Minimum : Arg -> Arg -> Ident ;
         Ident_Transfer : Arg -> Arg -> Arg -> Arg -> Arg -> Ident ;
-        Ident_Empty : Arg -> Ident ;
+        Ident_UnitOne : Ident ;
 
         -- Arguments
-        _Arg : (A : Neg) -> (a : El A) -> Arg ;
+        _Arg : (A : ArgType) -> (a : El A) -> Arg ;
         _ArgNil, _ArgZ, _Arg1 : Arg ;
         _ArgMinus, _ArgPlus : Arg -> Arg ;
         _ArgList : Arg -> Arg -> Arg ;
         _ArgEmptyList : Arg ;
 
         -- Argument types
-        _Nat, _Candidate, _List : Neg ;
+        _Nat, _Candidate, _List : ArgType ;
 
         -- Connectives
         _Conj2 : Conj ;

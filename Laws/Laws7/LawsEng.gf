@@ -1,29 +1,29 @@
 concrete LawsEng of Laws = open Prelude in {
 
     lincat
-        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Arg, Conj, Math, MathFormula, ArithmeticOperation, InequalityOperation, El = SS ;
+        Logic, Prod, Neg, Pos, Lolli, Bang, Atomic, Ident, Arg, ArgType, Conj, Math, MathFormula, ArithmeticOperation, InequalityOperation, El = SS ;
 
     lin
         -- Logic
         Formular neg                    = ss (neg.s) ;
         
-        -- Pos
+        -- Positive types
         _Atom atom                      = ss (atom.s) ;
         _Bang bang atom                 = ss (atom.s ++ bang.s) ;
         _Conj pos1 conj pos2            = ss (pos1.s ++ conj.s ++ pos2.s) ;
         _Unit neg                       = ss (neg.s) ;
         _MPos pos1 pos2                 = ss (pos1.s ++ pos2.s) ;
         
-        -- Neg
+        -- Negative types
         _Pi A B                         = ss (B.$0 ++ "is a" ++ A.s ++ "." ++ B.s ) ;
         _Lolli pos lolli neg            = ss ("If" ++ pos.s ++ lolli.s ++ neg.s) ;
         _Mon pos                        = ss ("{" ++ pos.s ++ "}") ;
         
-        -- Atomic
+        -- Atomics
         Atom_Ident ident                = ss (ident.s) ;
         Atom_Math math                  = ss (math.s) ;
 
-        -- Ident
+        -- Identifiers
         Ident_Uncounted a b
             = ss ("there is an uncounted ballot with highest preference for candidate" ++ a.s ++ "with a list" ++ b.s ++ "of lower preferences") ;
         Ident_Counted a b
@@ -54,7 +54,8 @@ concrete LawsEng of Laws = open Prelude in {
             = ss ("candidate" ++ a.s ++ "'s with a count of" ++ b.s ++ "votes is a potential minimum") ;
         Ident_Transfer a b c d e
             = ss ("the newly defeated candidate" ++ a.s ++"'s" ++ b.s ++ "votes are being tranferred and there are" ++ c.s ++ "open seats," ++ d.s ++ "hopeful candidates and" ++ e.s ++ "uncounted ballots") ;
-        Ident_Empty a                   = ss (a.s) ; -- Necessary for the unit 1
+        Ident_UnitOne                   
+            = ss ("1") ;
 
         -- Arguments
         _Arg A a                        = ss (a.s) ;
