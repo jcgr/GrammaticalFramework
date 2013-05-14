@@ -21,17 +21,18 @@
 \contentsline {subsection}{\numberline {3.2.1}The abstract module}{8}{subsection.3.2.1}
 \contentsline {subsection}{\numberline {3.2.2}The concrete module}{8}{subsection.3.2.2}
 \contentsline {subsection}{\numberline {3.2.3}Operations}{9}{subsection.3.2.3}
-\contentsline {subsection}{\numberline {3.2.4}Parameters}{10}{subsection.3.2.4}
+\contentsline {subsection}{\numberline {3.2.4}Dependent types and variable bindings}{10}{subsection.3.2.4}
 \contentsline {chapter}{\numberline {4}Implementation}{12}{chapter.4}
 \contentsline {section}{\numberline {4.1}Constructing the Abstract Syntax}{12}{section.4.1}
-\contentsline {section}{\numberline {4.2}Constructing the Concrete Implementation}{15}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Concrete linear logic implementation}{15}{subsection.4.2.1}
+\contentsline {section}{\numberline {4.2}Constructing the Concrete Implementation}{16}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Concrete linear logic implementation}{16}{subsection.4.2.1}
 \contentsline {subsection}{\numberline {4.2.2}Concrete English implementation}{18}{subsection.4.2.2}
-\contentsline {section}{\numberline {4.3}Running the Program}{19}{section.4.3}
-\contentsline {chapter}{\numberline {5}Conclusion}{20}{chapter.5}
-\contentsline {chapter}{Appendices}{21}{section*.3}
+\contentsline {section}{\numberline {4.3}Running the Program}{20}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}The example}{20}{subsection.4.3.1}
+\contentsline {chapter}{\numberline {5}Conclusion}{21}{chapter.5}
+\contentsline {chapter}{Appendices}{22}{section*.3}
 \save@tocdepth \setcounter {tocdepth}{0}
-\contentsline {chapter}{\numberline {A}Abstract Implementation}{23}{appendix.A}
-\contentsline {chapter}{\numberline {B}Concrete Linear Logic Implementation}{24}{appendix.B}
-\contentsline {chapter}{\numberline {C}Concrete English Implementation}{26}{appendix.C}
+\contentsline {chapter}{\numberline {A}Abstract Implementation}{24}{appendix.A}
+\contentsline {chapter}{\numberline {B}Concrete Linear Logic Implementation}{26}{appendix.B}
+\contentsline {chapter}{\numberline {C}Concrete English Implementation}{28}{appendix.C}
 \contentsfinish 
