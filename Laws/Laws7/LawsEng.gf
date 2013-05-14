@@ -64,6 +64,8 @@ concrete LawsEng of Laws = open Prelude in {
             = ss ( "candidate" ++ a.s ++ "'s with a count of" ++ b.s ++ "votes is a potential minimum" ) ;
         Ident_Transfer a b c d e
             = ss ( "the newly defeated candidate" ++ a.s ++"'s" ++ b.s ++ "votes are being tranferred and there are" ++ c.s ++ "open seats," ++ d.s ++ "hopeful candidates and" ++ e.s ++ "uncounted votes" ) ;
+        Ident_Run a b c
+            = ss ( "run" ++ a.s ++ b.s ++ c.s ) ;
         Ident_UnitOne                   
             = ss ( "1" ) ;
 

@@ -5,86 +5,163 @@ i LawsLin.gf LawsEng.gf LawsDan.gf
 GF:count/1: 
 Pi C : candidate . Pi H : nat . Pi L : list . Pi N : nat . Pi Q : nat . Pi S : nat . Pi U : nat . count-ballots S H ( s ! U ) * uncounted-ballot C L * hopeful C N * !quota Q * !nat-less ( s ! N ) Q -o { counted-ballot C L * hopeful C ( s ! N ) * count-ballots S H U }
 
+LawsEng: C is a candidate . H is a natural number . L is a list . N is a natural number . Q is a natural number . S is a natural number . U is a natural number . If we are counting votes and there are S seats open, H hopefuls, and ( U minus 1 ) uncounted votes in play , and there is an uncounted vote with highest preference for candidate C with a list L of lower preferences , and candidate C is a hopeful with N votes , and Q votes are needed to be elected , and ( ( N minus 1 ) is less than Q ) then { there is a counted vote with highest preference for candidate C with a list L of lower preferences , and candidate C is a hopeful with ( N minus 1 ) votes , and we are counting votes and there are S seats open, H hopefuls, and U uncounted votes in play }
+LawsLin: Pi C : candidate . Pi H : nat . Pi L : list . Pi N : nat . Pi Q : nat . Pi S : nat . Pi U : nat . count-ballots S H ( s ! U ) * uncounted-ballot C L * hopeful C N * !quota Q * !nat-less ( s ! N ) Q -o { counted-ballot C L * hopeful C ( s ! N ) * count-ballots S H U }
+
+
 GF:count/2:
 Pi C : candidate . Pi H : nat . Pi L : list . Pi N : nat . Pi Q : nat . Pi S : nat . Pi U : nat . Pi W : list . count-ballots ( s ! ( s ! S ) ) ( s ! H ) ( s ! U ) * uncounted-ballot C L * hopeful C N * !quota Q * !nat-lesseq Q ( s ! N ) * winners W -o { counted-ballot C L * !elected C * winners ( cons ! C ! W ) * count-ballots ( s ! S ) H U }
 
-Laws: Formular (_Pi _Candidate (\C -> _Pi _Nat (\H -> _Pi _List (\L -> _Pi _Nat (\N -> _Pi _Nat (\Q -> _Pi _Nat (\S -> _Pi _Nat (\U -> _Pi _List (\W -> _Lolli (_Conj (_Conj (_Conj (_Conj (_Conj (_Atom (Atom_Ident (Ident_Count (_ArgMinus (_ArgMinus (_Arg _Nat S))) (_ArgMinus (_Arg _Nat H)) (_ArgMinus (_Arg _Nat U))))) _Conj2 (_Atom (Atom_Ident (Ident_Uncounted (_Arg _Candidate C) (_Arg _List L))))) _Conj2 (_Atom (Atom_Ident (Ident_Hopeful (_Arg _Candidate C) (_Arg _Nat N))))) _Conj2 (_Atom (Atom_Ident (Ident_Quota (_Arg _Nat Q))))) _Conj2 (_Atom (Atom_Math (_FinalFormula (_MathArg (_Arg _Nat Q)) _LessEqual (_MathArg (_ArgMinus (_Arg _Nat N))))))) _Conj2 (_Atom (Atom_Ident (Ident_Winners (_Arg _List W))))) _Lolli2 (_Mon (_Conj (_Conj (_Conj (_Atom (Atom_Ident (Ident_Counted (_Arg _Candidate C) (_Arg _List L)))) _Conj2 (_Atom (Atom_Ident (Ident_Elected (_Arg _Candidate C))))) _Conj2 (_Atom (Atom_Ident (Ident_Winners (_ArgList (_Arg _Candidate C) (_Arg _List W)))))) _Conj2 (_Atom (Atom_Ident (Ident_Count (_ArgMinus (_Arg _Nat S)) (_Arg _Nat H) (_Arg _Nat U)))))))))))))))
-LawsEng: C is a candidate . H is a natural number . L is a list . N is a natural number . Q is a natural number . S is a natural number . U is a natural number . W is a list . If we are counting votes and there are ( ( S minus 1 ) minus 1 ) seats open, ( H minus 1 ) hopefuls, and ( U minus 1 ) uncounted ballots cast , and there is an uncounted ballot with highest preference for candidate C with a list L of lower preferences , and there is a hopeful candidate C with N counted ballots , and Q votes are needed to be elected , and ( Q is less than or equal to ( N minus 1 ) ) , and the candidates in the list W have been elected so far then { there is a counted ballot with highest preference for candidate C with a list L of lower preferences , and candidate C has been, and will remain, elected , and the candidates in the list consisting of C and W have been elected so far , and we are counting votes and there are ( S minus 1 ) seats open, H hopefuls, and U uncounted ballots cast }
+LawsEng: C is a candidate . H is a natural number . L is a list . N is a natural number . Q is a natural number . S is a natural number . U is a natural number . W is a list . If we are counting votes and there are ( ( S minus 1 ) minus 1 ) seats open, ( H minus 1 ) hopefuls, and ( U minus 1 ) uncounted votes in play , and there is an uncounted vote with highest preference for candidate C with a list L of lower preferences , and candidate C is a hopeful with N votes , and Q votes are needed to be elected , and ( Q is less than or equal to ( N minus 1 ) ) , and the candidates in the list W have been elected so far then { there is a counted vote with highest preference for candidate C with a list L of lower preferences , and candidate C has been elected , and the candidates in the list consisting of C and W have been elected so far , and we are counting votes and there are ( S minus 1 ) seats open, H hopefuls, and U uncounted votes in play }
 LawsLin: Pi C : candidate . Pi H : nat . Pi L : list . Pi N : nat . Pi Q : nat . Pi S : nat . Pi U : nat . Pi W : list . count-ballots ( s ! ( s ! S ) ) ( s ! H ) ( s ! U ) * uncounted-ballot C L * hopeful C N * !quota Q * !nat-lesseq Q ( s ! N ) * winners W -o { counted-ballot C L * !elected C * winners ( cons ! C ! W ) * count-ballots ( s ! S ) H U }
 
 
 GF:count/3: 
 Pi C : candidate . Pi H : nat . Pi L : list . Pi N : nat . Pi Q : nat . Pi U : nat . Pi W : list . count-ballots ( s ! z ) H U * uncounted-ballot C L * hopeful C N * !quota Q * !nat-lesseq Q ( s ! N ) * winners W -o { counted-ballot C L * !elected C * winners ( cons ! C ! W ) * !defeat-all }
 
+LawsEng: C is a candidate . H is a natural number . L is a list . N is a natural number . Q is a natural number . U is a natural number . W is a list . If we are counting votes and there are ( zero minus 1 ) seats open, H hopefuls, and U uncounted votes in play , and there is an uncounted vote with highest preference for candidate C with a list L of lower preferences , and candidate C is a hopeful with N votes , and Q votes are needed to be elected , and ( Q is less than or equal to ( N minus 1 ) ) , and the candidates in the list W have been elected so far then { there is a counted vote with highest preference for candidate C with a list L of lower preferences , and candidate C has been elected , and the candidates in the list consisting of C and W have been elected so far , and there are no open seats left }
+LawsLin: Pi C : candidate . Pi H : nat . Pi L : list . Pi N : nat . Pi Q : nat . Pi U : nat . Pi W : list . count-ballots ( s ! z ) H U * uncounted-ballot C L * hopeful C N * !quota Q * !nat-lesseq Q ( s ! N ) * winners W -o { counted-ballot C L * !elected C * winners ( cons ! C ! W ) * !defeat-all }
+
+
 GF:count/4_1: 
 Pi C : candidate . Pi C' : candidate . Pi H : nat . Pi L : list . Pi S : nat . Pi U : nat . count-ballots S H U * uncounted-ballot C ( cons ! C' ! L ) * !elected C -o { uncounted-ballot C' L * count-ballots S H U }
 
-Laws: Formular (_Pi _Candidate (\C -> _Pi _Candidate (\C' -> _Pi _Nat (\H -> _Pi _List (\L -> _Pi _Nat (\S -> _Pi _Nat (\U -> _Lolli (_Conj (_Conj (_Atom (Atom_Ident (Ident_Count (_Arg _Nat S) (_Arg _Nat H) (_Arg _Nat U)))) _Conj2 (_Atom (Atom_Ident (Ident_Uncounted (_Arg _Candidate C) (_ArgList (_Arg _Candidate C') (_Arg _List L)))))) _Conj2 (_Atom (Atom_Ident (Ident_Elected (_Arg _Candidate C))))) _Lolli2 (_Mon (_Conj (_Atom (Atom_Ident (Ident_Uncounted (_Arg _Candidate C') (_Arg _List L)))) _Conj2 (_Atom (Atom_Ident (Ident_Count (_Arg _Nat S) (_Arg _Nat H) (_Arg _Nat U)))))))))))))
-LawsEng: C is a candidate . C' is a candidate . H is a natural number . L is a list . S is a natural number . U is a natural number . If we are counting votes and there are S seats open, H hopefuls, and U uncounted ballots cast , and there is an uncounted ballot with highest preference for candidate C with a list consisting of C' and L of lower preferences , and candidate C has been, and will remain, elected then { there is an uncounted ballot with highest preference for candidate C' with a list L of lower preferences , and we are counting votes and there are S seats open, H hopefuls, and U uncounted ballots cast }
+LawsEng: C is a candidate . C' is a candidate . H is a natural number . L is a list . S is a natural number . U is a natural number . If we are counting votes and there are S seats open, H hopefuls, and U uncounted votes in play , and there is an uncounted vote with highest preference for candidate C with a list consisting of C' and L of lower preferences , and candidate C has been elected then { there is an uncounted vote with highest preference for candidate C' with a list L of lower preferences , and we are counting votes and there are S seats open, H hopefuls, and U uncounted votes in play }
 LawsLin: Pi C : candidate . Pi C' : candidate . Pi H : nat . Pi L : list . Pi S : nat . Pi U : nat . count-ballots S H U * uncounted-ballot C ( cons ! C' ! L ) * !elected C -o { uncounted-ballot C' L * count-ballots S H U }
 
 
 GF:count/4_2: 
 Pi C : candidate . Pi C' : candidate . Pi H : nat . Pi L : list . Pi S : nat . Pi U : nat . count-ballots S H U * uncounted-ballot C ( cons ! C' ! L ) * !defeated C -o { uncounted-ballot C' L * count-ballots S H U }
 
+LawsEng: C is a candidate . C' is a candidate . H is a natural number . L is a list . S is a natural number . U is a natural number . If we are counting votes and there are S seats open, H hopefuls, and U uncounted votes in play , and there is an uncounted vote with highest preference for candidate C with a list consisting of C' and L of lower preferences , and candidate C has been defeated then { there is an uncounted vote with highest preference for candidate C' with a list L of lower preferences , and we are counting votes and there are S seats open, H hopefuls, and U uncounted votes in play }
+LawsLin: Pi C : candidate . Pi C' : candidate . Pi H : nat . Pi L : list . Pi S : nat . Pi U : nat . count-ballots S H U * uncounted-ballot C ( cons ! C' ! L ) * !defeated C -o { uncounted-ballot C' L * count-ballots S H U }
+
+
 GF:count/5_1: 
 Pi C : candidate . Pi H : nat . Pi S : nat . Pi U : nat . count-ballots S H ( s ! U ) * uncounted-ballot C nil * !elected C -o { count-ballots S H U }
+
+LawsEng: C is a candidate . H is a natural number . S is a natural number . U is a natural number . If we are counting votes and there are S seats open, H hopefuls, and ( U minus 1 ) uncounted votes in play , and there is an uncounted vote with highest preference for candidate C with a list nil of lower preferences , and candidate C has been elected then { we are counting votes and there are S seats open, H hopefuls, and U uncounted votes in play }
+LawsLin: Pi C : candidate . Pi H : nat . Pi S : nat . Pi U : nat . count-ballots S H ( s ! U ) * uncounted-ballot C nil * !elected C -o { count-ballots S H U }
+
 
 GF:count/5_2: 
 Pi C : candidate . Pi H : nat . Pi S : nat . Pi U : nat . count-ballots S H ( s ! U ) * uncounted-ballot C nil * !defeated C -o { count-ballots S H U }
 
+LawsEng: C is a candidate . H is a natural number . S is a natural number . U is a natural number . If we are counting votes and there are S seats open, H hopefuls, and ( U minus 1 ) uncounted votes in play , and there is an uncounted vote with highest preference for candidate C with a list nil of lower preferences , and candidate C has been defeated then { we are counting votes and there are S seats open, H hopefuls, and U uncounted votes in play }
+LawsLin: Pi C : candidate . Pi H : nat . Pi S : nat . Pi U : nat . count-ballots S H ( s ! U ) * uncounted-ballot C nil * !defeated C -o { count-ballots S H U }
+
+
 GF:count/6: 
 Pi H : nat . Pi S : nat . count-ballots S H z -o { defeat-min S H z }
+
+LawsEng: H is a natural number . S is a natural number . If we are counting votes and there are S seats open, H hopefuls, and zero uncounted votes in play then { we are in the first stage of determining which candidate has the fewest votes and there are S seats open, H hopefuls, and zero potentiel minimums remaining }
+LawsLin: Pi H : nat . Pi S : nat . count-ballots S H z -o { defeat-min S H z }
+
 
 GF:defeat-min/1: 
 Pi C : candidate . Pi H : nat . Pi M : nat . Pi N : nat . Pi S : nat . defeat-min S ( s ! H ) M * hopeful C N -o { minimum C N * defeat-min S H ( s ! M ) }
 
+LawsEng: C is a candidate . H is a natural number . M is a natural number . N is a natural number . S is a natural number . If we are in the first stage of determining which candidate has the fewest votes and there are S seats open, ( H minus 1 ) hopefuls, and M potentiel minimums remaining , and candidate C is a hopeful with N votes then { candidate C 's with a count of N votes is a potential minimum , and we are in the first stage of determining which candidate has the fewest votes and there are S seats open, H hopefuls, and ( M minus 1 ) potentiel minimums remaining }
+LawsLin: Pi C : candidate . Pi H : nat . Pi M : nat . Pi N : nat . Pi S : nat . defeat-min S ( s ! H ) M * hopeful C N -o { minimum C N * defeat-min S H ( s ! M ) }
+
+
 GF:defeat-min/2: 
 Pi M : nat . Pi S : nat . defeat-min S z M -o { defeat-min' S z M }
+
+LawsEng: M is a natural number . S is a natural number . If we are in the first stage of determining which candidate has the fewest votes and there are S seats open, zero hopefuls, and M potentiel minimums remaining then { we are in the second stage of determining which candidate has the fewest votes and there are S seats open, zero hopefuls, and M potentiel minimums remaining }
+LawsLin: Pi M : nat . Pi S : nat . defeat-min S z M -o { defeat-min' S z M }
+
 
 GF:defeat-min'/1: 
 Pi C : candidate . Pi C' : candidate . Pi H : nat . Pi M : nat . Pi N : nat . Pi N' : nat . Pi S : nat . defeat-min' S H ( s ! M ) * minimum C N * minimum C' N' * !nat-less N N' -o { minimum C N * hopeful C' N' * defeat-min' S ( s ! H ) M }
 
-Laws: Formular (_Pi _Candidate (\C -> _Pi _Candidate (\C' -> _Pi _Nat (\H -> _Pi _Nat (\M -> _Pi _Nat (\N -> _Pi _Nat (\N' -> _Pi _Nat (\S -> _Lolli (_Conj (_Conj (_Conj (_Atom (Atom_Ident (Ident_DefeatMin' (_Arg _Nat S) (_Arg _Nat H) (_ArgMinus (_Arg _Nat M))))) _Conj2 (_Atom (Atom_Ident (Ident_Minimum (_Arg _Candidate C) (_Arg _Nat N))))) _Conj2 (_Atom (Atom_Ident (Ident_Minimum (_Arg _Candidate C') (_Arg _Nat N'))))) _Conj2 (_Atom (Atom_Math (_FinalFormula (_MathArg (_Arg _Nat N)) _Less (_MathArg (_Arg _Nat N')))))) _Lolli2 (_Mon (_Conj (_Conj (_Atom (Atom_Ident (Ident_Minimum (_Arg _Candidate C) (_Arg _Nat N)))) _Conj2 (_Atom (Atom_Ident (Ident_Hopeful (_Arg _Candidate C') (_Arg _Nat N'))))) _Conj2 (_Atom (Atom_Ident (Ident_DefeatMin' (_Arg _Nat S) (_ArgMinus (_Arg _Nat H)) (_Arg _Nat M))))))))))))))
-LawsEng: C is a candidate . C' is a candidate . H is a natural number . M is a natural number . N is a natural number . N' is a natural number . S is a natural number . If we are in the second stage of determining which candidate has the fewest votes and there are S seats open, H hopefuls, and ( M minus 1 ) potentiel minimums remaining , and candidate C 's with a count of N votes is a potential minimum , and candidate C' 's with a count of N' votes is a potential minimum , and ( N is less than N' ) then { candidate C 's with a count of N votes is a potential minimum , and there is a hopeful candidate C' with N' counted ballots , and we are in the second stage of determining which candidate has the fewest votes and there are S seats open, ( H minus 1 ) hopefuls, and M potentiel minimums remaining }
+LawsEng: C is a candidate . C' is a candidate . H is a natural number . M is a natural number . N is a natural number . N' is a natural number . S is a natural number . If we are in the second stage of determining which candidate has the fewest votes and there are S seats open, H hopefuls, and ( M minus 1 ) potentiel minimums remaining , and candidate C 's with a count of N votes is a potential minimum , and candidate C' 's with a count of N' votes is a potential minimum , and ( N is less than N' ) then { candidate C 's with a count of N votes is a potential minimum , and candidate C' is a hopeful with N' votes , and we are in the second stage of determining which candidate has the fewest votes and there are S seats open, ( H minus 1 ) hopefuls, and M potentiel minimums remaining }
 LawsLin: Pi C : candidate . Pi C' : candidate . Pi H : nat . Pi M : nat . Pi N : nat . Pi N' : nat . Pi S : nat . defeat-min' S H ( s ! M ) * minimum C N * minimum C' N' * !nat-less N N' -o { minimum C N * hopeful C' N' * defeat-min' S ( s ! H ) M }
 
 
 GF:defeat-min'/2: 
 Pi C : candidate . Pi H : nat . Pi N : nat . Pi S : nat . defeat-min' S H ( s ! z ) * minimum C N -o { !defeated C * transfer C N S H z }
 
+LawsEng: C is a candidate . H is a natural number . N is a natural number . S is a natural number . If we are in the second stage of determining which candidate has the fewest votes and there are S seats open, H hopefuls, and ( zero minus 1 ) potentiel minimums remaining , and candidate C 's with a count of N votes is a potential minimum then { candidate C has been defeated , and the newly defeated candidate C 's N votes are being tranferred and there are S open seats, H hopeful candidates and zero uncounted votes }
+LawsLin: Pi C : candidate . Pi H : nat . Pi N : nat . Pi S : nat . defeat-min' S H ( s ! z ) * minimum C N -o { !defeated C * transfer C N S H z }
+
+
 GF:transfer/1: 
 Pi C : candidate . Pi C' : candidate . Pi H : nat . Pi L : list . Pi N : nat . Pi S : nat . Pi U : nat . transfer C ( s ! N ) S H U * counted-ballot C ( cons ! C' ! L ) -o { uncounted-ballot C' L * transfer C N S H ( s ! U ) }
+
+LawsEng: C is a candidate . C' is a candidate . H is a natural number . L is a list . N is a natural number . S is a natural number . U is a natural number . If the newly defeated candidate C 's ( N minus 1 ) votes are being tranferred and there are S open seats, H hopeful candidates and U uncounted votes , and there is a counted vote with highest preference for candidate C with a list consisting of C' and L of lower preferences then { there is an uncounted vote with highest preference for candidate C' with a list L of lower preferences , and the newly defeated candidate C 's N votes are being tranferred and there are S open seats, H hopeful candidates and ( U minus 1 ) uncounted votes }
+LawsLin: Pi C : candidate . Pi C' : candidate . Pi H : nat . Pi L : list . Pi N : nat . Pi S : nat . Pi U : nat . transfer C ( s ! N ) S H U * counted-ballot C ( cons ! C' ! L ) -o { uncounted-ballot C' L * transfer C N S H ( s ! U ) }
+
 
 GF:transfer/2:
 Pi C : candidate . Pi H : nat . Pi N : nat . Pi S : nat . Pi U : nat . transfer C ( s ! N ) S H U * counted-ballot C nil -o {  transfer C N S H U  }
 
+LawsEng: C is a candidate . H is a natural number . N is a natural number . S is a natural number . U is a natural number . If the newly defeated candidate C 's ( N minus 1 ) votes are being tranferred and there are S open seats, H hopeful candidates and U uncounted votes , and there is a counted vote with highest preference for candidate C with a list nil of lower preferences then { the newly defeated candidate C 's N votes are being tranferred and there are S open seats, H hopeful candidates and U uncounted votes }
+LawsLin: Pi C : candidate . Pi H : nat . Pi N : nat . Pi S : nat . Pi U : nat . transfer C ( s ! N ) S H U * counted-ballot C nil -o { transfer C N S H U }
+
+
 GF:transfer/3: 
 Pi C : candidate . Pi H : nat . Pi S : nat . Pi U : nat . transfer C z S H U * !nat-less S H -o { count-ballots S H U }
+
+LawsEng: C is a candidate . H is a natural number . S is a natural number . U is a natural number . If the newly defeated candidate C 's zero votes are being tranferred and there are S open seats, H hopeful candidates and U uncounted votes , and ( S is less than H ) then { we are counting votes and there are S seats open, H hopefuls, and U uncounted votes in play }
+LawsLin: Pi C : candidate . Pi H : nat . Pi S : nat . Pi U : nat . transfer C z S H U * !nat-less S H -o { count-ballots S H U }
+
 
 GF:transfer/4: 
 Pi C : candidate . Pi H : nat . Pi S : nat . Pi U : nat . transfer C z S H U * !nat-lesseq H S -o { !elect-all }
 
+LawsEng: C is a candidate . H is a natural number . S is a natural number . U is a natural number . If the newly defeated candidate C 's zero votes are being tranferred and there are S open seats, H hopeful candidates and U uncounted votes , and ( H is less than or equal to S ) then { there are more open seats than hopefuls }
+LawsLin: Pi C : candidate . Pi H : nat . Pi S : nat . Pi U : nat . transfer C z S H U * !nat-lesseq H S -o { !elect-all }
+
+
 GF:defeat-all/1: 
 Pi C : candidate . Pi N : nat . !defeat-all * hopeful C N -o { !defeated C }
+
+LawsEng: C is a candidate . N is a natural number . If there are no open seats left , and candidate C is a hopeful with N votes then { candidate C has been defeated }
+LawsLin: Pi C : candidate . Pi N : nat . !defeat-all * hopeful C N -o { !defeated C }
+
 
 GF:elect-all/1: 
 Pi C : candidate . Pi N : nat . Pi W : list . !elect-all * hopeful C N * winners W -o { !elected C * winners ( cons ! C ! W ) }
 
+LawsEng: C is a candidate . N is a natural number . W is a list . If there are more open seats than hopefuls , and candidate C is a hopeful with N votes , and the candidates in the list W have been elected so far then { candidate C has been elected , and the candidates in the list consisting of C and W have been elected so far }
+LawsLin: Pi C : candidate . Pi N : nat . Pi W : list . !elect-all * hopeful C N * winners W -o { !elected C * winners ( cons ! C ! W ) }
+
+
 GF:cleanup/1: 
 Pi C : candidate . Pi L : list . !defeat-all * uncounted-ballot C L -o { 1 }
+
+LawsEng: C is a candidate . L is a list . If there are no open seats left , and there is an uncounted vote with highest preference for candidate C with a list L of lower preferences then { 1 }
+LawsLin: Pi C : candidate . Pi L : list . !defeat-all * uncounted-ballot C L -o { 1 }
+
 
 GF:cleanup/2: 
 Pi C : candidate . Pi L : list . !defeat-all * counted-ballot C L -o { 1 }
 
+LawsEng: C is a candidate . L is a list . If there are no open seats left , and there is a counted vote with highest preference for candidate C with a list L of lower preferences then { 1 }
+LawsLin: Pi C : candidate . Pi L : list . !defeat-all * counted-ballot C L -o { 1 }
+
+
 GF:cleanup/3: 
 Pi C : candidate . Pi L : list . !elect-all * uncounted-ballot C L -o { 1 }
+
+LawsEng: C is a candidate . L is a list . If there are more open seats than hopefuls , and there is an uncounted vote with highest preference for candidate C with a list L of lower preferences then { 1 }
+LawsLin: Pi C : candidate . Pi L : list . !elect-all * uncounted-ballot C L -o { 1 }
+
 
 GF:cleanup/4: 
 Pi C : candidate . Pi L : list . !elect-all * counted-ballot C L -o { 1 }
 
-GF:run/1: 
-Pi H : nat . Pi Q : nat . Pi S : nat . Pi U : nat . Pi xx3: nat . run S H U * !nat-divmod U ( s ! S ) Q xx3 -o { !quota ( s ! Q ) * winners nil * count-ballots S H U }
+LawsEng: C is a candidate . L is a list . If there are more open seats than hopefuls , and there is a counted vote with highest preference for candidate C with a list L of lower preferences then { 1 }
+LawsLin: Pi C : candidate . Pi L : list . !elect-all * counted-ballot C L -o { 1 }
 
-LawsEng: C is a candidate . H is a natural number . L is a list . N is a natural number . Q is a natural number . S is a natural number . U is a natural number . W is a list . If we are counting votes and there are S seats open, H hopefuls, and U uncounted ballots cast , and there is an uncounted ballot with highest preference for candidate C with a list L of lower preferences , and there is a hopeful candidate C with N counted ballots , and Q votes are needed to be elected , and ( Q is less than or equal to ( N plus 1 ) ) then { there is a counted ballot with highest preference for candidate C with a list L of lower preferences , and candidate C has been, and will remain, elected , and we are counting votes and there are ( S minus 1 ) seats open, ( H minus 1 ) hopefuls, and ( U minus 1 ) uncounted ballots cast }
+
+GF:run/1: 
+Pi H : nat . Pi Q : nat . Pi S : nat . Pi U : nat . Pi xx3 : nat . run S H U * !nat-divmod U ( s ! S ) Q xx3 -o { !quota ( s ! Q ) * winners nil * count-ballots S H U }
+
+
+
+Example:
+
+LawsEng: C is a candidate . H is a natural number . L is a list . N is a natural number . Q is a natural number . S is a natural number . U is a natural number . W is a list . If we are counting votes and there are S seats open, H hopefuls, and U uncounted votes in play , and there is an uncounted vote with highest preference for candidate C with a list L of lower preferences , and candidate C is a hopeful with N votes , and Q votes are needed to be elected , and ( Q is less than or equal to ( N plus 1 ) ) then { there is a counted vote with highest preference for candidate C with a list L of lower preferences , and candidate C has been elected , and we are counting votes and there are ( S minus 1 ) seats open, ( H minus 1 ) hopefuls, and ( U minus 1 ) uncounted votes in play }
 LawsLin: Pi C : candidate . Pi H : nat . Pi L : list . Pi N : nat . Pi Q : nat . Pi S : nat . Pi U : nat . Pi W : list . count-ballots S H U * uncounted-ballot C L * hopeful C N * !quota Q * !nat-lesseq Q ( p ! N ) -o { counted-ballot C L * !elected C * count-ballots ( s ! S ) ( s ! H ) ( s ! U ) }

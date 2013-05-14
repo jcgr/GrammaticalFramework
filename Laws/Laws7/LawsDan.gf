@@ -19,6 +19,16 @@ concrete LawsDan of Laws = open SharedOpers in {
         _Lolli pos lolli neg            = ss ( "Hvis" ++ pos.s ++ lolli.s ++ neg.s ) ;
         _Mon pos                        = ss ( "{" ++ pos.s ++ "}" ) ;
         
+        -- Connectives
+        _Conj2                          = ss ( ", and" ) ;
+        _Lolli2                         = ss ( "then" ) ;
+        _Bang2                          = ss ( "!" ) ;
+        
+        -- Argument types
+        _Nat                            = ss ( "naturligt tal" ) ;
+        _Candidate                      = ss ( "kandidat" ) ;
+        _List                           = ss ( "liste" ) ;
+        
         -- Atomics
         Atom_Ident ident                = ss ( ident.s ) ;
         Atom_Math math                  = ss ( math.s ) ;
@@ -54,6 +64,8 @@ concrete LawsDan of Laws = open SharedOpers in {
             = ss ( "kandidat" ++ a.s ++ "med" ++ b.s ++ "stemmer er en potentiel minimum" ) ;
         Ident_Transfer a b c d e
             = ss ( "den nybesejret kandidat" ++ a.s ++"s" ++ b.s ++ "stemmer bliver flyttet og der er" ++ c.s ++ "åbne sæder," ++ d.s ++ "forhåbningsfulde kandidater og" ++ e.s ++ "utalte stemmeseddler" ) ;
+        Ident_Run a b c
+            = ss ( "run" ++ a.s ++ b.s ++ c.s ) ;
         Ident_UnitOne                   
             = ss ( "1" ) ;
 
@@ -66,27 +78,19 @@ concrete LawsDan of Laws = open SharedOpers in {
         _ArgPlus a                      = ss ( "(" ++ a.s ++ "plus 1 )" ) ;
         _ArgList a b                    = ss ( "bestående af" ++ a.s ++ "og" ++ b.s ) ;
         _ArgEmptyList                   = ss ( "en tom liste" ) ;
-        
-        -- Argument types
-        _Nat                            = ss ( "naturligt tal" ) ;
-        _Candidate                      = ss ( "kandidat" ) ;
-        _List                           = ss ( "liste" ) ;
-        
-        -- Connectives
-        _Conj2                          = ss ( ", and" ) ;
-        _Lolli2                         = ss ( "then" ) ;
-        _Bang2                          = ss ( "!" ) ;
 
         -- Mathematic operations
         _MathArg arg1                   = ss ( arg1.s ) ;
         _FinalFormula m1 ms m2          = ss ( "(" ++ m1.s ++ ms.s ++ m2.s ++ ")" ) ;
         _MathArgs arg1 mo arg2          = ss ( "(" ++ arg1.s ++ mo.s ++ arg2.s ++ ")" ) ;
 
+        -- Arithmetic operations
         _Division                       = ss ( "/" ) ;
         _Multiplication                 = ss ( "*" ) ;
         _Addition                       = ss ( "+" ) ;
         _Subtraction                    = ss ( "-" ) ;
 
+        -- Inequality operations
         Greater                         = ss ("er større end") ;
         GreaterEqual                    = ss ("er større end eller lig med") ;
         Equal                           = ss ("er lig med") ;

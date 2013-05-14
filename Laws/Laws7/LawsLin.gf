@@ -49,6 +49,7 @@ concrete LawsLin of Laws = open Prelude in {
         Ident_DefeatMin' a b c          = ss ( "defeat-min'" ++ a.s ++ b.s ++ c.s ) ;
         Ident_Minimum a b               = ss ( "minimum" ++ a.s ++ b.s ) ;
         Ident_Transfer a b c d e        = ss ( "transfer" ++ a.s ++ b.s ++ c.s ++ d.s ++ e.s ) ;
+        Ident_Run a b c                 = ss ( "run" ++ a.s ++ b.s ++ c.s ) ;
         Ident_UnitOne                   = ss ( "1" ) ;
 
         -- Arguments

@@ -48,6 +48,7 @@ abstract Laws = {
         Ident_DefeatMin' : Arg -> Arg -> Arg -> Ident ;
         Ident_Minimum : Arg -> Arg -> Ident ;
         Ident_Transfer : Arg -> Arg -> Arg -> Arg -> Arg -> Ident ;
+        Ident_Run : Arg -> Arg -> Arg -> Ident ;
         Ident_UnitOne : Ident ;
 
         -- Arguments
