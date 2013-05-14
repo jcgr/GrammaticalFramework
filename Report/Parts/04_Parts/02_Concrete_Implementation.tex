@@ -74,42 +74,47 @@ Looking at the \cf{Math} part, it is a bit more advanced. \cf{\_Math} is simple 
         Ident_UnitOne                   = ss ( "1" ) ;
 \end{lstgf}
 
-\note{Get to work!}
+The \cf{Ident}s are rather simple. They take between zero and five arguments, and their value is the name of the function the represent with the amount of arguments attached to it. In the case where the \cf{Ident} takes no arguments, its value is simply that of the function it represents.
 
-There are a couple of things to note here. The first is that all the \cf{Ident}s can take nine arguments (\cf{c n s h u q l m w}), but none of them use more than five. The abstract syntax for all the \cf{Ident} was given nine arguments to avoid having to make a seperate abstract for each \cf{Ident}. The reason for choosing nine arguments instead of five (the highest number used), was to have each argument represented. Each argument corresponds to one of the \cf{Arg}s (with the exception of z, 1 and nil), making it easy to figoure out what the \cf{Ident} uses. It is important to note that while "s" is used to represent \cf{Arg\_S}, it does not mean the value has to be the value of \cf{Arg\_S}. It can be any of the \cf{Arg}s. 
+With the \cf{Ident}s explained, the only things left are the the positive and negative types and the atomics.
 
-Just like the \cf{\_FinalFormula}, the arguments do not have to be used in the order listed. They do not even have to be used. \cf{Ident\_Hopeful} will only look for any two arguments following and only use those two arguments. The rest will be ignored. The same goes for the rest of the \cf{Ident}s. \\
-The other thing to note is in \cf{Ident\_Tally}, where there is a $|$ in the value of the ident. This line means that value for \cf{Ident\_Tally} can be any of the strings on either side of the $|$. It is an easy way of letting a function use multiple keywords.
-
-The last things to examine are the positive and negative types and the atomics.
 \lstCode{The linearization of the positive/negative types and the atomics}{04_02_C09}
 \begin{lstgf}
         -- Logic
-        Formular neg                    = ss (neg.s) ;
+        Formular neg                    = ss ( neg.s ) ;
         
-        -- Pos
-        _Atom atom                      = ss (atom.s) ;
-        _Bang bang atom                 = ss (bang.s ++ atom.s) ;
-        _Conj pos1 conj pos2            = ss (pos1.s ++ conj.s ++ pos2.s) ;
-        _Unit neg                       = ss (neg.s) ;
-        _MPos pos1 pos2                 = ss (pos1.s ++ pos2.s) ;
+        -- Positive types
+        _Atom atom                      = ss ( atom.s ) ;
+        _Bang bang atom                 = ss ( bang.s ++ atom.s ) ;
+        _Conj pos1 conj pos2            = ss ( pos1.s ++ conj.s ++ pos2.s ) ;
+        _Unit neg                       = ss ( neg.s ) ;
+        _MPos pos1 pos2                 = ss ( pos1.s ++ pos2.s ) ;
         
-        -- Neg
-        _Pi arg                         = ss ("Pi" ++ arg.s ++ ":" ++ ("nat" | "list" | "candidate") ++ ".") ;
-        _Lolli pos lolli neg            = ss (pos.s ++ lolli.s ++ neg.s) ;
-        _Mon pos                        = ss ("{" ++ pos.s ++ "}") ;
+        -- Negative types
+        _Pi A B                         = ss ( "Pi" ++ B.$0 ++ ":" ++ A.s ++ "." ++ B.s ) ;
+        _Lolli pos lolli neg            = ss ( pos.s ++ lolli.s ++ neg.s ) ;
+        _Mon pos                        = ss ( "{" ++ pos.s ++ "}" ) ;
         
-        -- Atomic
-        Atom_Ident ident                = ss (ident.s) ;
-        Atom_Math mathf                 = ss (mathf.s) ;
+        -- Connectives
+        _Conj2                          = ss ( "*" ) ;
+        _Lolli2                         = ss ( "-o" ) ;
+        _Bang2                          = ss ( "!" ) ;
+        
+        -- Argument types
+        _Nat                            = ss ( "nat" ) ;
+        _Candidate                      = ss ( "candidate" ) ;
+        _List                           = ss ( "list" ) ;
+        
+        -- Atomics
+        Atom_Ident ident                = ss ( ident.s ) ;
+        Atom_Math math                  = ss ( math.s ) ;
 \end{lstgf}
 
-Like the \cf{\_Arg} in \refCode{04_02_C06}, the \cf{Atomic}s return the value of the \cf{Ident} or \cf{Math} it takes as a parameter. \cf{\_Atom}, \cf{\_Neg} and \cf{Formular} work in the same way, though with different parameter types. \cf{\_MPos} glues two positives together. This is necessary to attach the universal quantifiers to the rest of the formula.
+Like the \cf{\_Arg} in \refCode{04_02_C06}, the \cf{Atomic}s return the value of the \cf{Ident} or \cf{Math} it takes as a parameter. \cf{\_Atom}, \cf{\_Neg} and \cf{Formular} work in the same way, though with different parameter types. \cf{\_MPos} glues two positives together and is necessary to attach the universal quantifiers to the rest of the formula. \cf{\_Lolli}, \cf{\_Mon}, the connectives and argument types should not require any explanation.
 
-\cf{\_Pi} looks for a string that describes the universal quantification according to Celf's syntax (Pi x : t). It uses an argument as the x with the t being either "nat", "list" or "candidate". Originally, the idea was to use GF's variable bindings. They would allow the user to specify variables with certain meanings (like saying that "S" should be "a set of seats"), making it possible to define variables dynamically for each formula. However, due to a lack of time and lack of information about the variable bindings, this idea was scrapped and the variables were made static (hard-coded into the program with predefined values).
+The only thing that is out of the ordinary is \cf{\_Pi}, which should look very familiar, as it uses the same syntax as the demonstration of variable bindings in \ref{03_02_04}. The only things that have changed are the names of the types involved. Instead of \cf{Set} and \cf{El}, it is \cf{ArgType} and \cf{Argument}. \cf{\_Pi} binds the variable (\cf{B.\$0}) and lets the program use it in \cf{B.s}, which is the rest of the formula. \cf{A.s} represents the type of the variable (a candidate, a list  or a natuarl number).
 
-\note{Some sort of ending}. \\
-The full concrete implementation can be found in appendix \ref{A_02}.
+With this, the concrete linear logic implementation has been explained. The full concrete implementation can be found in appendix \ref{A_02}.
 
 \subsection{Concrete English implementation}
 \label{04_02_02}
@@ -119,23 +124,21 @@ The concrete English implementation is similar in structure to the concrete line
 \lstCode{The universal quantification in the English implementation}{04_02_C10}
 \begin{lstgf}
         -- Neg
-        --_Pi arg                         = ss (arg.s ++ "is" ++ ("a list" | "a set" | "a candidate")) ;
-        _Pi arg                         = ss ("") ;
+        _Pi A B                         = ss ( B.$0 ++ "is a" ++ A.s ++ "." ++ B.s  ) ;
 \end{lstgf}
 
-As stated adter \refCode{04_02_C09}, \cf{\_Pi} does not work the way originally intended. It was therefore decided that, to avoid a huge mess, the lineariation of \cf{\_Pi} should not print anything.
+\cf{\_Pi} is used in the English implementation to let the user know what type the variable has. It is very similar to the one in the linear logic implementation, with the only change being that there is text instead of the colon. Apart from that, it works the same way.
 
 \lstCode{\cf{Ident}s and \cf{Arg}s}{04_02_C11}
 \begin{lstgf}
         -- Ident
-        Ident_Hopeful c n s h u q l m w
-            = ss ("there is a hopeful" ++ c.s ++ " with" ++ n.s) ;
-
-        -- Arg
-        Arg_C                           = ss ("candidate (C)") ;
-        Arg_N                           = ss ("a set of counted ballots (N)") ;
+        Ident_Hopeful a b
+            = ss ( "there is a hopeful candidate " ++ a.s ++ "with" ++ b.s ++ "counted ballots" ) ;
 \end{lstgf}
 
-Both \cf{Ident}s and \cf{Arg}s have been given predefined values in the English implementation. This can be done, as each \cf{Ident} and \cf{Arg} mean something specific in relation to the voting protocols. Each \cf{Ident} has a certain meaning, where the \cf{Arg}s are used to specify what the sentence talks about. Likewise, each \cf{Arg} has a certain meaning, which can either be about something specific (such as a candidate) or something that can be one or more things. The latter is referred to as "a set of things", as that can indicate both plural and singular values. \\
+The \cf{Ident}s have been changed to let them explain the function in English. They are rather static, and the only thing that can change is the argument they recieve, which can be either the bound variables or the modified versions of them.
+
+Everything else is very similar to the linear logic implementation, with the exception of it having been translated into proper English sentences.
+
 \note{More interesting?}\\
 \note{Some sort of ending.}

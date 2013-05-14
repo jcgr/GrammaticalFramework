@@ -19,6 +19,16 @@ concrete LawsEng of Laws = open Prelude in {
         _Lolli pos lolli neg            = ss ( "If" ++ pos.s ++ lolli.s ++ neg.s ) ;
         _Mon pos                        = ss ( "{" ++ pos.s ++ "}" ) ;
         
+        -- Connectives
+        _Conj2                          = ss ( ", and" ) ;
+        _Lolli2                         = ss ( "then" ) ;
+        _Bang2                          = ss ( "!" ) ;
+        
+        -- Argument types
+        _Nat                            = ss ( "natural number" ) ;
+        _Candidate                      = ss ( "candidate" ) ;
+        _List                           = ss ( "list" ) ;
+        
         -- Atomics
         Atom_Ident ident                = ss ( ident.s ) ;
         Atom_Math math                  = ss ( math.s ) ;
@@ -66,27 +76,19 @@ concrete LawsEng of Laws = open Prelude in {
         _ArgPlus a                      = ss ( "(" ++ a.s ++ "plus 1 )" ) ;
         _ArgList a b                    = ss ( "consisting of" ++ a.s ++ "and" ++ b.s ) ;
         _ArgEmptyList                   = ss ( "an empty list" ) ;
-        
-        -- Argument types
-        _Nat                            = ss ( "natural number" ) ;
-        _Candidate                      = ss ( "candidate" ) ;
-        _List                           = ss ( "list" ) ;
-        
-        -- Connectives
-        _Conj2                          = ss ( ", and" ) ;
-        _Lolli2                         = ss ( "then" ) ;
-        _Bang2                          = ss ( "!" ) ;
 
         -- Mathematic operations
         _MathArg arg1                   = ss ( arg1.s ) ;
         _FinalFormula m1 ms m2          = ss ( "(" ++ m1.s ++ ms.s ++ m2.s ++ ")" ) ;
         _MathArgs arg1 mo arg2          = ss ( "(" ++ arg1.s ++ mo.s ++ arg2.s ++ ")" ) ;
 
+        -- Arithmetic operations
         _Division                       = ss ( "/" ) ;
         _Multiplication                 = ss ( "*" ) ;
         _Addition                       = ss ( "+" ) ;
         _Subtraction                    = ss ( "-" ) ;
 
+        -- Inequality operations
         _Greater                        = ss ( "is greater than" ) ;
         _GreaterEqual                   = ss ( "is greater than or equal to" ) ;
         _Equal                          = ss ( "is equal to" ) ;
