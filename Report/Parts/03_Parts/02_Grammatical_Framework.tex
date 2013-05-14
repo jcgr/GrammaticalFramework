@@ -3,7 +3,7 @@
 
 \note{Some sort of transition from linear logic to this section is needed here. End it with "throughout this section, we will construct a very simple program for interpreting LL."}
 
-Grammatical Framework (GF) is an open-source multilingual programming language. With GF, one can write programs that can translate other languages. This works through parsing (analyzing a language), linearization (generating the language) and translation (analyzing one language to generate another one).
+Grammatical Framework (GF) is an open-source multilingual programming language. With GF, one can write programs that can translate other languages. This works through parsing (analyzing a language), linearization (generating the language) and translation (analyzing one language to generate another one). In this section, I will go over the aspects of GF that have been used in writing the program.
 
 A GF program consists of an abstract module and one or more concrete modules. The abstract module defines what meanings can be interpreted and parsed by the grammar. The concrete module maps the abstract meanings to strings, thereby forming complete sentences.
 
@@ -114,49 +114,6 @@ concrete HelloEng of AbstractLinearLogic = open StringOper in {
 }
 \end{lstgf}
 
-\subsection{Parameters}
-\label{03_02_04}
-
-Looking back at line 8 in \refCode{03_02_C03}, \cf{\_VoteCard} and \cf{\_BlankBallot} only exist in singular version. Suppose we want to be able to use the plural version of them, we could do two things: We could make a \cf{\_VoteCardSg} and a \cf{\_VoteCardPl} that holds the singular and plural version respectively. Or we could use parameters to choose.
-
-A parameter consists of the parameter's name and its values, seperated by a horizonal line. Parameters can be added to either a resource module (by which the implementations using the resource module have access to it) or to a concrete implementation (limiting the parameter to that implementation).
-
-\lstCode{Defining a parameter for singular and plural versions of a word.}{03_02_C07}
-\begin{lstgf}
-param 
-    Number = Sg | Pl ;
-\end{lstgf}
-
-The \cf{lincat} of a type also needs to reflect the fact that it takes a parameter. This is done as shown in \ref{code:03_02_C07}.
-
-\lstCode{Telling the \cf{lincat} that it takes a parameter and generates a Str.}{03_02_C08}
-\begin{lstgf}
-lincat 
-    Recipient = {s : Number => Str} ;
-\end{lstgf}
-
-The last thing that needs to be changed is the \cf{lin} of the category that has been changed. Tables are used for this purpose. A table holds the different possibilities for the parameter, along with what is returned based on the parameter. \refCode{03_02_C08} shows a table for \_VoteCard.
-
-\lstCode{A table for \_VoteCard that returns the singular or plural version of the word depending on the parameter.}{03_02_C09}
-\begin{lstgf}
-lin 
-    _VoteCard = {
-        s = table {
-            Sg => "an authorization card" ;
-            Pl => "multiple authorization cards"
-        }
-    } ;
-\end{lstgf}
-
-\refCode{03_02_C10} shows how the parameters are used in the ConcreteEnglish program. Assuming i1 is \cf{\_VoteCard}, and i2 is \cf{\_BlankBallot}, FormulaSg creates a string saying "if i give an authorization card then i get a blank ballot" where line 2 creates a string saying "if i give multiple authorization cards i get multiple blank ballots".
-
-\lstCode{Giving the parameter as an argument.}{03_02_C10}
-\begin{lstgf}
-lin
-    FormulaSg i1 c i2 = {s = "if i give" ++ i1.s ! Sg ++ c.s ++ "i get" ++ i2.s ! Sg} ;
-    FormulaPl i1 c i2 = {s = "if i give" ++ i1.s ! Pl ++ c.s ++ "i get" ++ i2.s ! Pl} ;
-\end{lstgf}
-
 \subsection{Dependent types and variable bindings}
-\label{03_02_05}
+\label{03_02_04}
 
