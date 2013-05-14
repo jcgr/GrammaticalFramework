@@ -117,3 +117,36 @@ concrete HelloEng of AbstractLinearLogic = open StringOper in {
 \subsection{Dependent types and variable bindings}
 \label{03_02_04}
 
+As there are variables used in the logical formula, we need a way to represent that in the program. GF supports this through variable bindings, which binds variables to allow them to be used in parts of the program. In the universal quantification \cf{( Pi x : nat ) ( x = x )}, the variable \cf{x} has a binding (\cf{( Pi x : nat )}) that says it is of the type \cf{nat} (a natural number), and that it is bound in the body \cf{B(x)}, where it can be used.
+
+To use variable bindings in GF, it is necessary to use functions as arguments. In \refCode{03_02_C07}, \cf{Pi} takes an argument \cf{A} that is required to be of the type \cf{Set}. It also takes an \cf{El A} argument, a type that takes a \cf{Set} as argument (in this case \cf{A}), and uses that in a \cf{Set}. These two groups of arguments are used to create a \cf{Set}. Furthermore, \cf{Eq} also takes an argument \cf{A} that is of the type \cf{Set}. It also takes two other arguments, \cf{a} and \cf{b}, which both must be of the type \cf{El} with \cf{A} as its argument. This is turned into a \cf{Set}.
+
+
+\lstCode{Abstract syntax for variable bindings.}{03_02_C07}
+\begin{lstgf}
+    cat
+        Set ;
+        El Set ;
+    fun
+        Pi : (A : Set) -> (El A -> Set) -> Set ;
+        Eq : (A : Set) -> (a,b : El A) -> Set ;
+        Nat : Set ;
+\end{lstgf}
+
+The concrete syntax needs to use a special syntax for the variable bindings as well. Previously, we have used \cf{B.s} to return the string value of the argument. With variable bindings the syntax is expanded, as shown in \refCode{03_02_C08}, with the addition of \cf{B.\$0} while \cf{B.s} is still used.
+
+\lstCode{The concrete syntax for variable bindings.}{03_02_C08}
+\begin{lstgf}
+    lincat
+        Set, El = SS ;
+    lin
+        Pi A B = ss ( "(" ++ "Pi" ++ B.$0 ++ ":" ++ A.s ++ ")" ++ B.s ) ;
+        Eq A a b = ss ( "(" ++ a.s ++ "=" ++ b.s ++ ")" ) ;
+        Nat = ss ( "nat" ) ;
+\end{lstgf}
+
+A normal argument would have the type \cf{s : Str}, but a function argument has the type \cf{s : Str ; \$0 : Str}. It means that the argument \cf{arg.\$0} is bound and can be used in \cf{arg.s}. If the function had more arguments \cf{.\$1}, \cf{.\$2}, etc. would have been used to refer to them.
+
+In \refCode{03_02_C08}, \cf{( Pi x : nat )} will bind the variable \cf{x} (\cf{B.\$0}) as the type of \cf{A}, and use it in \cf{B.s}. \cf{B.s} could be \cf{Eq}, which would end up being \cf{( x = x )}. At this point, one might wonder why the \cf{A} argument is not used in \cf{Eq}. The \cf{A} argument shows the type of \cf{a} and \cf{b}, but as we already do that with \cf{Pi}, there is no reason to write it next to the arguments.
+
+The use of variable bindings allows for a more fexible program, and is important when working with logical formulas where it is never certain how many variables are going to be used, and what they are going to represent.

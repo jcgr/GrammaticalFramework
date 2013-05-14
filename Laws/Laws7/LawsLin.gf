@@ -19,6 +19,16 @@ concrete LawsLin of Laws = open Prelude in {
         _Lolli pos lolli neg            = ss ( pos.s ++ lolli.s ++ neg.s ) ;
         _Mon pos                        = ss ( "{" ++ pos.s ++ "}" ) ;
         
+        -- Connectives
+        _Conj2                          = ss ( "*" ) ;
+        _Lolli2                         = ss ( "-o" ) ;
+        _Bang2                          = ss ( "!" ) ;
+        
+        -- Argument types
+        _Nat                            = ss ( "nat" ) ;
+        _Candidate                      = ss ( "candidate" ) ;
+        _List                           = ss ( "list" ) ;
+        
         -- Atomics
         Atom_Ident ident                = ss ( ident.s ) ;
         Atom_Math math                  = ss ( math.s ) ;
@@ -50,27 +60,19 @@ concrete LawsLin of Laws = open Prelude in {
         _ArgPlus a                      = ss ( "( p !" ++ a.s ++ ")" ) ;
         _ArgList a b                    = ss ( "( cons !" ++ a.s ++ "!" ++ b.s ++ ")" ) ;
         _ArgEmptyList                   = ss ( "[]" ) ;
-        
-        -- Argument types
-        _Nat                            = ss ( "nat" ) ;
-        _Candidate                      = ss ( "candidate" ) ;
-        _List                           = ss ( "list" ) ;
-        
-        -- Connectives
-        _Conj2                          = ss ( "*" ) ;
-        _Lolli2                         = ss ( "-o" ) ;
-        _Bang2                          = ss ( "!" ) ;
 
         -- Mathematic operations
         _MathArg arg1                   = ss ( arg1.s ) ;
         _FinalFormula m1 ms m2          = ss ( ms.s ++ m1.s ++ m2.s ) ;
         _MathArgs arg1 mo arg2          = ss ( "(" ++ arg1.s ++ mo.s ++ arg2.s ++ ")" ) ;
 
+        -- Arithmetic operations
         _Division                       = ss ( "/" ) ;
         _Multiplication                 = ss ( "*" ) ;
         _Addition                       = ss ( "+" ) ;
         _Subtraction                    = ss ( "-" ) ;
 
+        -- Inequality operations
         _Greater                        = ss ( "!nat-greater" ) ;
         _GreaterEqual                   = ss ( "!nat-greatereq" ) ;
         _Equal                          = ss ( "!nat-eq" ) ;

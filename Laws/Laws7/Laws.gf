@@ -15,10 +15,18 @@ abstract Laws = {
         _Unit : Neg -> Pos ;
         _MPos : Pos -> Pos -> Pos ;
 
-        -- Neggative types
+        -- Negative types
         _Pi : (A : ArgType) -> (Argument A -> Neg) -> Neg ;
         _Lolli : Pos -> Lolli -> Neg -> Neg ;
         _Mon : Pos -> Neg ;
+
+        -- Connectives
+        _Conj2 : Conj ;
+        _Lolli2 : Lolli ;
+        _Bang2 : Bang ;
+
+        -- Argument types
+        _Nat, _Candidate, _List : ArgType ;
 
         -- Atomics
         Atom_Ident : Ident -> Atomic ;
@@ -48,14 +56,6 @@ abstract Laws = {
         _ArgMinus, _ArgPlus : Arg -> Arg ;
         _ArgList : Arg -> Arg -> Arg ;
         _ArgEmptyList : Arg ;
-
-        -- Argument types
-        _Nat, _Candidate, _List : ArgType ;
-
-        -- Connectives
-        _Conj2 : Conj ;
-        _Lolli2 : Lolli ;
-        _Bang2 : Bang ;
 
         -- Mathematic operations
         _MathArg : Arg -> Math ;

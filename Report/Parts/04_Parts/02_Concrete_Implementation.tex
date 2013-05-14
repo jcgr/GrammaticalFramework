@@ -6,98 +6,76 @@ With the abstract syntax in place, the concrete syntax is the next step. The goa
 \subsection{Concrete linear logic implementation}
 \label{04_02_01}
 
-The first concrete implementation we will look at is the one for understanding linear logic, as it is the most important one. Without it, we will not be able to parse the formulas and therefore will not be able to translate them into other languages. Unlike the abstract syntax, we will start with looking at the parts that will look for specific values. Without understanding them, attempting to understand what happens when they are put together is not an easy task.
+The rst concrete implementation we will look at is the one for understanding linear logic, as it is the most important one. Without it, we will not be able to parse the formulas and therefore will not be able to translate them into other languages. Where the abstract syntax was explained starting with the positive and negative types, the concrete syntax will be explained starting with the arguments.
 
-As everything else is built up around the arguments, they are the simplest of it all. We will start examining them.
 \lstCode{The linearization of the \cf{Arg}uments.}{04_02_C06}
 \begin{lstgf}
-        -- Arg
-        Arg_C                           = ss ("C") ;
-        Arg_C'                          = ss ("C'") ;
-        Arg_N                           = ss ("N") ;
-        Arg_N'                          = ss ("N'") ;
-        Arg_S                           = ss ("S") ;
-        Arg_H                           = ss ("H") ;
-        Arg_U                           = ss ("U") ;
-        Arg_Q                           = ss ("Q") ;
-        Arg_L                           = ss ("L") ;
-        Arg_M                           = ss ("M") ;
-        Arg_W                           = ss ("W") ;
-        Arg_0                           = ss ("z") ;
-        Arg_1                           = ss ("1") ;
-        Arg_Nil                         = ss ("nil") ;
-        _Arg arg                        = ss (arg.s) ;
-        _ArgPlus arg                    = ss ("( p !" ++ arg.s ++ ")") ;
-        _ArgMinus arg                   = ss ("( s !" ++ arg.s ++ ")") ;
-        _ArgListEmpty                   = ss ("[]") ;
-        _ArgList arg1 arg2              = ss ("( cons !" ++ arg1.s ++ "!" ++ arg2.s ++ ")") ;
-        
-        _Conj2                          = ss ("*") ;
-        _Lolli2                         = ss ("-o") ;
-        _Bang2                          = ss ("!") ;
+        -- Arguments
+        _Arg A a                        = ss ( a.s ) ;
+        _ArgNil                         = ss ( "nil" ) ;
+        _ArgZ                           = ss ( "z" ) ;
+        _Arg1                           = ss ( "1" ) ;
+        _ArgMinus a                     = ss ( "( s !" ++ a.s ++ ")" ) ;
+        _ArgPlus a                      = ss ( "( p !" ++ a.s ++ ")" ) ;
+        _ArgList a b                    = ss ( "( cons !" ++ a.s ++ "!" ++ b.s ++ ")" ) ;
+        _ArgEmptyList                   = ss ( "[]" ) ;
 \end{lstgf}
 
-The arguments themselves are fairly straight-forward. Their value is the value that corresponds to them in the formulas. Similarily, the value of \cf{\_Arg} is the string of any of the arguments. The \cf{ArgColl}s are also self-explanatory. The \cf{\_ArgPlus}, \cf{\_ArgMinus} and \cf{\_ArgList} have been written to use Celf's syntax (see section \ref{03_01_02}). The connectives have been included here and are also using Celf's syntax.
+Remember that \cf{\_Arg} is the function that handles the bound variables. While it takes both\cf{ ArgType} as argument (\cf{A}), it is not used. With the type of the argument already given in the universal quantification, there is no need to the type of the argument next to the argument itself. \cf{\_Arg} therefore only returns the bound variable, which makes it easier for everything else to work with it.
+
+The rest of the \cf{Arg}s are self-explanatory. \cf{\_ArgNil}, \cf{\_ArgZ} and \cf{\_Arg1} simply look for the value they represent. Again, they are arguments that can be used in any logical formula, and are therefore hardcoded into the program. Their values will never change, no matter what formulas are being worked with. \cf{\_ArgPlus}, \cf{\_ArgMinus }and \cf{\_ArgList} have been written to use Celf's syntax (see section 3.1.2) and should look familiar.
 
 Next after the arguments, \cf{Math} and \cf{Ident} are the simplest. As they take up a lot of room, we will look at them individually, starting with \cf{Math}.
+
 \lstCode{The linearization of \cf{Math}}{04_02_C07}
 \begin{lstgf}
-        -- Math
-        _FinalFormula m1 ms m2          = ss (ms.s ++ m1.s ++ m2.s) ;
-        _Math arg1                      = ss (arg1.s) ;
-        _MathArgs arg1 mo arg2          = ss ("(" ++ arg1.s ++ mo.s ++ arg2.s ++ ")") ;
+        -- Mathematic operations
+        _MathArg arg1                   = ss ( arg1.s ) ;
+        _FinalFormula m1 ms m2          = ss ( ms.s ++ m1.s ++ m2.s ) ;
+        _MathArgs arg1 mo arg2          = ss ( "(" ++ arg1.s ++ mo.s ++ arg2.s ++ ")" ) ;
 
-        -- ArithmeticOperation
-        _Division                       = ss ("/") ;
-        _Multiplication                 = ss ("*") ;
-        _Addition                       = ss ("+") ;
-        _Subtraction                    = ss ("-") ;
+        -- Arithmetic operations
+        _Division                       = ss ( "/" ) ;
+        _Multiplication                 = ss ( "*" ) ;
+        _Addition                       = ss ( "+" ) ;
+        _Subtraction                    = ss ( "-" ) ;
 
-        -- InequalityOperation
-        Greater                         = ss ("!nat-greater") ;
-        GreaterEqual                    = ss ("!nat-greatereq") ;
-        Equal                           = ss ("!nat-eq") ;
-        LessEqual                       = ss ("!nat-lesseq") ;
-        Less                            = ss ("!nat-less") ;
+        -- Inequality operations
+        _Greater                        = ss ( "!nat-greater" ) ;
+        _GreaterEqual                   = ss ( "!nat-greatereq" ) ;
+        _Equal                          = ss ( "!nat-eq" ) ;
+        _LessEqual                      = ss ( "!nat-lesseq" ) ;
+        _Less                           = ss ( "!nat-less" ) ;
 \end{lstgf}
 The values for the \cf{ArithmeticOperation}s are their normal symbol. The \cf{InequalityOperation}s, however, use the syntax described in section \ref{03_01_02}. For example, $>$ becomes "!nat-less".
 
-Looking at the \cf{Math} part, it is a bit more advanced. \cf{\_Math} is simple enough. It has the value of any argumet (we will get to them later). \cf{\_MathArgs} is the function that takes care of arithmetic operations between arguments and is surronded by a pair of paratheses. Throughout the voting protocol formulas, this is actually not used, but we will support it anyway.
+Looking at the \cf{Math} part, it is a bit more advanced. \cf{\_Math} is simple enough. Its value is that of the \cf{Arg} is is given. \cf{\_MathArgs} is the function that takes care of arithmetic operations between arguments and is surronded by a pair of paratheses. Throughout the voting protocol formulas, this is actually not used, but we will support it anyway.
 
 \cf{\_FinalFormula} is the formula that handles inequality operations. Looking at it, one will see that the value it returns has the inequality operation first followed by the two parameters. This is the syntax Celf uses and is thus not an error. One may also notice that the order of the parameters for \cf{\_FinalFormula} is not the same as the linearization of it. The normal way to read "x is greater than y" is "x $>$ y" and is how the abstract tree is put together (see line 7 in \refCode{04_01_C04} on page \pageref{code:04_01_C04}). The concrete implementation is allowed to choose its own way of using the parameters, and can therefore use Celf's notation easily. The formula will be parsed correctly into the abstract syntax anyway.
 
 \lstCode{The linearization of \cf{Ident}}{04_02_C08}
 \begin{lstgf}
-        -- Ident
-        Ident_Hopeful c n s h u q l m w
-            = ss ("hopeful" ++ c.s ++ n.s) ;
-        Ident_Tally c n s h u q l m w
-            = ss ("tally-votes" ++ s.s ++ h.s ++ u.s | "count-ballots" ++ s.s ++ h.s ++ u.s) ;
-        Ident_BangElectAll c n s h u q l m w
-            = ss ("!elect-all") ;
-        Ident_Elected c n s h u q l m w
-            = ss ("!elected" ++ c.s) ;
-        Ident_Defeated c n s h u q l m w
-            = ss ("!defeated" ++ c.s) ;
-        Ident_Quota c n s h u q l m w
-            = ss ("!quota" ++ q.s) ;
-        Ident_Minimum c n s h u q l m w
-            = ss ("minimum" ++ c.s ++ n.s) ;
-        Ident_DefeatMin c n s h u q l m w
-            = ss ("defeat-min" ++ s.s ++ h.s ++ m.s) ;
-        Ident_DefeatMin' c n s h u q l m w
-            = ss ("defeat-min'" ++ s.s ++ h.s ++ m.s) ;
-        Ident_Transfer c n s h u q l m w
-            = ss ("transfer" ++ c.s ++ n.s ++ s.s ++ h.s ++ u.s) ;
-        Ident_Uncounted c n s h u q l m w
-            = ss ("uncounted-ballot" ++ c.s ++ l.s) ;
-        Ident_Counted c n s h u q l m w
-            = ss ("counted-ballot" ++ c.s ++ l.s) ;
-        Ident_Winners c n s h u q l m w
-            = ss ("winners" ++ w.s) ;
-        Ident_Begin c n s h u q l m w
-            = ss ("begin" ++ s.s ++ h.s ++ u.s) ;
+        -- Identifiers
+        Ident_Uncounted a b             = ss ( "uncounted-ballot" ++ a.s ++ b.s ) ;
+        Ident_Counted a b               = ss ( "counted-ballot" ++ a.s ++ b.s ) ;
+        Ident_Hopeful a b               = ss ( "hopeful" ++ a.s ++ b.s ) ;
+        Ident_Defeated a                = ss ( "!defeated" ++ a.s ) ;
+        Ident_Elected a                 = ss ( "!elected" ++ a.s ) ;
+        Ident_Quota a                   = ss ( "!quota" ++ a.s ) ;
+        Ident_Winners a                 = ss ( "winners" ++ a.s ) ;
+        Ident_Begin a b c               = ss ( "begin" ++ a.s ++ b.s ++ c.s ) ;
+        Ident_Count a b c               = ss ( "count-ballots" ++ a.s ++ b.s ++ c.s ) ;
+        Ident_BangElectAll              = ss ( "!elect-all" ) ;
+        Ident_BangDefeatAll             = ss ( "!defeat-all" ) ;
+        Ident_DefeatMin a b c           = ss ( "defeat-min" ++ a.s ++ b.s ++ c.s ) ;
+        Ident_DefeatMin' a b c          = ss ( "defeat-min'" ++ a.s ++ b.s ++ c.s ) ;
+        Ident_Minimum a b               = ss ( "minimum" ++ a.s ++ b.s ) ;
+        Ident_Transfer a b c d e        = ss ( "transfer" ++ a.s ++ b.s ++ c.s ++ d.s ++ e.s ) ;
+        Ident_UnitOne                   = ss ( "1" ) ;
 \end{lstgf}
+
+\note{Get to work!}
+
 There are a couple of things to note here. The first is that all the \cf{Ident}s can take nine arguments (\cf{c n s h u q l m w}), but none of them use more than five. The abstract syntax for all the \cf{Ident} was given nine arguments to avoid having to make a seperate abstract for each \cf{Ident}. The reason for choosing nine arguments instead of five (the highest number used), was to have each argument represented. Each argument corresponds to one of the \cf{Arg}s (with the exception of z, 1 and nil), making it easy to figoure out what the \cf{Ident} uses. It is important to note that while "s" is used to represent \cf{Arg\_S}, it does not mean the value has to be the value of \cf{Arg\_S}. It can be any of the \cf{Arg}s. 
 
 Just like the \cf{\_FinalFormula}, the arguments do not have to be used in the order listed. They do not even have to be used. \cf{Ident\_Hopeful} will only look for any two arguments following and only use those two arguments. The rest will be ignored. The same goes for the rest of the \cf{Ident}s. \\
