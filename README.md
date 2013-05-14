@@ -9,13 +9,13 @@ Laws and Logic is a project written by a bachelor student at the IT-University a
 
 ## Current program
 
-1. The program is capable of parsing simple logical formulars (see the [Test file](https://github.com/jcgr/GrammaticalFramework/blob/master/Laws/Laws6/Test.txt) for examples). It is limited to static identifiers and arguments currently.
-2. The sentences it returns in English / Danish are understandable. They need more work, however.
-3. It supports mathematical operations.
+1. The program is capable of parsing logical formulars (see the [Test file](https://github.com/jcgr/GrammaticalFramework/blob/master/Laws/Laws7/Test.txt) for examples). Note that it uses static identifiers, as it is specific for the voting protocols.
+2. The sentences it returns in English / Danish are understandable.
+3. The program supports mathematical operations.
+4. The program uses user defined variables.
 
 ## Todo
 
-1. Remove static identifiers / arguments and allow them to be defined as part of the formular.
-2. Improve the sentences created in the natrual language.
+1. ???
 
 [GF]: http://www.grammaticalframework.org/

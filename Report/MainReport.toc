@@ -29,6 +29,10 @@
 \contentsline {subsection}{\numberline {4.2.2}Concrete English implementation}{17}{subsection.4.2.2}
 \contentsline {section}{\numberline {4.3}Running the Program}{18}{section.4.3}
 \contentsline {subsection}{\numberline {4.3.1}The example}{18}{subsection.4.3.1}
+\contentsline {section}{\numberline {4.4}Limitations of the program}{19}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Static identifiers}{19}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}Sentence construction}{19}{subsection.4.4.2}
+\contentsline {subsection}{\numberline {4.4.3}Additional languages}{19}{subsection.4.4.3}
 \contentsline {chapter}{\numberline {5}Conclusion}{20}{chapter.5}
 \contentsline {chapter}{Appendices}{21}{section*.3}
 \save@tocdepth \setcounter {tocdepth}{0}
