@@ -131,6 +131,15 @@
   \end{center}
 }
 
+\newenvironment{texto2}{%
+  \begin{center} % so the minipage is centered
+  \begin{varwidth}[t]{0.8\textwidth}
+  \raggedright % so the minipage's text is left justified
+}{%
+  \end{varwidth}
+  \end{center}
+}
+
 % Title
 \title{
 	\Huge{Laws and Logic}\\

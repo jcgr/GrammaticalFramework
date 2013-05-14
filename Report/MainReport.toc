@@ -29,10 +29,10 @@
 \contentsline {subsection}{\numberline {4.2.2}Concrete English implementation}{17}{subsection.4.2.2}
 \contentsline {section}{\numberline {4.3}Running the Program}{18}{section.4.3}
 \contentsline {subsection}{\numberline {4.3.1}The example}{18}{subsection.4.3.1}
-\contentsline {chapter}{\numberline {5}Conclusion}{19}{chapter.5}
-\contentsline {chapter}{Appendices}{20}{section*.3}
+\contentsline {chapter}{\numberline {5}Conclusion}{20}{chapter.5}
+\contentsline {chapter}{Appendices}{21}{section*.3}
 \save@tocdepth \setcounter {tocdepth}{0}
-\contentsline {chapter}{\numberline {A}Abstract Implementation}{22}{appendix.A}
-\contentsline {chapter}{\numberline {B}Concrete Linear Logic Implementation}{24}{appendix.B}
-\contentsline {chapter}{\numberline {C}Concrete English Implementation}{26}{appendix.C}
+\contentsline {chapter}{\numberline {A}Abstract Implementation}{23}{appendix.A}
+\contentsline {chapter}{\numberline {B}Concrete Linear Logic Implementation}{25}{appendix.B}
+\contentsline {chapter}{\numberline {C}Concrete English Implementation}{27}{appendix.C}
 \contentsfinish 
