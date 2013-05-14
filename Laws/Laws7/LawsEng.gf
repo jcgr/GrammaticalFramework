@@ -35,23 +35,23 @@ concrete LawsEng of Laws = open Prelude in {
 
         -- Identifiers
         Ident_Uncounted a b
-            = ss ( "there is an uncounted ballot with highest preference for candidate" ++ a.s ++ "with a list" ++ b.s ++ "of lower preferences" ) ;
+            = ss ( "there is an uncounted vote with highest preference for candidate" ++ a.s ++ "with a list" ++ b.s ++ "of lower preferences" ) ;
         Ident_Counted a b
-            = ss ( "there is a counted ballot with highest preference for candidate" ++ a.s ++ "with a list" ++ b.s ++ "of lower preferences" ) ;
+            = ss ( "there is a counted vote with highest preference for candidate" ++ a.s ++ "with a list" ++ b.s ++ "of lower preferences" ) ;
         Ident_Hopeful a b
-            = ss ( "there is a hopeful candidate " ++ a.s ++ "with" ++ b.s ++ "counted ballots" ) ;
+            = ss ( "candidate" ++ a.s ++ " is a hopeful with" ++ b.s ++ "votes" ) ;
         Ident_Defeated a
-            = ss ( "candidate" ++ a.s ++ "has been, and will remain, defeated" ) ;
+            = ss ( "candidate" ++ a.s ++ "has been defeated" ) ;
         Ident_Elected a
-            = ss ( "candidate" ++ a.s ++ "has been, and will remain, elected" ) ;
+            = ss ( "candidate" ++ a.s ++ "has been elected" ) ;
         Ident_Quota a
             = ss ( a.s ++ "votes are needed to be elected" ) ;
         Ident_Winners a
             = ss ( "the candidates in the list" ++ a.s ++ "have been elected so far" ) ;
         Ident_Begin a b c
-            = ss ( "we are beginning the tallying and there are" ++ a.s ++ "seats open," ++ b.s ++ " hopefuls, and" ++ c.s ++ "uncounted ballots cast" ) ;
+            = ss ( "we are beginning the tallying and there are" ++ a.s ++ "seats open," ++ b.s ++ " hopefuls, and" ++ c.s ++ "uncounted votes" ) ;
         Ident_Count a b c
-            = ss ( "we are counting votes and there are" ++ a.s ++ "seats open," ++ b.s ++ "hopefuls, and" ++ c.s ++ "uncounted ballots cast" ) ;
+            = ss ( "we are counting votes and there are" ++ a.s ++ "seats open," ++ b.s ++ "hopefuls, and" ++ c.s ++ "uncounted votes in play" ) ;
         Ident_BangElectAll
             = ss ( "there are more open seats than hopefuls" ) ;
         Ident_BangDefeatAll              
@@ -63,7 +63,7 @@ concrete LawsEng of Laws = open Prelude in {
         Ident_Minimum a b
             = ss ( "candidate" ++ a.s ++ "'s with a count of" ++ b.s ++ "votes is a potential minimum" ) ;
         Ident_Transfer a b c d e
-            = ss ( "the newly defeated candidate" ++ a.s ++"'s" ++ b.s ++ "votes are being tranferred and there are" ++ c.s ++ "open seats," ++ d.s ++ "hopeful candidates and" ++ e.s ++ "uncounted ballots" ) ;
+            = ss ( "the newly defeated candidate" ++ a.s ++"'s" ++ b.s ++ "votes are being tranferred and there are" ++ c.s ++ "open seats," ++ d.s ++ "hopeful candidates and" ++ e.s ++ "uncounted votes" ) ;
         Ident_UnitOne                   
             = ss ( "1" ) ;
 
