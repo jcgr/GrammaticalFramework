@@ -47,7 +47,7 @@ Next after the arguments, \cf{Math} and \cf{Ident} are the simplest. As they tak
         _LessEqual                      = ss ( "!nat-lesseq" ) ;
         _Less                           = ss ( "!nat-less" ) ;
 \end{lstgf}
-The values for the \cf{ArithmeticOperation}s are their normal symbol. The \cf{InequalityOperation}s, however, use the syntax described in section \ref{03_01_02}. For example, $>$ becomes "!nat-less".
+The values for the \cf{ArithmeticOperation}s are their normal symbol. The \cf{InequalityOperation}s, however, use the syntax described in section \ref{03_01_02}. For example, $>$ becomes "!nat-greater".
 
 Looking at the \cf{Math} part, it is a bit more advanced. \cf{\_Math} is simple enough. Its value is that of the \cf{Arg} is is given. \cf{\_MathArgs} is the function that takes care of arithmetic operations between arguments and is surronded by a pair of paratheses. Throughout the voting protocol formulas, this is actually not used, but we will support it anyway.
 
@@ -138,7 +138,7 @@ The concrete English implementation is similar in structure to the concrete line
 
 The \cf{Ident}s have been changed to let them explain the function in English. They are rather static, and the only thing that can change is the argument they recieve, which can be either the bound variables or the modified versions of them.
 
-Everything else is very similar to the linear logic implementation, with the exception of it having been translated into proper English sentences.
+Everything else is very similar to the linear logic implementation, with the exception of it having been translated into proper English sentences. We will therefore not go into detail with it.
 
 \note{More interesting?}\\
 \note{Some sort of ending.}

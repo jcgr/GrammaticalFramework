@@ -11,8 +11,8 @@ The first formula to be run, is the one from the example in section \ref{02_01}.
 	\formula{tally-votes S H U * uncounted-ballot C L * hopeful C N * !quota Q * !nat-lesseq Q (p ! N) -o \{ counted-ballot C L * !elected C * tally-votes (s ! S) (s ! H) (s ! U) \} }
 \end{texto}
 
- Before this will run, however, the variables will have to be specified through universal quantifications. I will therefore add them manually:
+Before this will run, however, the variables will have to be specified through universal quantifications. Without that, the formula will not parse. Furthermore, GF needs spaces around each individual element, and the plus/minus (p/s ! x) will need a couple of spaces introduced. I will this manually and let the reader confirm that the result is, in fact, the same formula:
 
 \begin{texto}
-	\formula{Pi C : candidate . Pi H : nat . Pi L : list . Pi N : nat . Pi Q : nat . Pi S : nat . Pi U : nat . Pi W : list . tally-votes S H U * uncounted-ballot C L * hopeful C N * !quota Q * !nat-lesseq Q (p ! N) -o \{ counted-ballot C L * !elected C * tally-votes (s ! S) (s ! H) (s ! U) \} }
+	\formula{Pi C : candidate . Pi H : nat . Pi L : list . Pi N : nat . Pi Q : nat . Pi S : nat . Pi U : nat . Pi W : list . tally-votes S H U * uncounted-ballot C L * hopeful C N * !quota Q * !nat-lesseq Q ( p ! N ) -o \{ counted-ballot C L * !elected C * tally-votes ( s ! S ) ( s ! H ) ( s ! U ) \} }
 \end{texto}
