@@ -56,16 +56,15 @@ concrete LawsLin of Laws = open Prelude in {
         _Arg A a                        = ss ( a.s ) ;
         _ArgNil                         = ss ( "nil" ) ;
         _ArgZ                           = ss ( "z" ) ;
-        _Arg1                           = ss ( "1" ) ;
         _ArgMinus a                     = ss ( "( s !" ++ a.s ++ ")" ) ;
         _ArgPlus a                      = ss ( "( p !" ++ a.s ++ ")" ) ;
         _ArgList a b                    = ss ( "( cons !" ++ a.s ++ "!" ++ b.s ++ ")" ) ;
-        _ArgEmptyList                   = ss ( "[]" ) ;
 
         -- Mathematic operations
         _MathArg arg1                   = ss ( arg1.s ) ;
         _FinalFormula m1 ms m2          = ss ( ms.s ++ m1.s ++ m2.s ) ;
         _MathArgs arg1 mo arg2          = ss ( "(" ++ arg1.s ++ mo.s ++ arg2.s ++ ")" ) ;
+        _NatDivMod a b c d              = ss ( "!nat-divmod" ++ a.s ++ b.s ++ c.s ++ d.s ) ;
 
         -- Arithmetic operations
         _Division                       = ss ( "/" ) ;

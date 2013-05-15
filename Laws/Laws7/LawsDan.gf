@@ -72,12 +72,10 @@ concrete LawsDan of Laws = open SharedOpers in {
         -- Arguments
         _Arg A a                        = ss ( a.s ) ;
         _ArgNil                         = ss ( "nil" ) ;
-        _ArgZ                           = ss ( "nul" ) ;
-        _Arg1                           = ss ( "1" ) ;
+        _ArgZ                           = ss ( "der er tom" ) ;
         _ArgMinus a                     = ss ( "(" ++ a.s ++ "minus 1 )" ) ;
         _ArgPlus a                      = ss ( "(" ++ a.s ++ "plus 1 )" ) ;
         _ArgList a b                    = ss ( "bestående af" ++ a.s ++ "og" ++ b.s ) ;
-        _ArgEmptyList                   = ss ( "en tom liste" ) ;
 
         -- Mathematic operations
         _MathArg arg1                   = ss ( arg1.s ) ;

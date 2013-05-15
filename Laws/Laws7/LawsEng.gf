@@ -63,26 +63,25 @@ concrete LawsEng of Laws = open Prelude in {
         Ident_Minimum a b
             = ss ( "candidate" ++ a.s ++ "'s with a count of" ++ b.s ++ "votes is a potential minimum" ) ;
         Ident_Transfer a b c d e
-            = ss ( "the newly defeated candidate" ++ a.s ++"'s" ++ b.s ++ "votes are being tranferred and there are" ++ c.s ++ "open seats," ++ d.s ++ "hopeful candidates and" ++ e.s ++ "uncounted votes" ) ;
+            = ss ( "the candidate" ++ a.s ++"'s" ++ b.s ++ "votes are being tranferred and there are" ++ c.s ++ "open seats," ++ d.s ++ "hopeful candidates and" ++ e.s ++ "uncounted votes" ) ;
         Ident_Run a b c
-            = ss ( "run" ++ a.s ++ b.s ++ c.s ) ;
+            = ss ( "we are tallying votes" ) ;
         Ident_UnitOne                   
-            = ss ( "1" ) ;
+            = ss ( "consume the corresponding resources" ) ;
 
         -- Arguments
         _Arg A a                        = ss ( a.s ) ;
-        _ArgNil                         = ss ( "nil" ) ;
+        _ArgNil                         = ss ( "- that is empty -" ) ;
         _ArgZ                           = ss ( "zero" ) ;
-        _Arg1                           = ss ( "1" ) ;
         _ArgMinus a                     = ss ( "(" ++ a.s ++ "minus 1 )" ) ;
         _ArgPlus a                      = ss ( "(" ++ a.s ++ "plus 1 )" ) ;
         _ArgList a b                    = ss ( "consisting of" ++ a.s ++ "and" ++ b.s ) ;
-        _ArgEmptyList                   = ss ( "an empty list" ) ;
 
         -- Mathematic operations
         _MathArg arg1                   = ss ( arg1.s ) ;
         _FinalFormula m1 ms m2          = ss ( "(" ++ m1.s ++ ms.s ++ m2.s ++ ")" ) ;
         _MathArgs arg1 mo arg2          = ss ( "(" ++ arg1.s ++ mo.s ++ arg2.s ++ ")" ) ;
+        _NatDivMod a b c d              = ss ( a.s ++ "=" ++ b.s ++ "*" ++ c.s ++ "+" ++ d.s ) ;
 
         -- Arithmetic operations
         _Division                       = ss ( "/" ) ;

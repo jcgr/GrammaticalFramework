@@ -53,15 +53,15 @@ abstract Laws = {
 
         -- Arguments
         _Arg : (A : ArgType) -> (a : Argument A) -> Arg ;
-        _ArgNil, _ArgZ, _Arg1 : Arg ;
+        _ArgNil, _ArgZ : Arg ;
         _ArgMinus, _ArgPlus : Arg -> Arg ;
         _ArgList : Arg -> Arg -> Arg ;
-        _ArgEmptyList : Arg ;
 
         -- Mathematic operations
         _MathArg : Arg -> Math ;
         _FinalFormula : Math -> InequalityOperation -> Math -> MathFormula ;
         _MathArgs : Math -> ArithmeticOperation -> Math -> Math ;
+        _NatDivMod : Math -> Math -> Math -> Math -> MathFormula ;
 
         _Division, _Addition, _Subtraction, _Multiplication : ArithmeticOperation ;
         _Greater, _GreaterEqual, _Equal, _LessEqual, _Less : InequalityOperation ;
