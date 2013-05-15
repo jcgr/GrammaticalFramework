@@ -8,8 +8,7 @@ abstract Laws = {
     flags startcat = Logic ;
 
     cat
-        Logic ; Prod ; Neg ; Pos ; Lolli ; Bang ; Atomic ; Ident ; Arg ; ArgType ; Conj ; Math ; MathFormula ; 
-        ArithmeticOperation ; InequalityOperation ; Argument ArgType ;
+        Logic ; Prod ; Neg ; Pos ; Lolli ; Bang ; Atomic ; Ident ; Arg ; ArgType ; Conj ; Math ; MathFormula ; ArithmeticOperation ; InequalityOperation ; Argument ArgType ;
 
     fun
         Formular : Neg -> Logic ;
@@ -54,6 +53,7 @@ abstract Laws = {
         Ident_DefeatMin' : Arg -> Arg -> Arg -> Ident ;
         Ident_Minimum : Arg -> Arg -> Ident ;
         Ident_Transfer : Arg -> Arg -> Arg -> Arg -> Arg -> Ident ;
+        Ident_Run : Arg -> Arg -> Arg -> Ident ;
         Ident_UnitOne : Ident ;
 
         -- Arguments

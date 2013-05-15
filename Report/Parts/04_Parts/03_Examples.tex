@@ -23,13 +23,20 @@ p -lang=LawsLin "Pi C : candidate . Pi H : nat . Pi L : list . Pi N : nat . Pi Q
 \end{texto2}
 
 What this does, is to tell GF that we want to parse it as the language defined by the -lang flag. After it has been parsed, we tell GF to linearize it  and use the -treebank flag to have it linearized in all the languages that have been loaded. The result is the following:
+
 \begin{texto2}
-LawsEng: C is a candidate . H is a natural number . L is a list . N is a natural number . Q is a natural number . S is a natural number . U is a natural number . W is a list . \\
-If we are counting votes and there are S seats open, H hopefuls, and U uncounted ballots cast , \\
-and there is an uncounted ballot with highest preference for candidate C with a list L of lower preferences , \\
-and there is a hopeful candidate C with N counted ballots , \\
-and Q votes are needed to be elected , and ( Q is less than or equal to ( N plus 1 ) ) \\
-then \{ there is a counted ballot with highest preference for candidate C with a list L of lower preferences , \\
-and candidate C has been, and will remain, elected , \\
-and we are counting votes and there are ( S minus 1 ) seats open, ( H minus 1 ) hopefuls, and ( U minus 1 ) uncounted ballots cast \}
+LawsEng: C is a candidate . H is a natural number . L is a list . N is a natural number . Q is a natural number . S is a natural number . U is a natural number . W is a list .
+\\ If we are counting votes and there are S seats open, H hopefuls, and U uncounted votes in play , and 
+\\ there is an uncounted vote with highest preference for candidate C with a list L of lower preferences , and 
+\\ candidate C is a hopeful with N votes , and 
+\\ Q votes are needed to be elected , and ( Q is less than or equal to ( N plus 1 ) ) \\
+then \{ there is a counted vote with highest preference for candidate C with a list L of lower preferences , and 
+\\ candidate C has been elected , and 
+\\ we are counting votes and there are ( S minus 1 ) seats open, ( H minus 1 ) hopefuls, and ( U minus 1 ) uncounted votes in play \}
 \end{texto2}
+
+The program output is not the same as the formalized version in section \ref{02_01}. One reason for this, is that the formalized version does not always talk about the arguments. For example, the formalized example says "\textit{If we are tallying votes and ...}", but does not speak about the three arguments related to tallying votes.
+
+Another thing that sets the output apart from the formalized example, is the construction of the sentences. Due to some limitations in the program (more about them in \ref{04_04_02}), the program uses the same sentence construction for \cf{Ident}s, no matter what side of the $\lolli$ they are on. This can lead to confusing sentences, such as the last one in the output.
+
+While the output is not the same as the formalized example, it is nonetheless understandable. \note{more?}
