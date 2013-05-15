@@ -1,4 +1,13 @@
-\begin{thebibliography}{9}
-\label{Biblio}
-\bibitem{Celf} Short Talk: Celf – A Logical Framework for Deductive and Concurrent Systems: http://www.itu.dk/~carsten/papers/lics08short.pdf
-\end{thebibliography}
+%Bibliography
+\begin{filecontents*}{\jobname.bib}
+@misc{Deyoung11,
+	author 	= {DeYoung, Henry and Sch{\"u}rmann, Carsten},
+	title 		= {{L}inear {L}ogical {V}oting {P}rotocols},
+	year 		= {2011},
+	url 		= {http://en.wikipedia.org/wiki/Copyright\_infringement\_of\_software},
+	note 		= {[Online; accessed \today]}
+}
+\end{filecontents*}
+
+\bibliographystyle{plainnat}  % needs package natbib
+\bibliography{\jobname}

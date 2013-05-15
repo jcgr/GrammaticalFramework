@@ -1,0 +1,255 @@
+\chapter{Tests}
+\label{A_04}
+
+\section{count/1}
+\subsection{Logical formula}
+\begin{texto2}
+	Pi C : candidate . Pi H : nat . Pi L : list . Pi N : nat . Pi Q : nat . Pi S : nat . Pi U : nat . count-ballots S H ( s ! U ) * uncounted-ballot C L * hopeful C N * !quota Q * !nat-less ( s ! N ) Q -o \{ counted-ballot C L * hopeful C ( s ! N ) * count-ballots S H U \}
+\end{texto2}
+
+\subsection{Result}
+\begin{texto2}
+	C is a candidate . H is a natural number . L is a list . N is a natural number . Q is a natural number . S is a natural number . U is a natural number . If we are counting votes and there are S seats open, H hopefuls, and ( U minus 1 ) uncounted votes in play , and there is an uncounted vote with highest preference for candidate C with a list L of lower preferences , and candidate C is a hopeful with N votes , and Q votes are needed to be elected , and ( ( N minus 1 ) is less than Q ) then \{ there is a counted vote with highest preference for candidate C with a list L of lower preferences , and candidate C is a hopeful with ( N minus 1 ) votes , and we are counting votes and there are S seats open, H hopefuls, and U uncounted votes in play \}
+\end{texto2}
+
+\section{count/2}
+\subsection{Logical formula}
+\begin{texto2}
+	Pi C : candidate . Pi H : nat . Pi L : list . Pi N : nat . Pi Q : nat . Pi S : nat . Pi U : nat . Pi W : list . count-ballots ( s ! ( s ! S ) ) ( s ! H ) ( s ! U ) * uncounted-ballot C L * hopeful C N * !quota Q * !nat-lesseq Q ( s ! N ) * winners W -o \{ counted-ballot C L * !elected C * winners ( cons ! C ! W ) * count-ballots ( s ! S ) H U \}
+\end{texto2}
+
+\subsection{Result}
+\begin{texto2}
+	C is a candidate . H is a natural number . L is a list . N is a natural number . Q is a natural number . S is a natural number . U is a natural number . W is a list . If we are counting votes and there are ( ( S minus 1 ) minus 1 ) seats open, ( H minus 1 ) hopefuls, and ( U minus 1 ) uncounted votes in play , and there is an uncounted vote with highest preference for candidate C with a list L of lower preferences , and candidate C is a hopeful with N votes , and Q votes are needed to be elected , and ( Q is less than or equal to ( N minus 1 ) ) , and the candidates in the list W have been elected so far then \{ there is a counted vote with highest preference for candidate C with a list L of lower preferences , and candidate C has been elected , and the candidates in the list consisting of C and W have been elected so far , and we are counting votes and there are ( S minus 1 ) seats open, H hopefuls, and U uncounted votes in play \}
+\end{texto2}
+
+\section{count/3}
+\subsection{Logical formula}
+\begin{texto2}
+	Pi C : candidate . Pi H : nat . Pi L : list . Pi N : nat . Pi Q : nat . Pi U : nat . Pi W : list . count-ballots ( s ! z ) H U * uncounted-ballot C L * hopeful C N * !quota Q * !nat-lesseq Q ( s ! N ) * winners W -o \{ counted-ballot C L * !elected C * winners ( cons ! C ! W ) * !defeat-all \}
+\end{texto2}
+
+\subsection{Result}
+\begin{texto2}
+	C is a candidate . H is a natural number . L is a list . N is a natural number . Q is a natural number . U is a natural number . W is a list . If we are counting votes and there are ( zero minus 1 ) seats open, H hopefuls, and U uncounted votes in play , and there is an uncounted vote with highest preference for candidate C with a list L of lower preferences , and candidate C is a hopeful with N votes , and Q votes are needed to be elected , and ( Q is less than or equal to ( N minus 1 ) ) , and the candidates in the list W have been elected so far then \{ there is a counted vote with highest preference for candidate C with a list L of lower preferences , 
+\end{texto2}
+
+\section{count/4\_1}
+\subsection{Logical formula}
+\begin{texto2}
+	Pi C : candidate . Pi C' : candidate . Pi H : nat . Pi L : list . Pi S : nat . Pi U : nat . count-ballots S H U * uncounted-ballot C ( cons ! C' ! L ) * !elected C -o \{ uncounted-ballot C' L * count-ballots S H U \}
+\end{texto2}
+
+\subsection{Result}
+\begin{texto2}
+	C is a candidate . C' is a candidate . H is a natural number . L is a list . S is a natural number . U is a natural number . If we are counting votes and there are S seats open, H hopefuls, and U uncounted votes in play , and there is an uncounted vote with highest preference for candidate C with a list consisting of C' and L of lower preferences , and candidate C has been elected then \{ there is an uncounted vote with highest preference for candidate C' with a list L of lower preferences , and we are counting votes and there are S seats open, H hopefuls, and U uncounted votes in play \}
+\end{texto2}
+
+\section{count/4\_2}
+\subsection{Logical formula}
+\begin{texto2}
+	Pi C : candidate . Pi C' : candidate . Pi H : nat . Pi L : list . Pi S : nat . Pi U : nat . count-ballots S H U * uncounted-ballot C ( cons ! C' ! L ) * !defeated C -o \{ uncounted-ballot C' L * count-ballots S H U \}
+\end{texto2}
+
+\subsection{Result}
+\begin{texto2}
+	C is a candidate . C' is a candidate . H is a natural number . L is a list . S is a natural number . U is a natural number . If we are counting votes and there are S seats open, H hopefuls, and U uncounted votes in play , and there is an uncounted vote with highest preference for candidate C with a list consisting of C' and L of lower preferences , and candidate C has been defeated then \{ there is an uncounted vote with highest preference for candidate C' with a list L of lower preferences , and we are counting votes and there are S seats open, H hopefuls, and U uncounted votes in play \}
+\end{texto2}
+
+\section{count/5\_1}
+\subsection{Logical formula}
+\begin{texto2}
+	Pi C : candidate . Pi H : nat . Pi S : nat . Pi U : nat . count-ballots S H ( s ! U ) * uncounted-ballot C nil * !elected C -o \{ count-ballots S H U \}
+\end{texto2}
+
+\subsection{Result}
+\begin{texto2}
+	C is a candidate . H is a natural number . S is a natural number . U is a natural number . If we are counting votes and there are S seats open, H hopefuls, and ( U minus 1 ) uncounted votes in play , and there is an uncounted vote with highest preference for candidate C with a list - that is empty - of lower preferences , and candidate C has been elected then \{ we are counting votes and there are S seats open, H hopefuls, and U uncounted votes in play \}
+\end{texto2}
+
+\section{count/5\_2}
+\subsection{Logical formula}
+\begin{texto2}
+	Pi C : candidate . Pi H : nat . Pi S : nat . Pi U : nat . count-ballots S H ( s ! U ) * uncounted-ballot C nil * !defeated C -o \{ count-ballots S H U \}
+\end{texto2}
+
+\subsection{Result}
+\begin{texto2}
+	C is a candidate . H is a natural number . S is a natural number . U is a natural number . If we are counting votes and there are S seats open, H hopefuls, and ( U minus 1 ) uncounted votes in play , and there is an uncounted vote with highest preference for candidate C with a list - that is empty - of lower preferences , and candidate C has been defeated then \{ we are counting votes and there are S seats open, H hopefuls, and U uncounted votes in play \}
+\end{texto2}
+
+\section{count/6}
+\subsection{Logical formula}
+\begin{texto2}
+	Pi H : nat . Pi S : nat . count-ballots S H z -o \{ defeat-min S H z \}
+\end{texto2}
+
+\subsection{Result}
+\begin{texto2}
+	H is a natural number . S is a natural number . If we are counting votes and there are S seats open, H hopefuls, and zero uncounted votes in play then \{ we are in the first stage of determining which candidate has the fewest votes and there are S seats open, H hopefuls, and zero potentiel minimums remaining \}
+\end{texto2}
+
+\section{defeat-min/1}
+\subsection{Logical formula}
+\begin{texto2}
+	Pi C : candidate . Pi H : nat . Pi M : nat . Pi N : nat . Pi S : nat . defeat-min S ( s ! H ) M * hopeful C N -o \{ minimum C N * defeat-min S H ( s ! M ) \}
+\end{texto2}
+
+\subsection{Result}
+\begin{texto2}
+	C is a candidate . H is a natural number . M is a natural number . N is a natural number . S is a natural number . If we are in the first stage of determining which candidate has the fewest votes and there are S seats open, ( H minus 1 ) hopefuls, and M potentiel minimums remaining , and candidate C is a hopeful with N votes then \{ candidate C 's with a count of N votes is a potential minimum , and we are in the first stage of determining which candidate has the fewest votes and there are S seats open, H hopefuls, and ( M minus 1 ) potentiel minimums remaining \}
+\end{texto2}
+
+\section{defeat-min/2}
+\subsection{Logical formula}
+\begin{texto2}
+	Pi M : nat . Pi S : nat . defeat-min S z M -o \{ defeat-min' S z M \}
+\end{texto2}
+
+\subsection{Result}
+\begin{texto2}
+	M is a natural number . S is a natural number . If we are in the first stage of determining which candidate has the fewest votes and there are S seats open, zero hopefuls, and M potentiel minimums remaining then \{ we are in the second stage of determining which candidate has the fewest votes and there are S seats open, zero hopefuls, and M potentiel minimums remaining \}
+\end{texto2}
+
+\section{defeat-min'/1}
+\subsection{Logical formula}
+\begin{texto2}
+	Pi C : candidate . Pi C' : candidate . Pi H : nat . Pi M : nat . Pi N : nat . Pi N' : nat . Pi S : nat . defeat-min' S H ( s ! M ) * minimum C N * minimum C' N' * !nat-less N N' -o \{ minimum C N * hopeful C' N' * defeat-min' S ( s ! H ) M \}
+\end{texto2}
+
+\subsection{Result}
+\begin{texto2}
+	C is a candidate . C' is a candidate . H is a natural number . M is a natural number . N is a natural number . N' is a natural number . S is a natural number . If we are in the second stage of determining which candidate has the fewest votes and there are S seats open, H hopefuls, and ( M minus 1 ) potentiel minimums remaining , and candidate C 's with a count of N votes is a potential minimum , and candidate C' 's with a count of N' votes is a potential minimum , and ( N is less than N' ) then \{ candidate C 's with a count of N votes is a potential minimum , and candidate C' is a hopeful with N' votes , and we are in the second stage of determining which candidate has the fewest votes and there are S seats open, ( H minus 1 ) hopefuls, and M potentiel minimums remaining \}
+\end{texto2}
+
+\section{defeat-min'/2}
+\subsection{Logical formula}
+\begin{texto2}
+	Pi C : candidate . Pi H : nat . Pi N : nat . Pi S : nat . defeat-min' S H ( s ! z ) * minimum C N -o \{ !defeated C * transfer C N S H z \}
+\end{texto2}
+
+\subsection{Result}
+\begin{texto2}
+	C is a candidate . H is a natural number . N is a natural number . S is a natural number . If we are in the second stage of determining which candidate has the fewest votes and there are S seats open, H hopefuls, and ( zero minus 1 ) potentiel minimums remaining , and candidate C 's with a count of N votes is a potential minimum then \{ candidate C has been defeated , and the candidate C 's N votes are being tranferred and there are S open seats, H hopeful candidates and zero uncounted votes \}
+\end{texto2}
+
+\section{transfer/1}
+\subsection{Logical formula}
+\begin{texto2}
+	Pi C : candidate . Pi C' : candidate . Pi H : nat . Pi L : list . Pi N : nat . Pi S : nat . Pi U : nat . transfer C ( s ! N ) S H U * counted-ballot C ( cons ! C' ! L ) -o \{ uncounted-ballot C' L * transfer C N S H ( s ! U ) \}
+\end{texto2}
+
+\subsection{Result}
+\begin{texto2}
+	C is a candidate . C' is a candidate . H is a natural number . L is a list . N is a natural number . S is a natural number . U is a natural number . If the candidate C 's ( N minus 1 ) votes are being tranferred and there are S open seats, H hopeful candidates and U uncounted votes , and there is a counted vote with highest preference for candidate C with a list consisting of C' and L of lower preferences then \{ there is an uncounted vote with highest preference for candidate C' with a list L of lower preferences , and the candidate C 's N votes are being tranferred and there are S open seats, H hopeful candidates and ( U minus 1 ) uncounted votes \}
+\end{texto2}
+
+\section{transfer/2}
+\subsection{Logical formula}
+\begin{texto2}
+	Pi C : candidate . Pi H : nat . Pi N : nat . Pi S : nat . Pi U : nat . transfer C ( s ! N ) S H U * counted-ballot C nil -o \{  transfer C N S H U  \}
+\end{texto2}
+
+\subsection{Result}
+\begin{texto2}
+	C is a candidate . H is a natural number . N is a natural number . S is a natural number . U is a natural number . If the candidate C 's ( N minus 1 ) votes are being tranferred and there are S open seats, H hopeful candidates and U uncounted votes , and there is a counted vote with highest preference for candidate C with a list - that is empty - of lower preferences then \{ the candidate C 's N votes are being tranferred and there are S open seats, H hopeful candidates and U uncounted votes \}
+\end{texto2}
+
+\section{transfer/3}
+\subsection{Logical formula}
+\begin{texto2}
+	Pi C : candidate . Pi H : nat . Pi S : nat . Pi U : nat . transfer C z S H U * !nat-less S H -o \{ count-ballots S H U \}
+\end{texto2}
+
+\subsection{Result}
+\begin{texto2}
+	C is a candidate . H is a natural number . S is a natural number . U is a natural number . If the candidate C 's zero votes are being tranferred and there are S open seats, H hopeful candidates and U uncounted votes , and ( S is less than H ) then \{ we are counting votes and there are S seats open, H hopefuls, and U uncounted votes in play \}
+\end{texto2}
+
+\section{transfer/4}
+\subsection{Logical formula}
+\begin{texto2}
+	Pi C : candidate . Pi H : nat . Pi S : nat . Pi U : nat . transfer C z S H U * !nat-lesseq H S -o \{ !elect-all \}
+\end{texto2}
+
+\subsection{Result}
+\begin{texto2}
+	C is a candidate . H is a natural number . S is a natural number . U is a natural number . If the candidate C 's zero votes are being tranferred and there are S open seats, H hopeful candidates and U uncounted votes , and ( H is less than or equal to S ) then \{ there are more open seats than hopefuls \}
+\end{texto2}
+
+\section{defeat-all/1}
+\subsection{Logical formula}
+\begin{texto2}
+	Pi C : candidate . Pi N : nat . !defeat-all * hopeful C N -o \{ !defeated C \}
+\end{texto2}
+
+\subsection{Result}
+\begin{texto2}
+	C is a candidate . N is a natural number . If there are no open seats left , and candidate C is a hopeful with N votes then \{ candidate C has been defeated \}
+\end{texto2}
+
+\section{elect-all/1}
+\subsection{Logical formula}
+\begin{texto2}
+	Pi C : candidate . Pi N : nat . Pi W : list . !elect-all * hopeful C N * winners W -o \{ !elected C * winners ( cons ! C ! W ) \}
+\end{texto2}
+
+\subsection{Result}
+\begin{texto2}
+	C is a candidate . N is a natural number . W is a list . If there are more open seats than hopefuls , and candidate C is a hopeful with N votes , and the candidates in the list W have been elected so far then \{ candidate C has been elected , and the candidates in the list consisting of C and W have been elected so far \}
+\end{texto2}
+
+\section{cleanup/1}
+\subsection{Logical formula}
+\begin{texto2}
+	Pi C : candidate . Pi L : list . !defeat-all * uncounted-ballot C L -o \{ 1 \}
+\end{texto2}
+
+\subsection{Result}
+\begin{texto2}
+	C is a candidate . L is a list . If there are no open seats left , and there is an uncounted vote with highest preference for candidate C with a list L of lower preferences then \{ consume the corresponding resources \}
+\end{texto2}
+
+\section{cleanup/2}
+\subsection{Logical formula}
+\begin{texto2}
+	Pi C : candidate . Pi L : list . !defeat-all * counted-ballot C L -o \{ 1 \}
+\end{texto2}
+
+\subsection{Result}
+\begin{texto2}
+	C is a candidate . L is a list . If there are no open seats left , and there is a counted vote with highest preference for candidate C with a list L of lower preferences then \{ consume the corresponding resources \}
+\end{texto2}
+
+\section{cleanup/3}
+\subsection{Logical formula}
+\begin{texto2}
+	Pi C : candidate . Pi L : list . !elect-all * uncounted-ballot C L -o \{ 1 \}
+\end{texto2}
+
+\subsection{Result}
+\begin{texto2}
+	C is a candidate . L is a list . If there are more open seats than hopefuls , and there is an uncounted vote with highest preference for candidate C with a list L of lower preferences then \{ consume the corresponding resources \}
+\end{texto2}
+
+\section{cleanup/4}
+\subsection{Logical formula}
+\begin{texto2}
+	Pi C : candidate . Pi L : list . !elect-all * counted-ballot C L -o \{ 1 \}
+\end{texto2}
+
+\subsection{Result}
+\begin{texto2}
+	C is a candidate . L is a list . If there are more open seats than hopefuls , and there is a counted vote with highest preference for candidate C with a list L of lower preferences then \{ consume the corresponding resources \}
+\end{texto2}
+
+\section{run/1}
+\subsection{Logical formula}
+\begin{texto2}
+	Pi H : nat . Pi Q : nat . Pi S : nat . Pi U : nat . Pi xx3 : nat . run S H U * !nat-divmod U ( s ! S ) Q xx3 -o \{ !quota ( s ! Q ) * winners nil * count-ballots S H U \}
+\end{texto2}
+
+\subsection{Result}
+\begin{texto2}
+	H is a natural number . Q is a natural number . S is a natural number . U is a natural number . xx3 is a natural number . If we are tallying votes , and U = ( S minus 1 ) * Q + xx3 then \{ ( Q minus 1 ) votes are needed to be elected , and the candidates in the list - that is empty - have been elected so far , and we are counting votes and there are S seats open, H hopefuls, and U uncounted votes in play \}
+\end{texto2}

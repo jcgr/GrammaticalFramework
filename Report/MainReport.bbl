@@ -1,0 +1,15 @@
+\begin{thebibliography}{1}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[DeYoung and Sch{\"u}rmann(2011)]{Deyoung11}
+Henry DeYoung and Carsten Sch{\"u}rmann.
+\newblock {L}inear {L}ogical {V}oting {P}rotocols, 2011.
+\newblock URL
+  \url{http://en.wikipedia.org/wiki/Copyright\_infringement\_of\_software}.
+\newblock [Online; accessed \today].
+
+\end{thebibliography}
