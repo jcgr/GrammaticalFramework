@@ -34,7 +34,7 @@ abstract Laws = {
 
         -- Identifiers
         Ident_Uncounted : Arg -> Arg -> Ident ;
-        Ident_Counted: Arg -> Arg -> Ident ;
+        Ident_Counted : Arg -> Arg -> Ident ;
         Ident_Hopeful : Arg -> Arg -> Ident ;
         Ident_Defeated : Arg -> Ident ;
         Ident_Elected : Arg -> Ident ;
