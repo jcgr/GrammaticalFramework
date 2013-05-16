@@ -23,7 +23,7 @@
 \contentsline {subsection}{\numberline {3.2.3}Operations}{10}{subsection.3.2.3}
 \contentsline {subsection}{\numberline {3.2.4}Dependent types and variable bindings}{11}{subsection.3.2.4}
 \contentsline {chapter}{\numberline {4}Implementation}{13}{chapter.4}
-\contentsline {section}{\numberline {4.1}Constructing the Abstract Syntax}{13}{section.4.1}
+\contentsline {section}{\numberline {4.1}Constructing the Abstract Syntax Tree}{13}{section.4.1}
 \contentsline {section}{\numberline {4.2}Constructing the Concrete Implementation}{16}{section.4.2}
 \contentsline {subsection}{\numberline {4.2.1}Concrete linear logic implementation}{16}{subsection.4.2.1}
 \contentsline {subsection}{\numberline {4.2.2}Concrete English implementation}{18}{subsection.4.2.2}
@@ -32,81 +32,81 @@
 \contentsline {section}{\numberline {4.4}Limitations of the program}{20}{section.4.4}
 \contentsline {subsection}{\numberline {4.4.1}Static identifiers}{20}{subsection.4.4.1}
 \contentsline {subsection}{\numberline {4.4.2}Sentence construction}{20}{subsection.4.4.2}
-\contentsline {subsection}{\numberline {4.4.3}Additional languages}{20}{subsection.4.4.3}
-\contentsline {chapter}{\numberline {5}Conclusion}{21}{chapter.5}
-\contentsline {chapter}{Appendices}{22}{section*.3}
+\contentsline {subsection}{\numberline {4.4.3}Additional languages}{21}{subsection.4.4.3}
+\contentsline {chapter}{\numberline {5}Conclusion}{22}{chapter.5}
+\contentsline {chapter}{Appendices}{23}{section*.3}
 \save@tocdepth \setcounter {tocdepth}{0}
-\contentsline {chapter}{\numberline {A}Abstract Implementation}{24}{appendix.A}
-\contentsline {chapter}{\numberline {B}Concrete Linear Logic Implementation}{26}{appendix.B}
-\contentsline {chapter}{\numberline {C}Concrete English Implementation}{28}{appendix.C}
-\contentsline {chapter}{\numberline {D}Tests}{30}{appendix.D}
-\contentsline {section}{\numberline {D.1}count/1}{30}{section.D.1}
-\contentsline {subsection}{\numberline {D.1.1}Logical formula}{30}{subsection.D.1.1}
-\contentsline {subsection}{\numberline {D.1.2}Result}{30}{subsection.D.1.2}
-\contentsline {section}{\numberline {D.2}count/2}{30}{section.D.2}
-\contentsline {subsection}{\numberline {D.2.1}Logical formula}{30}{subsection.D.2.1}
-\contentsline {subsection}{\numberline {D.2.2}Result}{30}{subsection.D.2.2}
-\contentsline {section}{\numberline {D.3}count/3}{31}{section.D.3}
-\contentsline {subsection}{\numberline {D.3.1}Logical formula}{31}{subsection.D.3.1}
-\contentsline {subsection}{\numberline {D.3.2}Result}{31}{subsection.D.3.2}
-\contentsline {section}{\numberline {D.4}count/4\_1}{31}{section.D.4}
-\contentsline {subsection}{\numberline {D.4.1}Logical formula}{31}{subsection.D.4.1}
-\contentsline {subsection}{\numberline {D.4.2}Result}{31}{subsection.D.4.2}
-\contentsline {section}{\numberline {D.5}count/4\_2}{31}{section.D.5}
-\contentsline {subsection}{\numberline {D.5.1}Logical formula}{31}{subsection.D.5.1}
-\contentsline {subsection}{\numberline {D.5.2}Result}{32}{subsection.D.5.2}
-\contentsline {section}{\numberline {D.6}count/5\_1}{32}{section.D.6}
-\contentsline {subsection}{\numberline {D.6.1}Logical formula}{32}{subsection.D.6.1}
-\contentsline {subsection}{\numberline {D.6.2}Result}{32}{subsection.D.6.2}
-\contentsline {section}{\numberline {D.7}count/5\_2}{32}{section.D.7}
-\contentsline {subsection}{\numberline {D.7.1}Logical formula}{32}{subsection.D.7.1}
-\contentsline {subsection}{\numberline {D.7.2}Result}{32}{subsection.D.7.2}
-\contentsline {section}{\numberline {D.8}count/6}{32}{section.D.8}
-\contentsline {subsection}{\numberline {D.8.1}Logical formula}{32}{subsection.D.8.1}
-\contentsline {subsection}{\numberline {D.8.2}Result}{33}{subsection.D.8.2}
-\contentsline {section}{\numberline {D.9}defeat-min/1}{33}{section.D.9}
-\contentsline {subsection}{\numberline {D.9.1}Logical formula}{33}{subsection.D.9.1}
-\contentsline {subsection}{\numberline {D.9.2}Result}{33}{subsection.D.9.2}
-\contentsline {section}{\numberline {D.10}defeat-min/2}{33}{section.D.10}
-\contentsline {subsection}{\numberline {D.10.1}Logical formula}{33}{subsection.D.10.1}
-\contentsline {subsection}{\numberline {D.10.2}Result}{33}{subsection.D.10.2}
-\contentsline {section}{\numberline {D.11}defeat-min'/1}{33}{section.D.11}
-\contentsline {subsection}{\numberline {D.11.1}Logical formula}{33}{subsection.D.11.1}
-\contentsline {subsection}{\numberline {D.11.2}Result}{34}{subsection.D.11.2}
-\contentsline {section}{\numberline {D.12}defeat-min'/2}{34}{section.D.12}
-\contentsline {subsection}{\numberline {D.12.1}Logical formula}{34}{subsection.D.12.1}
-\contentsline {subsection}{\numberline {D.12.2}Result}{34}{subsection.D.12.2}
-\contentsline {section}{\numberline {D.13}transfer/1}{34}{section.D.13}
-\contentsline {subsection}{\numberline {D.13.1}Logical formula}{34}{subsection.D.13.1}
-\contentsline {subsection}{\numberline {D.13.2}Result}{34}{subsection.D.13.2}
-\contentsline {section}{\numberline {D.14}transfer/2}{35}{section.D.14}
-\contentsline {subsection}{\numberline {D.14.1}Logical formula}{35}{subsection.D.14.1}
-\contentsline {subsection}{\numberline {D.14.2}Result}{35}{subsection.D.14.2}
-\contentsline {section}{\numberline {D.15}transfer/3}{35}{section.D.15}
-\contentsline {subsection}{\numberline {D.15.1}Logical formula}{35}{subsection.D.15.1}
-\contentsline {subsection}{\numberline {D.15.2}Result}{35}{subsection.D.15.2}
-\contentsline {section}{\numberline {D.16}transfer/4}{35}{section.D.16}
-\contentsline {subsection}{\numberline {D.16.1}Logical formula}{35}{subsection.D.16.1}
-\contentsline {subsection}{\numberline {D.16.2}Result}{35}{subsection.D.16.2}
-\contentsline {section}{\numberline {D.17}defeat-all/1}{35}{section.D.17}
-\contentsline {subsection}{\numberline {D.17.1}Logical formula}{35}{subsection.D.17.1}
-\contentsline {subsection}{\numberline {D.17.2}Result}{36}{subsection.D.17.2}
-\contentsline {section}{\numberline {D.18}elect-all/1}{36}{section.D.18}
-\contentsline {subsection}{\numberline {D.18.1}Logical formula}{36}{subsection.D.18.1}
-\contentsline {subsection}{\numberline {D.18.2}Result}{36}{subsection.D.18.2}
-\contentsline {section}{\numberline {D.19}cleanup/1}{36}{section.D.19}
-\contentsline {subsection}{\numberline {D.19.1}Logical formula}{36}{subsection.D.19.1}
-\contentsline {subsection}{\numberline {D.19.2}Result}{36}{subsection.D.19.2}
-\contentsline {section}{\numberline {D.20}cleanup/2}{36}{section.D.20}
-\contentsline {subsection}{\numberline {D.20.1}Logical formula}{36}{subsection.D.20.1}
-\contentsline {subsection}{\numberline {D.20.2}Result}{36}{subsection.D.20.2}
-\contentsline {section}{\numberline {D.21}cleanup/3}{36}{section.D.21}
-\contentsline {subsection}{\numberline {D.21.1}Logical formula}{36}{subsection.D.21.1}
-\contentsline {subsection}{\numberline {D.21.2}Result}{37}{subsection.D.21.2}
-\contentsline {section}{\numberline {D.22}cleanup/4}{37}{section.D.22}
-\contentsline {subsection}{\numberline {D.22.1}Logical formula}{37}{subsection.D.22.1}
-\contentsline {subsection}{\numberline {D.22.2}Result}{37}{subsection.D.22.2}
-\contentsline {section}{\numberline {D.23}run/1}{37}{section.D.23}
-\contentsline {subsection}{\numberline {D.23.1}Logical formula}{37}{subsection.D.23.1}
-\contentsline {subsection}{\numberline {D.23.2}Result}{37}{subsection.D.23.2}
+\contentsline {chapter}{\numberline {A}Abstract Implementation}{25}{appendix.A}
+\contentsline {chapter}{\numberline {B}Concrete Linear Logic Implementation}{27}{appendix.B}
+\contentsline {chapter}{\numberline {C}Concrete English Implementation}{29}{appendix.C}
+\contentsline {chapter}{\numberline {D}Tests}{31}{appendix.D}
+\contentsline {section}{\numberline {D.1}count/1}{31}{section.D.1}
+\contentsline {subsection}{\numberline {D.1.1}Logical formula}{31}{subsection.D.1.1}
+\contentsline {subsection}{\numberline {D.1.2}Result}{31}{subsection.D.1.2}
+\contentsline {section}{\numberline {D.2}count/2}{31}{section.D.2}
+\contentsline {subsection}{\numberline {D.2.1}Logical formula}{31}{subsection.D.2.1}
+\contentsline {subsection}{\numberline {D.2.2}Result}{31}{subsection.D.2.2}
+\contentsline {section}{\numberline {D.3}count/3}{32}{section.D.3}
+\contentsline {subsection}{\numberline {D.3.1}Logical formula}{32}{subsection.D.3.1}
+\contentsline {subsection}{\numberline {D.3.2}Result}{32}{subsection.D.3.2}
+\contentsline {section}{\numberline {D.4}count/4\_1}{32}{section.D.4}
+\contentsline {subsection}{\numberline {D.4.1}Logical formula}{32}{subsection.D.4.1}
+\contentsline {subsection}{\numberline {D.4.2}Result}{32}{subsection.D.4.2}
+\contentsline {section}{\numberline {D.5}count/4\_2}{32}{section.D.5}
+\contentsline {subsection}{\numberline {D.5.1}Logical formula}{32}{subsection.D.5.1}
+\contentsline {subsection}{\numberline {D.5.2}Result}{33}{subsection.D.5.2}
+\contentsline {section}{\numberline {D.6}count/5\_1}{33}{section.D.6}
+\contentsline {subsection}{\numberline {D.6.1}Logical formula}{33}{subsection.D.6.1}
+\contentsline {subsection}{\numberline {D.6.2}Result}{33}{subsection.D.6.2}
+\contentsline {section}{\numberline {D.7}count/5\_2}{33}{section.D.7}
+\contentsline {subsection}{\numberline {D.7.1}Logical formula}{33}{subsection.D.7.1}
+\contentsline {subsection}{\numberline {D.7.2}Result}{33}{subsection.D.7.2}
+\contentsline {section}{\numberline {D.8}count/6}{33}{section.D.8}
+\contentsline {subsection}{\numberline {D.8.1}Logical formula}{33}{subsection.D.8.1}
+\contentsline {subsection}{\numberline {D.8.2}Result}{34}{subsection.D.8.2}
+\contentsline {section}{\numberline {D.9}defeat-min/1}{34}{section.D.9}
+\contentsline {subsection}{\numberline {D.9.1}Logical formula}{34}{subsection.D.9.1}
+\contentsline {subsection}{\numberline {D.9.2}Result}{34}{subsection.D.9.2}
+\contentsline {section}{\numberline {D.10}defeat-min/2}{34}{section.D.10}
+\contentsline {subsection}{\numberline {D.10.1}Logical formula}{34}{subsection.D.10.1}
+\contentsline {subsection}{\numberline {D.10.2}Result}{34}{subsection.D.10.2}
+\contentsline {section}{\numberline {D.11}defeat-min'/1}{34}{section.D.11}
+\contentsline {subsection}{\numberline {D.11.1}Logical formula}{34}{subsection.D.11.1}
+\contentsline {subsection}{\numberline {D.11.2}Result}{35}{subsection.D.11.2}
+\contentsline {section}{\numberline {D.12}defeat-min'/2}{35}{section.D.12}
+\contentsline {subsection}{\numberline {D.12.1}Logical formula}{35}{subsection.D.12.1}
+\contentsline {subsection}{\numberline {D.12.2}Result}{35}{subsection.D.12.2}
+\contentsline {section}{\numberline {D.13}transfer/1}{35}{section.D.13}
+\contentsline {subsection}{\numberline {D.13.1}Logical formula}{35}{subsection.D.13.1}
+\contentsline {subsection}{\numberline {D.13.2}Result}{35}{subsection.D.13.2}
+\contentsline {section}{\numberline {D.14}transfer/2}{36}{section.D.14}
+\contentsline {subsection}{\numberline {D.14.1}Logical formula}{36}{subsection.D.14.1}
+\contentsline {subsection}{\numberline {D.14.2}Result}{36}{subsection.D.14.2}
+\contentsline {section}{\numberline {D.15}transfer/3}{36}{section.D.15}
+\contentsline {subsection}{\numberline {D.15.1}Logical formula}{36}{subsection.D.15.1}
+\contentsline {subsection}{\numberline {D.15.2}Result}{36}{subsection.D.15.2}
+\contentsline {section}{\numberline {D.16}transfer/4}{36}{section.D.16}
+\contentsline {subsection}{\numberline {D.16.1}Logical formula}{36}{subsection.D.16.1}
+\contentsline {subsection}{\numberline {D.16.2}Result}{36}{subsection.D.16.2}
+\contentsline {section}{\numberline {D.17}defeat-all/1}{36}{section.D.17}
+\contentsline {subsection}{\numberline {D.17.1}Logical formula}{36}{subsection.D.17.1}
+\contentsline {subsection}{\numberline {D.17.2}Result}{37}{subsection.D.17.2}
+\contentsline {section}{\numberline {D.18}elect-all/1}{37}{section.D.18}
+\contentsline {subsection}{\numberline {D.18.1}Logical formula}{37}{subsection.D.18.1}
+\contentsline {subsection}{\numberline {D.18.2}Result}{37}{subsection.D.18.2}
+\contentsline {section}{\numberline {D.19}cleanup/1}{37}{section.D.19}
+\contentsline {subsection}{\numberline {D.19.1}Logical formula}{37}{subsection.D.19.1}
+\contentsline {subsection}{\numberline {D.19.2}Result}{37}{subsection.D.19.2}
+\contentsline {section}{\numberline {D.20}cleanup/2}{37}{section.D.20}
+\contentsline {subsection}{\numberline {D.20.1}Logical formula}{37}{subsection.D.20.1}
+\contentsline {subsection}{\numberline {D.20.2}Result}{37}{subsection.D.20.2}
+\contentsline {section}{\numberline {D.21}cleanup/3}{37}{section.D.21}
+\contentsline {subsection}{\numberline {D.21.1}Logical formula}{37}{subsection.D.21.1}
+\contentsline {subsection}{\numberline {D.21.2}Result}{38}{subsection.D.21.2}
+\contentsline {section}{\numberline {D.22}cleanup/4}{38}{section.D.22}
+\contentsline {subsection}{\numberline {D.22.1}Logical formula}{38}{subsection.D.22.1}
+\contentsline {subsection}{\numberline {D.22.2}Result}{38}{subsection.D.22.2}
+\contentsline {section}{\numberline {D.23}run/1}{38}{section.D.23}
+\contentsline {subsection}{\numberline {D.23.1}Logical formula}{38}{subsection.D.23.1}
+\contentsline {subsection}{\numberline {D.23.2}Result}{38}{subsection.D.23.2}
 \contentsfinish 

@@ -422,4 +422,20 @@
   \lstset{style=keybook,language=GF,#1}%
   \languageMarkBegin{GF}%
   \let\@currlang\@langgf}{\languageMarkEnd\let\@currlang\@langnone}
+
+\lstnewenvironment{lstownjava}[1][]{%
+  \lstset{style=keybook,
+	language=Java,
+	basicstyle=\footnotesize\ttfamily,
+	keywordstyle=\color{javapurple}\bfseries,
+	stringstyle=\color{javared},
+	commentstyle=\color{javagreen},
+	morecomment=[s][\color{javadocblue}]{/**}{*/},
+	numbers=left,
+	numbersep=10pt,
+	tabsize=4,
+	showspaces=false,
+	showstringspaces=false}%
+  \languageMarkBegin{Java}%
+  \let\@currlang\@langjava}{\languageMarkEnd\let\@currlang\@langnone}
   

@@ -35,8 +35,6 @@ then \{ there is a counted vote with highest preference for candidate C with a l
 \\ we are counting votes and there are ( S minus 1 ) seats open, ( H minus 1 ) hopefuls, and ( U minus 1 ) uncounted votes in play \}
 \end{texto2}
 
-The program output is not the same as the formalized version in section \ref{02_01}. One reason for this, is that the formalized version does not always talk about the arguments. For example, the formalized example says "\textit{If we are tallying votes and ...}", but does not speak about the three arguments related to tallying votes.
+In the output, one will notice that there are cases where a sentence feels a bit odd, for example the last sentence, where it would make more sense if it said that the seats, hopefuls and uncounted votes are what is remaining. This is due to a limitation in the program (more about that in section \ref{04_04_02}), which makes the program uses the same sentences for \cf{Ident}s, no matter what side of the $\lolli$ they are on.
 
-Another thing that sets the output apart from the formalized example, is the construction of the sentences. Due to some limitations in the program (more about them in \ref{04_04_02}), the program uses the same sentence construction for \cf{Ident}s, no matter what side of the $\lolli$ they are on. This can lead to confusing sentences, such as the last one in the output.
-
-While the output is not the same as the formalized example, it is nonetheless understandable. \note{more?}
+While there are some limitations, the output is nonetheless understandable and makes sense to some degree.

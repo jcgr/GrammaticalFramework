@@ -1,7 +1,7 @@
-\section{Constructing  the Abstract Syntax}
+\section{Constructing  the Abstract Syntax Tree}
 \label{04_01}
 
-The first step in writing the program was to construct the abstract syntax. The abstract syntax determines how the parts of the "language" (linear logic in this case) are put together to form sentences. It is important to make sure the abstract syntax is well constructed, or strange things may happen in the program.
+The first step in writing the program was to construct the abstract syntax tree. The abstract syntax tree determines how the parts of the "language" (linear logic in this case) are put together to form sentences. It is important to make sure the abstract syntax is well constructed, or strange things may happen in the program.
 
 In this section, the different parts of the abstract syntax will explained individually, but the full abstract implementation can be found in appendix \ref{A_01} if the reader wants to look at it.
 
@@ -43,7 +43,7 @@ abstract Laws = {
 
 Going through the abstract syntax, one will notice a couple of things that do not come from the connectives: There is something called an "\cf{Atomic}" (line 12) and there is both an \cf{ArgType} and an \cf{Argument A} in the function of \cf{\_Pi}. The \cf{Atomic} is used to represent functions along with the arguments they take. They will be explained in more detail later in this section.
 
-The \cf{\_Pi} should seem familiar, as it was used for demonstrating variable bindings in section \ref{03_02_04}. The only things that have changed are the types involved. \cf{ArgType} is the type of the argument (a natural number, a candidate or a list), and \cf{Argument A} uses this \cf{ArgType} to bind a variable for use in the \cf{Neg}. This will allow the use of variables in the program.
+The \cf{\_Pi} is almost the same as the one in section \ref{03_02_04}. The only things that have changed are the types involved. \cf{ArgType} is the type of the argument (a natural number, a candidate or a list), and \cf{Argument A} uses this \cf{ArgType} to bind a variable for use in the \cf{Neg}. This will allow the use of variables in the program.
 
 There are two other things that needs an explanation as well. The \cf{\_Unit} turns a negative type into a positive type (it is actually a positive type, so there is no cheating here). The \cf{\_MPos} allows for multiple positive types to follow each other without connectives and is mainly used for allowing multiple universan quantifiers to follow each other.
 

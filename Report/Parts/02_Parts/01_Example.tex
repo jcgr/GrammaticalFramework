@@ -1,14 +1,15 @@
 \section{Example}
 \label{02_01}
 
-As described in section \ref{01_01}, the legal text is short, to the point and not that good for translating into source code. An example of the legal text can be seen here:
-\centered{\formula{“If a candidate reaches the quota, he is declared elected.”}}
-This piece of text shows the lack of detail. How do we ensure the candidate has reached the quota? What do we do with the ballot that makes him reach the quota? What happens with him when he is elected? And most importantly, can he be elected even if there are no open seats? The latter is a very important question, one that is not answered by the legal text. Common sense dictates that the answer is “no”, but that is an assumption one has to make and assumptions are best avoided when it comes to voting.
+As described in section \ref{01_01}, the legal text is short, to the point and not that good for translating directly into source code. An example of the legal text can be seen here:
 
-\note{Make sure first sentence is actually correct when it comes to facts} \\
-According to the \note{insert reference to deyoung-schuuermann-voteid2011}, translating the legal text into linear logic results in this formula (how linear logic works is explained in section \ref{03_01}):
+	\centered{\formula{“If a candidate reaches the quota, he is declared elected.”}}
 
-\begin{texto2}
+This piece of text shows the lack of detail in legal language: How do we ensure the candidate has reached the quota? What is the quota? What do we do with the ballot that makes him reach the quota even? What happens with him when he is elected? Can he be elected even if there are no open seats? The latter is a very important question, one that is not answered by the legal text. Common sense dictates that the answer is “no”, but that is an assumption one has to make and assumptions are best avoided when it comes to voting.  \note{I do not understand comment 4.5}
+
+Searching for proofs of this law will invariably result in a logical formula. As a running example, I will be using the following decleration from the "Linear Logical Voting Protocols"\cite{Deyoung11} paper by \citeauthor{Deyoung11}, which describes a candidate reaching the quota.
+
+\begin{textoform}
 	count/2: \\
 	\formula{count-ballots(S, H, U) $\tensor$ \\
 	uncounted-ballot(C, L) $\tensor$ hopeful(C, N) $\tensor$ \\
@@ -16,17 +17,28 @@ According to the \note{insert reference to deyoung-schuuermann-voteid2011}, tran
 	$\bang$(S-1 $>$ 0) \\
 	\hspace{5pt}$\lolli$ \{ counted-ballot(C, L) $\tensor$ $\bang$elected(C) $\tensor$ \\
 	\hspace{29pt}winners([C $|$ W]) $\tensor$ count-ballots(S-1, H-1, U-1) \} }
-\end{texto2}
+\end{textoform}
 
-This formula accurately describes the entire process involved in checking if a candidate reaches the quota and then marking him as elected. Understanding this formula requires knowledge of how linear logic works (see section \ref{03_01}) and is definitely not suited for use as legal text. DeYoung and Schürmann has taken this into account, however, and have come up with a formalized version of it:
+This formula accurately describes the entire process involved in checking if a candidate reaches the quota and then marking him as elected. Understanding this formula requires knowledge of how linear logic works and is therefore not suited for the legal text.
 
-\begin{texto2} 
-If we are counting votes and \\
-there is an uncounted vote for C and C is a hopeful with running tally N and \\
-this vote would meet the quota and the candidates in list W have been elected so far and\\
-there is at least one seat left, \\
-then mark the ballot as counted and declare candidate C to be elected and\\
-attach candidate C to list W and count the remaining U-1 votes among the H-1 hopefuls and S-1 seats left.
-\end{texto2}
-
-Each line in the formalized version corresponds to a line of the logical formula and describes the process perfectly. Nothing has been left to assumptions. The formalized version has been written manually and makes it easy to test the program, as we now have something to aim for.
+\begin{lstownjava}
+ /**
+   * Get next preference candidate ID
+   * 
+   * @param offset
+   *          The number of preferences to look ahead
+   * @return The next preference candidate ID
+   */
+  /*@ public normal_behavior
+    @   requires 0 <= positionInList + offset;
+    @   ensures (\result == NONTRANSFERABLE)
+    @     || (\result == getPreference(positionInList + offset));
+    @*/
+  public/*@ pure @*/int getNextPreference(final int offset) {
+    final int index = positionInList + offset;
+    if (index < numberOfPreferences && index < preferenceList.length) {
+      return preferenceList[index];
+    }
+    return NONTRANSFERABLE;
+  }
+\end{lstownjava}

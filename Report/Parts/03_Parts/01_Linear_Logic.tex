@@ -106,7 +106,7 @@ The connectives are not the only things in linear logic. It is also possible to 
 	$\lbrack$ x $|$ y $\rbrack$ \hspace{12pt} ::= (cons ! x ! y)
 \end{texto}
 Using the Celf syntax, we can translate a formula written in linear logic into something a computer can read more easily. The example from section \ref{02_01} therefore becomes:
-\begin{texto}
+\begin{textoform}
 	\formula{tally-votes S H U * \\
 	uncounted-ballot C L * \\
 	hopeful C N * \\
@@ -114,7 +114,7 @@ Using the Celf syntax, we can translate a formula written in linear logic into s
 	\hspace{10pt}-o \{ counted-ballot C L * \\
 	\hspace{30pt}!elected C * \\
 	\hspace{30pt}tally-votes (s ! S) (s ! H) (s ! U) \} }
-\end{texto}
+\end{textoform}
 
 Now we have an understanding of how linear logic works and how to represent it in an easy way on the computer. \\
 \note{Other things that needs to be said about Celf?} \\

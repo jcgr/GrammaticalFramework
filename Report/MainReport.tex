@@ -22,6 +22,7 @@
 \usepackage{code}
 \usepackage{keylistings}
 \usepackage[numbers]{natbib}         % bibliography style
+\usepackage{color}
 
 \usepackage{amssymb}
 \usepackage[fleqn]{amsmath}
@@ -47,6 +48,11 @@
 
 \titleformat{\subparagraph}[runin]{\normalfont\normalsize\bfseries}{\thesubparagraph}{1em}{}
 \titlespacing*{\subparagraph} {\parindent}{3.25ex plus 1ex minus .2ex}{1em}
+
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
 
 % Text formatting
 \setlength{\parindent}{0pt}
@@ -125,7 +131,33 @@
 	\pagebreak
 }
 
+\newcommand{\lstSetJava}
+{
+	\lstset{language=Java,
+	basicstyle=\footnotesize\ttfamily,
+	keywordstyle=\color{javapurple}\bfseries,
+	stringstyle=\color{javared},
+	commentstyle=\color{javagreen},
+	morecomment=[s][\color{javadocblue}]{/**}{*/},
+	numbers=left,
+	%numberstyle=\tiny\color{black},
+	%stepnumber=2,
+	numbersep=10pt,
+	tabsize=4,
+	showspaces=false,
+	showstringspaces=false}
+}
+
 \newenvironment{texto}{%
+  \begin{center} % so the minipage is centered
+  \begin{varwidth}[t]{\textwidth}
+  %\raggedright % so the minipage's text is left justified
+}{%
+  \end{varwidth}
+  \end{center}
+}
+
+\newenvironment{textoform}{%
   \begin{center} % so the minipage is centered
   \begin{varwidth}[t]{\textwidth}
   \raggedright % so the minipage's text is left justified
@@ -137,7 +169,7 @@
 \newenvironment{texto2}{%
   \begin{center} % so the minipage is centered
   \begin{varwidth}[t]{0.8\textwidth}
-  \raggedright % so the minipage's text is left justified
+  %\raggedright % so the minipage's text is left justified
 }{%
   \end{varwidth}
   \end{center}
@@ -153,10 +185,10 @@
 % Author
 \author{
 	Jacob Claudius Grooss, jcgr@itu.dk\\
-	Carsten Schürmann, carsten@itu.dk
+	Supervisor: Carsten Schürmann, carsten@itu.dk
 }
 
-\date{May 22nd, 20130}
+\date{Hand-in date: May 22nd, 2013}
 \begin{document}
 \maketitle
 \tableofcontents

@@ -88,7 +88,7 @@ oper
     cc : Str -> Str -> Str = \x,y -> (x.s ++ y.s) ;
 \end{lstgf}
 
-An operation can be placed in a concrete implementation (if it is only needed in one of them) or in a so-called \cf{resource} module (see \refCode{03_02_C05}), which can be accessed by multiple concrete implementations. To access the resource module, one adds "open $<$nameOfModule$>$ in" to the first line of a concrete implementation, as shown in \ref{code:03_02_C06}
+An operation can be placed in a concrete implementation (if it is only needed in one of them) or in a so-called \cf{resource} module (see \refCode{03_02_C05}), which can be accessed by multiple concrete implementations. To access the resource module, one adds "open $\langle$nameOfModule$\rangle$ in" to the first line of a concrete implementation, as shown in \ref{code:03_02_C06}. 
 
 \lstCode{A simple resource module.}{03_02_C05}
 \begin{lstgf}
@@ -114,10 +114,12 @@ concrete HelloEng of AbstractLinearLogic = open StringOper in {
 }
 \end{lstgf}
 
+One should note that GF comes with built-in resource modules. The module "Prelude" has the same operations as the StringOper module shown.
+
 \subsection{Dependent types and variable bindings}
 \label{03_02_04}
 
-As there are variables used in the logical formula, we need a way to represent that in the program. GF supports this through variable bindings, which binds variables to allow them to be used in parts of the program. In the universal quantification \cf{( Pi x : nat ) ( x = x )}, the variable \cf{x} has a binding (\cf{( Pi x : nat )}) that says it is of the type \cf{nat} (a natural number), and that it is bound in the body \cf{B(x)}, where it can be used.
+The last thing we are going to look at is variable bindings. These are used to bind variables, which allows for them to be used dynamically in parts of the program. In the universal quantification \cf{( Pi x : nat ) ( x = x )}, the variable \cf{x} has a binding (\cf{( Pi x : nat )}) that says it is of the type \cf{nat} (a natural number), and that it is bound in the body \cf{B(x)}, where it can be used.
 
 To use variable bindings in GF, it is necessary to use functions as arguments. In \refCode{03_02_C07}, \cf{Pi} takes an argument \cf{A} that is required to be of the type \cf{Set}. It also takes an \cf{El A} argument, a type that takes a \cf{Set} as argument (in this case \cf{A}), and uses that in a \cf{Set}. These two groups of arguments are used to create a \cf{Set}. Furthermore, \cf{Eq} also takes an argument \cf{A} that is of the type \cf{Set}. It also takes two other arguments, \cf{a} and \cf{b}, which both must be of the type \cf{El} with \cf{A} as its argument. This is turned into a \cf{Set}.
 

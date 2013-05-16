@@ -6,17 +6,19 @@ This paper is the result of a bachelor project on the bachelor line in Software 
 \section{Background}
 \label{01_01}
 
-When it comes to elections, there are laws describing how votes are to be distributed. These laws are often short and to the point, which results in both advantages and disadvantages. One advantage is that they are not difficult to read. A disadvantage is that there are situations where they are not informative enough, especially when it comes to writing computer programs to assist in the distribution.
+It is generally agreed upon that elections consist of three parts: Pre-Election Day, Election Day and post-election day. In Denmark, computers have been used in the third part for nearly thirty years. A computer program, that was written by Bjørn Rosengreen, implemts an interpretation of the law and how to tabulate the tallies and assign seats in Folketinget to parties. Because of this, the software became the de facto law interpreting the law and resolving possible ambiguities.
 
-When people write code following the legal text, they have to make assumptions about certain things that are not fully described. If a person has to make assumptions, how can others then trust the end result? They cannot and that is a problem. Even if the program is correct, it is not easy to certify that the code meets the legal specifications.
+The laws regarding elections are written in legal language, which is often short and to the point. Using legal language for laws results in both advantages and disadvantages. There is the disadvantage that there are situations where the legal texts are not informative enough, for example when it comes to writing computer programs.
 
-One way to get around these issues is to introduce something that can describe the legal specifications fully, while still being easy to convert to code. This is where linear logic enters the picture. Linear logic is a type of formal logic well-suited to write trustworthy specifications and implementations of voting protocols. \note{rewrite}
+An important advantage about legal language - for this project - is that it is closely related to logic. This means that it is possible to look at legal language from a logical point of view. As we are talking about resources, a logic that fits well is linear logic.
 
-Translating legal text into linear logic results in logical formulas. These formulas are basically algorithms at a high level of abstraction, which makes it easy to translate into code and can actually be used as source code. Logical formulas are also well-suited for proving the correctness of what they describe and can thus bridge the gap between the legal text and code. 
+With a logical system, it is possible to search for proofs in the legal language and it corresponds, in this setting, with interpreting the law. With this, the law can become source code, and the search for proofs can become an algorithm.
 
 \section{Goal of the project}
 \label{01_02}
 
-Another possibility is to change the legal text based on the logical formulas. This way, the logical formulas will only have to be written once, after which the legal text will be easier to translate into code (and understand in general).
+\begin{texto2}
+\textit{"The goal of this project is to provide another solution to the chicken egg problem. Instead of taking the law for granted, we argue that we can synthesis the law text from the logical specification. Being able to check a law for soundness and the absence of inconsistency using formal mathematical tools is worth a lot. Synthesizing the law text from a formalized and mechanized set of rules is a billion times better."} (Frank Pfenning 2012)
+\end{texto2}
 
-The goal of this project is to explore the possibility of writing a program in Grammatical Framework\footnote{http://www.grammaticalframework.org/} to translate linear logic formulas into understandable sentences in one or more natural languages, for the purpose of using them as law texts.
+To achieve this goal, we will be using two tools. The first tool is the linear logical framework CLF, which we will use to capture the essence of the logical rules describing the tabulation algorithms. The second tool is the Grammatical Framework\footnote{http://www.grammaticalframework.org/}, which we will use to linguistic domain specific knowledge.
