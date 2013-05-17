@@ -19,26 +19,67 @@ Searching for proofs of this law will invariably result in a logical formula. As
 	\hspace{29pt}winners([C $|$ W]) $\tensor$ count-ballots(S-1, H-1, U-1) \} }
 \end{textoform}
 
-This formula accurately describes the entire process involved in checking if a candidate reaches the quota and then marking him as elected. Understanding this formula requires knowledge of how linear logic works and is therefore not suited for the legal text.
+This formula accurately describes the process for checking if a candidate reaches the quota and then marking him as elected.
+
+
+% Understanding this formula requires knowledge of how linear logic works and is therefore not suited for the legal text.
+
+% In contrast, we give an example from Dermot...  a method programmed
+% in Java that marks a candidate as elected.
+
+% We notice that the method operates on a different level of
+% abstraction and requires ambient knowledge regarding the meaning of
+% all methods and fields used in the function but declared elsewhere,
+% state of mind, common understanding between programmer and reader,
+% and most importantly, the operational semantics of Java, including
+% the meaning of final, side effects, shared memory, and concurrency.
 
 \begin{lstownjava}
- /**
-   * Get next preference candidate ID
-   * 
-   * @param offset
-   *          The number of preferences to look ahead
-   * @return The next preference candidate ID
-   */
-  /*@ public normal_behavior
-    @   requires 0 <= positionInList + offset;
-    @   ensures (\result == NONTRANSFERABLE)
-    @     || (\result == getPreference(positionInList + offset));
-    @*/
-  public/*@ pure @*/int getNextPreference(final int offset) {
-    final int index = positionInList + offset;
-    if (index < numberOfPreferences && index < preferenceList.length) {
-      return preferenceList[index];
+  /**
+* Elect any candidate with a quota or more of votes.
+*/
+  /*@ requires state == COUNTING;
+@ assignable candidateList, ballotsToCount, candidates,
+@ numberOfCandidatesElected, totalRemainingSeats;
+@ assignable countStatus;
+@ ensures countStatus.substate == AbstractCountStatus.CANDIDATE_ELECTED ||
+@ countStatus.substate == AbstractCountStatus.SURPLUS_AVAILABLE;
+@*/
+  protected void electCandidatesWithSurplus() {
+    while (candidatesWithQuota()
+        && countNumberValue < CountConfiguration.MAXCOUNT
+        && getNumberContinuing() > totalRemainingSeats) {
+      
+      updateCountStatus(AbstractCountStatus.CANDIDATES_HAVE_QUOTA);
+      final int winner = findHighestCandidate();
+      
+      // Elect highest continuing candidate
+      updateCountStatus(AbstractCountStatus.CANDIDATE_ELECTED);
+      //@ assert 0 <= winner && winner < totalCandidates;
+      //@ assert candidateList[winner].getStatus() == Candidate.CONTINUING;
+      //@ assert numberElected < seats;
+      //@ assert 0 < remainingSeats;
+      /*@ assert (hasQuota(candidateList[winner]))
+@ || (winner == findHighestCandidate())
+@ || (getNumberContinuing() == totalRemainingSeats);
+@*/
+      electCandidate(winner);
+      if (0 < getSurplus(candidates[winner])) {
+        updateCountStatus(AbstractCountStatus.SURPLUS_AVAILABLE);
+        distributeSurplus(winner);
+      }
+      
     }
-    return NONTRANSFERABLE;
   }
 \end{lstownjava}
+
+% Furthermore, we observe that it is very difficult to translate this into natural language, because of the aforementioned challenges. 
+% We see the main proble is the level abstraction, because any verbalization system needs to abstract from the implementation details 
+% in order to generate readable and informative text. 
+
+% If we compare teh declartive to the imperative formulation, we notice that linear logic gives us the tools we need to express that a candidate cannot become unelected (see bang)
+% and that is also more concise.  The Java code, for example assumes that the votes were already counted correctly, wheres the logical formulations gives us a way to express that an
+% uncounted ballot becomes counted.
+
+
+ 
