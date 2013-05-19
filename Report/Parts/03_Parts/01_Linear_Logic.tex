@@ -3,7 +3,9 @@
 
 \paragraph{Linear logic} is a type of logic where truth is not free, but a consumable resource. In traditional logic any logical assumption may be used an unlimited number of times, but in Linear Logic each assumption is “consumed” upon use.
 
-Because the resources are consumable, they may not be duplicated and can thereby only be used once. This makes the resources valuable and also means that they cannot be disposed of freely and therefore must be used once. With this, Linear Logic can be used to describe things/operations(?) that must occur only once. This is important, as voting protocols rely on things being able to occur only once (each voter can only be registered once, each ballot may only be counted once, etc.).
+Because the resources are consumable, they may not be duplicated and can thereby only be used once. This makes the resources valuable and also means that they cannot be disposed of freely and therefore must be used once. With this, linear logic can be used to describe operations that must occur only once. This is important, as voting protocols rely on things being able to occur only once (each voter can only be registered once, each ballot may only be counted once, etc.).
+
+To explain how linear logic works, we will build a small example of a voter who goes to recieve a ballot.
 
 \subsection{Connectives}
 \label{03_01_01}
@@ -13,109 +15,142 @@ Because the resources are consumable, they may not be duplicated and can thereby
 As \textbf{Linear Logic} is based around the idea of resources, the connectives reflect that. Linear Logic has a lot of connectives that can be used to express logical formulas, but the logical formulas studied in the project are only concerned with some of them. They are Linear Implication, Simultaneous Conjunction, Unrestricted Modality and the Universal Quantification.
 
 \paragraph{Linear Implication, $\lolli$.} Linear implication is linear logic’s version of $\rightarrow$. $\lolli$ consumes the resources on the left side to produce the resources on the right side. The logical formula
-\centered{\formula{voting-auth-card $\lolli$ \{ blank-ballot \}}}
-therefore consumes a voter’s authorization card and gives a blank ballot to the voter in exchange. The idea behind the \{ and \} are explained at the end of section \ref{03_01_02}.
+	\centered{\formula{voting-auth-card $\lolli$ \{ blank-ballot \}}}
+therefore consumes a voter’s authorization card and gives a blank ballot to the voter in exchange.
 
-\paragraph{Simultaneous Conjunction, $\tensor$.} Simultaneous conjunction is linear logic’s version of the $\wedge$. A $\wedge$ B means “if A and B” and does not take the resources into account. It is simply concerned whether A and B are true and/or false. A $\tensor$ B means “if resource A and recourse B are given” and thereby fulfills the criteria of working with resources.The logical formula
-\centered{ \formula{ voting-auth-card $\tensor$ photo-id $\lolli$ \{ blank-ballot \} } }
-will consume a voter’s authorization card and photo ID and give a blank ballot to the voter in exchange. It should be noted that $\tensor$ binds more tightly than $\lolli$.
+\paragraph{Simultaneous Conjunction, $\tensor$.} Simultaneous conjunction is linear logic’s version of the $\wedge$. A $\wedge$ B means “A and B” and does not take the resources into account. It is simply concerned whether A and B are true and/or false. A $\tensor$ B means “if resource A and resource B are given”. To prove it, the resources need to be split into two parts, where one part is used to prove A and the other is used to prove B. The logical formula
+	\centered{ \formula{ voting-auth-card $\tensor$ photo-id $\lolli$ \{ blank-ballot \} } }
+will consume a voter’s authorization card and photo ID and give a blank ballot to the voter in exchange. It should be noted that $\tensor$ binds more tightly than $\lolli$ and therefore has precedence.
 There is a special unit for simultaneous conjunction, $\one$ (meaning “nothing”). $\one$ represents an empty collection of resources and is mainly used when some resources are consumed but nothing is produced.
 
-\paragraph{Unrestricted Modality, $\bang$.} The unrestricted modality is unique to linear logic. In the formula \formula{voting-auth-card $\tensor$ photo-id $\lolli$ \{ blank-ballot \}}, the photo ID of the voter is consumed, which means the voter must give up their photo ID to vote. This is a lot of lost passports/driver’s licenses!
+\paragraph{Unrestricted Modality, $\bang$.} The unrestricted modality is unique to linear logic. In the formula \formula{voting-auth-card $\tensor$ photo-id $\lolli$ \{ blank-ballot \}}, the photo ID given is consumed, which means the voter must give up a photo ID to vote. This is a lot of lost passports/driver’s licenses!
 The unrestricted modality, $\bang$, solves that problem. $\bang$A is a version of A that is not consumed and can be used an unlimited number of times (even no times at all). Using the unrestricted modality, the logical formula
-\centered{ \formula{ voting-auth-card $\tensor \; \bang$photo-id $\lolli$ \{ blank-ballot \} } }
+	\centered{ \formula{ voting-auth-card $\tensor \; \bang$photo-id $\lolli$ \{ blank-ballot \} } }
 now consumes only the authorization card and checks the photo ID (without consuming it) before giving the voter a blank ballot in exchange. 
 
 \paragraph{Universal Quantification, $\forall$x:r.} The universal quantification is found both in traditional logic and linear logic and is necessary to complete the formula. As it is now, one simply needs to give an authorization card and show a photo ID. The name on the authorization card does not have to match the one on the photo ID.
 In linear logic, the universal quantification works the same was as in traditional logic and it says that “all x belongs to r”. Using the universal quantification, the logical formula is changed to
-\centered{\formula{$\forall$v:voter. (voting-auth-card(v) $\tensor \; \bang$photo-id(v) $\lolli$ \{ blank-ballot \}) } }
+	\centered{\formula{$\forall$v:voter. (voting-auth-card(v) $\tensor \; \bang$photo-id(v) $\lolli$ \{ blank-ballot \}) } }
 now requires voter \textit{v} to give \textit{his} authorization card and show \textit{his own} photo ID before \textit{he} can receive a blank ballot.
 
 Adding the connectives together gives the following.
-\centered{\formula{A, B ::= P $|$ A $\lolli$ B $|$ A $\tensor$ B $| \; \bang$A $| \; \forall$x:r. A $| \; \one$}}
+	\centered{\formula{A, B ::= P $|$ A $\lolli$ B $|$ A $\tensor$ B $| \; \bang$A $| \; \forall$x:r. A $| \; \one$}}
 
-\subsection{Splitting the connectives}
-\label{03_01_02}
-
-The types at the end of section \ref{03_01_01} immediately pose a problem. As each connective gives an A, that A can be used in another connective. In theory, one could have a \formula{$\bang$$\bang$$\bang$voting-auth-card}, which does not make sense. They need to be split up to prevent this from happening.
-
-Each connective its own derivation and they determine how the connectives are split up. Each derivation has a right and a left "side". If the side can be "reversed" (ie. the top and bottom part can be switched and it is still correct), the side is said to be inversible(?). This can only hold true for either the right or the left side, thus labeling the the derivation either "left inversible" or "right inversible"(?).\\ 
-This right/left inversability(?) is what will be used to split the types up. The right inversible types will be grouped as "negative" types and the left inversible will be grouped as "positive" types.
-
-To use an example\footnote{\note{Find the right slides from http://www.cs.cmu.edu/~fp/courses/15816-s12/schedule.html}}, the derivation of the simultaneous conjunction is the following:
-\begin{texto}
-	Left $\frac{\Delta , A, B \;\vdash\; C}{\Delta , A \tensor B \;\vdash\; C}$ \hspace{50pt}
-	$\frac{\Delta_1 \;\vdash\; A \hspace{12pt} \Delta_2 \;\vdash\; B}{\Delta_1 , \Delta_2 \;\vdash\; A \tensor B}$ Right
-\end{texto}
-One will notice two new symbols in these derivations ($\Delta$ and $\vdash$) that require some explanation. $\Delta$ is a symbol representing some sort of resource. In essence, $\Delta \lolli A$ would mean "some resource produces A". The $\vdash$ symbol has a meaning that is a bit like the $\lolli$ symbol. $\vdash$ means "the resource on the right-hand side can be produced by using the resource(s) on the left-hand side \textbf{exactly once}". Using this definition, $\Delta_1 \vdash A$ means that A can be produces by using the resoruces of $\Delta$ exactly once.
-
-Before we can determine if it is right or left inversible, we need to remember these two rules:
-\begin{texto}
-	1. $\frac{ }{A \;\vdash\; A}$\\ \vspace{5pt}
-	2. $\frac{\Delta_1 \;\vdash\; A \hspace{20pt} \Delta_2 A \;\vdash\; C}{\Delta_1 , \Delta_2 \;\vdash\; C}$ \hspace{30pt}
-\end{texto}
-Number 1 says "A can be produced from A". Very straightforward. Number 2 says "if A can be produced from $\Delta_1$ and C can be produced from $\Delta_2$ and A, then C can be produced from $\Delta_1$ and $\Delta_2$ together". Now let us look at the two sides of the simultaneous conjunction, starting with the right side:
-\begin{texto}
-	Original $\frac{\Delta_1 \;\vdash\; A \hspace{12pt} \Delta_2 \;\vdash\; B}{\Delta_1 , \Delta_2 \;\vdash\; A \tensor B}$ \hspace{50pt}
-	$\frac{\Delta_1 , \Delta_2 \;\vdash\; A \tensor B}{\Delta_1 \;\vdash\; A \hspace{12pt} \Delta_2 \;\vdash\; B}$ Reversed
-\end{texto}
-The original derivation says "A can be produced from $\Delta_1$ and B can be produced from $\Delta_2$, so therefore A$\tensor$B can be produced from $\Delta_1$$\Delta_2$". The reverse derivation says "A$\tensor$B can be produced from $\Delta_1$$\Delta_2$, so therefore A can be produced from $\Delta_1$ and B can be produced from $\Delta_2$". That is not correct, however, as B might actually be produced from $\Delta_1$. As the right side is not inversible, the left must be. Let us check.
-\begin{texto}
-	Original $\frac{\Delta , A, B \;\vdash\; C}{\Delta , A \tensor B \;\vdash\; C}$ \hspace{50pt}
-	$\frac{\Delta , A \tensor B \;\vdash\; C}{\Delta , A, B \;\vdash\; C}$ Reversed
-\end{texto}
-The original derivation says "C can be produced from $\Delta$, A and B, so therefore C can also be produced from $\Delta$, A$\tensor$B". The reversed side says "C can be produced from $\Delta$, A$\tensor$B, so therefore C can also be produced from $\Delta$, A and B". As the right side of the derivation says $\Delta_1 , \Delta_2 \;\vdash\; A \tensor B$, it also means that $A \tensor B \;\vdash\; \Delta_1 , \Delta_2$ as it goes both ways. Therefore, $A , B \;\vdash\; A \tensor B$ is the same as $A \tensor B \;\vdash\; A , B$. The left side is therefore inversible, making the simultaneous conjunction a "positive" type.
-
-Doing the same for the rest of the types results in the following positive and negative types
+The types at the end of section \ref{03_01_01} immediately pose a problem. As each connective gives an A, that A can be used in another connective. In theory, one could have a \formula{$\bang$$\bang$$\bang$voting-auth-card}, which does not make sense. They need to be split up to prevent this from happening, which is done as described on page 69-72 in the PhD thesis "Implementing Substructural Logical Frameworks"\cite{asncelf} by \citeauthor{asncelf}. The resulting types are the following:
 \begin{texto}
 Negative Types $A^- ::= P^- \; | \; \forall x:A^+. \; | \; A^+ \lolli A^- \; | \; \{ A^+ \} $\\
 Positive Types \hspace{0.8pt} $A^+ ::= A^+ \tensor A^+ \; | \; \one \; | \; \bang A^- \; | \; A^- $
 \end{texto}
-\note{Is it $\{ A^- \}$ or $\{ A^+ \}$? Also needs explanation.} \\
-One may notice that a "new" type ($\{ A^+ \}$) has been added here.\\
-With the types split up like this, we have eliminated the cases that were not supposed to happen. It will also help when it comes to writing the program, as Grammatical Framework is built up around types.
+
+%\subsection{Splitting the connectives}
+%\label{03_01_02}
+%
+%The types at the end of section \ref{03_01_01} immediately pose a problem. As each connective gives an A, that A can be used in another connective. In theory, one could have a \formula{$\bang$$\bang$$\bang$voting-auth-card}, which does not make sense. They need to be split up to prevent this from happening.
+%
+%Each connective its own derivation and they determine how the connectives are split up. Each derivation has a right and a left "side". If the side can be "reversed" (ie. the top and bottom part can be switched and it is still correct), the side is said to be inversible(?). This can only hold true for either the right or the left side, thus labeling the the derivation either "left inversible" or "right inversible"(?).\\ 
+%This right/left inversability(?) is what will be used to split the types up. The right inversible types will be grouped as "negative" types and the left inversible will be grouped as "positive" types.
+%
+%To use an example\footnote{\note{Find the right slides from http://www.cs.cmu.edu/~fp/courses/15816-s12/schedule.html}}, the derivation of the simultaneous conjunction is the following:
+%\begin{texto}
+%	Left $\frac{\Delta , A, B \;\vdash\; C}{\Delta , A \tensor B \;\vdash\; C}$ \hspace{50pt}
+%	$\frac{\Delta_1 \;\vdash\; A \hspace{12pt} \Delta_2 \;\vdash\; B}{\Delta_1 , \Delta_2 \;\vdash\; A \tensor B}$ Right
+%\end{texto}
+%One will notice two new symbols in these derivations ($\Delta$ and $\vdash$) that require some explanation. $\Delta$ is a symbol representing some sort of resource. In essence, $\Delta \lolli A$ would mean "some resource produces A". The $\vdash$ symbol has a meaning that is a bit like the $\lolli$ symbol. $\vdash$ means "the resource on the right-hand side can be produced by using the resource(s) on the left-hand side \textbf{exactly once}". Using this definition, $\Delta_1 \vdash A$ means that A can be produces by using the resoruces of $\Delta$ exactly once.
+%
+%Before we can determine if it is right or left inversible, we need to remember these two rules:
+%\begin{texto}
+%	1. $\frac{ }{A \;\vdash\; A}$\\ \vspace{5pt}
+%	2. $\frac{\Delta_1 \;\vdash\; A \hspace{20pt} \Delta_2 A \;\vdash\; C}{\Delta_1 , \Delta_2 \;\vdash\; C}$ \hspace{30pt}
+%\end{texto}
+%Number 1 says "A can be produced from A". Very straightforward. Number 2 says "if A can be produced from $\Delta_1$ and C can be produced from $\Delta_2$ and A, then C can be produced from $\Delta_1$ and $\Delta_2$ together". Now let us look at the two sides of the simultaneous conjunction, starting with the right side:
+%\begin{texto}
+%	Original $\frac{\Delta_1 \;\vdash\; A \hspace{12pt} \Delta_2 \;\vdash\; B}{\Delta_1 , \Delta_2 \;\vdash\; A \tensor B}$ \hspace{50pt}
+%	$\frac{\Delta_1 , \Delta_2 \;\vdash\; A \tensor B}{\Delta_1 \;\vdash\; A \hspace{12pt} \Delta_2 \;\vdash\; B}$ Reversed
+%\end{texto}
+%The original derivation says "A can be produced from $\Delta_1$ and B can be produced from $\Delta_2$, so therefore A$\tensor$B can be produced from $\Delta_1$$\Delta_2$". The reverse derivation says "A$\tensor$B can be produced from $\Delta_1$$\Delta_2$, so therefore A can be produced from $\Delta_1$ and B can be produced from $\Delta_2$". That is not correct, however, as B might actually be produced from $\Delta_1$. As the right side is not inversible, the left must be. Let us check.
+%\begin{texto}
+%	Original $\frac{\Delta , A, B \;\vdash\; C}{\Delta , A \tensor B \;\vdash\; C}$ \hspace{50pt}
+%	$\frac{\Delta , A \tensor B \;\vdash\; C}{\Delta , A, B \;\vdash\; C}$ Reversed
+%\end{texto}
+%The original derivation says "C can be produced from $\Delta$, A and B, so therefore C can also be produced from $\Delta$, A$\tensor$B". The reversed side says "C can be produced from $\Delta$, A$\tensor$B, so therefore C can also be produced from $\Delta$, A and B". As the right side of the derivation says $\Delta_1 , \Delta_2 \;\vdash\; A \tensor B$, it also means that $A \tensor B \;\vdash\; \Delta_1 , \Delta_2$ as it goes both ways. Therefore, $A , B \;\vdash\; A \tensor B$ is the same as $A \tensor B \;\vdash\; A , B$. The left side is therefore inversible, making the simultaneous conjunction a "positive" type.
+%
+%Doing the same for the rest of the types results in the following positive and negative types
+%\begin{texto}
+%Negative Types $A^- ::= P^- \; | \; \forall x:A^+. \; | \; A^+ \lolli A^- \; | \; \{ A^+ \} $\\
+%Positive Types \hspace{0.8pt} $A^+ ::= A^+ \tensor A^+ \; | \; \one \; | \; \bang A^- \; | \; A^- $
+%\end{texto}
+%\note{Is it $\{ A^- \}$ or $\{ A^+ \}$? Also needs explanation.} \\
+%One may notice that a "new" type ($\{ A^+ \}$) has been added here.\\
+%With the types split up like this, we have eliminated the cases that were not supposed to happen. It will also help when it comes to writing the program, as Grammatical Framework is built up around types.
 
 \subsection{Celf}
 \label{03_01_03}
 
-The negative and positive types are all well and good, but while humans can read and understand signs like $\tensor$, $\lolli$ and $\forall$, they are not easy to represent in some computer programs (for example in Grammatical Framework). To get around this issue, the Celf framework is used.
+The negative and positive types are all well and good, but while humans can read and understand signs like $\tensor$, $\lolli$ and $\forall$, they are not easy to represent in some computer programs (for example in Grammatical Framework). To get around this issue, the Celf framework is used:
 
 \begin{texto}
-\textit{"CLF (Concurrent LF) is a logical framework for specifying and implementing deductive \\
-and concurrent systems from areas, such as programming language theory, security \\
-protocol analysis, process algebras, and logics. Celf is an implementation of the CLF \\
-type theory that extends the LF type theory by linear types to support representation \\
-of state and a monad to support representation of concurrency."} \cite{Celf}
+	\textit{"CLF (Concurrent LF) is a logical framework for specifying and implementing deductive \\
+	and concurrent systems from areas, such as programming language theory, security \\
+	protocol analysis, process algebras, and logics. Celf is an implementation of the CLF \\
+	type theory that extends the LF type theory by linear types to support representation \\
+	of state and a monad to support representation of concurrency."} \cite{Celf}
 \end{texto}
 
-Celf has its own syntax for the connectives of linear logic, which will be used as the standard for the GF program. The Celf syntax for the connectives are the following
+Celf is a framework that can be used to check the correctness of logical formulas and works with linear logic. It does not use the native symbols from linear logic, however, as they are difficult to represent properly. Instead, Celf has its own syntax for the connectives of linear logic, which will be used as the standard for the GF program. The Celf syntax for the connectives are the following
+
 \begin{texto}
 	$\tensor$\hspace{40pt} ::= * \\
 	$\lolli$\hspace{40pt}::= -o \\
 	$\forall$x:r\hspace{30pt} ::= Pi x : r \\
 \end{texto}
-The connectives are not the only things in linear logic. It is also possible to use arithmetic operations in formulas written with linear logic (see chapter \ref{02_01} for an example where arithmetic operations are included). Celf uses a special syntax for the arithmetic operations as well, which are described below.
+
+The connectives are not the only things that change from linear logic to Celf. It is possible to use arithmetic operations in formulas written with linear logic (see chapter \ref{02} for an example where arithmetic operations are included), and Celf uses a special syntax for the arithmetic operations as well:
+
 \begin{texto}
 	x $>$ y\hspace{22.8pt} ::= !nat-greater x y \\
 	x $>=$ y\hspace{15pt} ::= !nat-greatereq x y \\
 	x $=$ y\hspace{22.8pt} ::= !nat-eq x y \\
 	x $<=$ y\hspace{15pt} ::= !nat-lesseq x y \\
 	x $<$ y\hspace{22.8pt} ::= !nat-less x y \\
- 	x $-$ 1\hspace{22.8pt} ::= (s ! x) \\
- 	x $+$ 1\hspace{22.8pt} ::= (p ! x) \\
-	$\lbrack$ x $|$ y $\rbrack$ \hspace{12pt} ::= (cons ! x ! y)
+ 	x $-$ 1\hspace{22.8pt} ::= (s x) \\
+ 	x $+$ 1\hspace{22.8pt} ::= (p x) \\
+	$\lbrack$ x $|$ y $\rbrack$ \hspace{12pt} ::= (cons x y)
 \end{texto}
-Using the Celf syntax, we can translate a formula written in linear logic into something a computer can read more easily. The example from section \ref{02_01} therefore becomes:
+
+Using the Celf syntax, we can translate a formula written in linear logic into something a computer can read more easily. The example from chapter \ref{02} will look like the following in Celf's syntax. Note that the formula looks a bit different from the example from the "{L}inear {L}ogical {V}oting {P}rotocols"\cite{Deyoung11}, as it has been updated since:
+
 \begin{textoform}
-	\formula{tally-votes S H U * \\
-	uncounted-ballot C L * \\
-	hopeful C N * \\
-	!quota Q * !nat-lesseq Q (p ! N)\\
-	\hspace{10pt}-o \{ counted-ballot C L * \\
-	\hspace{30pt}!elected C * \\
-	\hspace{30pt}tally-votes (s ! S) (s ! H) (s ! U) \} }
+\formula{count-ballots (s (s S)) (s H) (s U) * \\
+          uncounted-ballot C L *\\
+          hopeful C N *\\
+          !quota Q *\\
+          !nat-lesseq Q (s N) *\\
+          winners W\\
+          \hspace{10pt}-o \{counted-ballot C L *\\
+          \hspace{30pt}!elected C *\\
+          \hspace{30pt}winners (cons C W) *\\
+          \hspace{30pt}count-ballots (s S) H U\}. }
 \end{textoform}
 
-Now we have an understanding of how linear logic works and how to represent it in an easy way on the computer. \\
-\note{Other things that needs to be said about Celf?} \\
-\note{Other ending?}
+This is the syntax Celf reads, however, and it is missing one thing: It says nothing about what the different arguments are, it simply shows that they are there. This can be fixed by parsing the formula into Celf. The output is the following after removing excess parantheses:
+
+\begin{textoform}
+	\formula{Pi C : candidate . Pi H : nat . Pi L : list . Pi N : nat . \\
+		Pi Q : nat . Pi S : nat . Pi U : nat . Pi W : list .\\
+		count-ballots (s !(s !S)) (s !H) (s !U) *\\
+          	uncounted-ballot C L *\\
+          	hopeful C N *\\
+          	!quota Q *\\
+          	!nat-lesseq Q (s !N) *v
+          	winners W\\
+          	\hspace{10pt}-o \{counted-ballot C L *\\
+          	\hspace{30pt}!elected C *\\
+          	\hspace{30pt}winners (cons !C !W) *\\
+          	\hspace{30pt}count-ballots (s !S) H U\}. }
+\end{textoform}
+
+We notice a couple of changes in the formula, the main one being the addition of Pi, which represents the universal quantification. Another thing is that there has been added exclamation marks in the "(cons x y)" and the "(p/s x)" parts. While the latter is not a huge difference, it should be remembered.
+
+Being able to generate formulas similar to the one above through Celf will ensure nothing goes wrong while translating them from linear logic's syntax into a syntax that is easier to to work with. The above is a formula corresponding to the formulas from the "{L}inear {L}ogical {V}oting {P}rotocols" paper by \citeauthor{Deyoung11}. The rest can be found in appendix \ref{A_04} along with their respective GF version.
+
+This formular, along with the rest in the appendix, are what will be used later for testing the program.

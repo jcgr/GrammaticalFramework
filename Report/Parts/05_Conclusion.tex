@@ -1,15 +1,16 @@
 \chapter{Conclusion}
 \label{05}
 
-% Brief summary of the main contributions.  Reiterate what you set out to do.  What you have accomplished,  and why you think that you are done. 
+In this thesis, I set out to find a way to turn logical formulas into a natural language. I explained how linear logic works and that it is possible to split the connectives into different types, which makes them easier to work with. I then explained how parts of Grammatical Framework worosk and how they could be used to accomplish certain things. 
 
-% Open ends:  1. This is depenedent on domain specific knowledge.  This should be fixed.
-%    2. Quality of the produced text Very static,  more abstractions. 
-%    3. Other lanugages 
-%    4. Instead of translation also explanation. (User understanding into account)
+I then used this knowledge to write a program in Grammatical Framework. First I explained the idea behind the abstract syntax tree, then the concrete implementations. In the program, I made it possible to name arguments and specify what kind of arguments they were (list, candidate or natural number). 
 
+Lastly, I showed an example of the output of the program when run on a logical formula, where the result was a meaningful sentence. In appendix \ref{A_04} I have the results of every formula for the voting protocol. As the program outputs meaningful sentences for each formula, I have accomplished what I set out to do.
 
+The next step would be to make some improvements for the program. The first improvement would be to get away from the domain specific knowledge. Currently it only works for this specific voting protocol, which needs to be fixed. It could be done in multiple ways, but I will suggest a few. One way would be to change the structure of the program, and make the identifiers dynamic. As the GF code is simple, another way would be to generate the GF code through Celf.
 
-\note{Conclusion goes here.}
+There is also the issue with the static sentences. Making them more dynamic, for example through the use of grammar resource libraries, would improve the quality of the output and make the sentences even more understandable. Use of the grammar resource libraries would also make it easier to translate the output into different languages, another thing that would be a good improvement for the program.
 
-\note{Make sure appendencies are correct.}
+The last thing to improve would be user interaction. The output may say that we are tallying votes, but it does not say how. Giving the program the ability to answer questions from the user (such as "how are the votes tallied?") would make it possible to provide better explanations of how the voting protocols work.
+
+All of this will be reserved for future work, however.

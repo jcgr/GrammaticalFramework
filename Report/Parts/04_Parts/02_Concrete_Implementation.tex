@@ -6,7 +6,7 @@ With the abstract syntax in place, the concrete syntax is the next step. The goa
 \subsection{Concrete linear logic implementation}
 \label{04_02_01}
 
-The rst concrete implementation we will look at is the one for understanding linear logic, as it is the most important one. Without it, we will not be able to parse the formulas and therefore will not be able to translate them into other languages. Where the abstract syntax was explained starting with the positive and negative types, the concrete syntax will be explained starting with the arguments.
+The first concrete implementation we will look at is the one for understanding linear logic, as it is the most important one. Without it, we will not be able to parse the formulas and therefore will not be able to translate them into other languages. Where the abstract syntax was explained starting with the positive and negative types, the concrete syntax will be explained starting with the arguments.
 
 \lstCode{The linearization of the \cf{Arg}uments.}{04_02_C06}
 \begin{lstgf}
@@ -47,7 +47,7 @@ Next after the arguments, \cf{Math} and \cf{Ident} are the simplest. As they tak
         _LessEqual                      = ss ( "!nat-lesseq" ) ;
         _Less                           = ss ( "!nat-less" ) ;
 \end{lstgf}
-The values for the \cf{ArithmeticOperation}s are their normal symbol. The \cf{InequalityOperation}s, however, use the syntax described in section \ref{03_01_02}. For example, $>$ becomes "!nat-greater".
+The values for the \cf{ArithmeticOperation}s are their normal symbol. The \cf{InequalityOperation}s, however, use the syntax described in section \ref{03_01_03}. For example, $>$ becomes "!nat-greater".
 
 Looking at the \cf{Math} part, it is a bit more advanced. \cf{\_Math} is simple enough. Its value is that of the \cf{Arg} is is given. \cf{\_MathArgs} is the function that takes care of arithmetic operations between arguments and is surronded by a pair of paratheses. Throughout the voting protocol formulas, this is actually not used, but we will support it anyway.
 
@@ -141,5 +141,4 @@ The \cf{Ident}s have been changed to let them explain the function in English. T
 
 Everything else is very similar to the linear logic implementation, with the exception of it having been translated into proper English sentences. We will therefore not go into detail with it.
 
-\note{More interesting?}\\
-\note{Some sort of ending.}
+\note{Picture}

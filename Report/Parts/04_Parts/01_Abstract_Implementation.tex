@@ -5,7 +5,7 @@ The first step in writing the program was to construct the abstract syntax tree.
 
 In this section, the different parts of the abstract syntax will explained individually, but the full abstract implementation can be found in appendix \ref{A_01} if the reader wants to look at it.
 
-The fact that we split the connectives of linear logic up in section \ref{03_01_02} will help immensely. The resulting types can be translated almost directly into an abstract tree, which means we have a basic syntax already.
+The fact that we split the connectives of linear logic up in section \ref{03_01_01} will help immensely. The resulting types can be translated almost directly into an abstract tree, which means we have a basic syntax already.
 
 \lstCode{The first abstract syntax.}{04_01_C01}
 \begin{lstgf}
@@ -103,7 +103,7 @@ Each \cf{Ident} uses the \cf{Arg}, so that will be explained first. \cf{Arg} rep
 
 In addition to \cf{\_Arg}, there are three predefined arguments: \cf{\_ArgNil}, \cf{\_ArgZ} and \cf{\_Arg1}. Each of them represents an argument that has the same meaning no matter what logical formula it is used in. \cf{\_ArgNil} is the value "nil", \cf{\_ArgZ} is the value "z" or "zero" and \cf{\_Arg1} is the value 1. The last \cf{Arg}s are used to represent Celf's plus, minus and lists, and should require no deep explanation. 
 
-Having understood the arguments, the identifiers are a bit simpler. Each variable used for the logical formulas concering laws (Note: Appendix with them?) is represented by an \cf{Identifier}. Each \cf{Identifier} takes between zero and five \cf{Arg}s, that are used to construct the Ident.
+Having understood the arguments, the identifiers are a bit simpler. Each variable used for the logical formulas (see appendix \ref{A_04}) is represented by an \cf{Identifier}. Each \cf{Identifier} takes between zero and five \cf{Arg}s, that are used to construct the Ident.
 
 With the \cf{Ident}s in place (and thereby half the \cf{Atomic}s covered),  it is time to look at the other \cf{Atomic}: The one concerning mathematical formulas. The mathematical formulas needs arithemetic operations and inequality operations, so we extend the abstract syntax with the following:
 
@@ -128,4 +128,4 @@ All mathematical formulas in the logical formulas have some sort of inequality o
 
 The \cf{InequalityOperation} and \cf{ArithmeticOperation} represents the different inequality- and arithmetic op-erations and should require no explanation
 
-\note{Some sort of ending}.
+That covers the entire abstract syntax tree and should let the reader understand how it is put together and why it is put together in this way.

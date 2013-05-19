@@ -94,7 +94,7 @@ concrete LawsEng of Laws = open Prelude in {
         _MathArg arg1                   = ss ( arg1.s ) ;
         _FinalFormula m1 ms m2          = ss ( "(" ++ m1.s ++ ms.s ++ m2.s ++ ")" ) ;
         _MathArgs arg1 mo arg2          = ss ( "(" ++ arg1.s ++ mo.s ++ arg2.s ++ ")" ) ;
-        _NatDivMod a b c d              = ss ( a.s ++ "=" ++ b.s ++ "*" ++ c.s ++ "+" ++ d.s ) ;
+        _NatDivMod a b c d              = ss ( "(" ++ a.s ++ "=" ++ b.s ++ "*" ++ c.s ++ "+" ++ d.s ++ ")" ) ;
 
         -- Arithmetic operations
         _Division                       = ss ( "/" ) ;

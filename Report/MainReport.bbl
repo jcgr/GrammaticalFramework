@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{3}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -8,8 +8,18 @@
 \bibitem[DeYoung and Sch{\"u}rmann(2011)]{Deyoung11}
 Henry DeYoung and Carsten Sch{\"u}rmann.
 \newblock {L}inear {L}ogical {V}oting {P}rotocols, 2011.
-\newblock URL
-  \url{http://en.wikipedia.org/wiki/Copyright\_infringement\_of\_software}.
+\newblock URL \url{http://www.cs.cmu.edu/~hdeyoung/papers/voteid11.pdf}.
 \newblock [Online; accessed \today].
+
+\bibitem[Schack-Nielsen(2011)]{asncelf}
+Anders Schack-Nielsen.
+\newblock Implementing substructural logical frameworks, 2011.
+\newblock URL \url{http://www.itu.dk/people/anderssn/thesis.pdf}.
+\newblock [Online; accessed \today].
+
+\bibitem[Schack-Nielsen and Sch{\"u}rmann()]{Celf}
+Anders Schack-Nielsen and Carsten Sch{\"u}rmann.
+\newblock Short talk: Celf – a logical framework for deductive and concurrent
+  systems.
 
 \end{thebibliography}

@@ -1,38 +1,53 @@
 \section{Running the Program}
-\label{04_03}
+\label{04_04}
 
 In this section, I will show the result of parsing some of the logical formulas into the program.
 
 \subsection{The example}
 
-The first formula to be run, is the one from the example in section \ref{02_01}. As the program has been written to accept Celf's syntax, I will use the version of the formula from section \ref{03_01_03}:
+The formula to be run is the one from the example in chapter \ref{02}. As the program has been written to accept Celf's output, I will use the version of the formula from the end of section \ref{03_01_03}. Due to how GF works, I have had to add extra spaces to the formular, but the reader should be able to verify that it is the same:
 
-\begin{texto2}
-	\formula{tally-votes S H U * uncounted-ballot C L * hopeful C N * !quota Q * !nat-lesseq Q (p ! N) -o \{ counted-ballot C L * !elected C * tally-votes (s ! S) (s ! H) (s ! U) \} }
-\end{texto2}
-
-Before this will run, however, the variables will have to be specified through universal quantifications. Without that, the formula will not parse. Furthermore, GF needs spaces around each individual element, and the plus/minus (p/s ! x) will need a couple of spaces introduced. I will this manually and let the reader confirm that the result is, in fact, the same formula:
-
-\begin{texto2}
-	\formula{Pi C : candidate . Pi H : nat . Pi L : list . Pi N : nat . Pi Q : nat . Pi S : nat . Pi U : nat . Pi W : list . tally-votes S H U * uncounted-ballot C L * hopeful C N * !quota Q * !nat-lesseq Q ( p ! N ) -o \{ counted-ballot C L * !elected C * tally-votes ( s ! S ) ( s ! H ) ( s ! U ) \} }
-\end{texto2}
+\begin{textoform}
+	\formula{Pi C : candidate . Pi H : nat . Pi L : list . Pi N : nat . \\
+		Pi Q : nat . Pi S : nat . Pi U : nat . Pi W : list .\\
+		count-ballots ( s ! ( s ! S ) ) ( s ! H ) ( s ! U ) *\\
+          	uncounted-ballot C L *\\
+          	hopeful C N *\\
+          	!quota Q *\\
+          	!nat-lesseq Q ( s ! N ) *v
+          	winners W\\
+          	\hspace{10pt}-o \{counted-ballot C L *\\
+          	\hspace{30pt}!elected C *\\
+          	\hspace{30pt}winners ( cons ! C ! W ) *\\
+          	\hspace{30pt}count-ballots ( s ! S ) H U\}. }
+\end{textoform}
 
 With the formula changed to fit the syntax of the program, we will parse it and have it translated into English. We parse it in GF by writing
 \begin{texto2}
-p -lang=LawsLin "Pi C : candidate . Pi H : nat . Pi L : list . Pi N : nat . Pi Q : nat . Pi S : nat . Pi U : nat . Pi W : list . tally-votes S H U * uncounted-ballot C L * hopeful C N * !quota Q * !nat-lesseq Q ( p ! N ) -o \{ counted-ballot C L * !elected C * tally-votes ( s ! S ) ( s ! H ) ( s ! U ) \}" $|$ l -treebank
+p -lang=LawsLin "Pi C : candidate . Pi H : nat . Pi L : list . Pi N : nat . Pi Q : nat . Pi S : nat . Pi U : nat . Pi W : list . count-ballots ( s ! ( s ! S ) ) ( s ! H ) ( s ! U ) * uncounted-ballot C L * hopeful C N * !quota Q * !nat-lesseq Q ( s ! N ) * winners W -o \{ counted-ballot C L * !elected C * winners ( cons ! C ! W ) * count-ballots ( s ! S ) H U \}" $|$ l -treebank
 \end{texto2}
 
 What this does, is to tell GF that we want to parse it as the language defined by the -lang flag. After it has been parsed, we tell GF to linearize it  and use the -treebank flag to have it linearized in all the languages that have been loaded. The result is the following:
 
 \begin{texto2}
-LawsEng: C is a candidate . H is a natural number . L is a list . N is a natural number . Q is a natural number . S is a natural number . U is a natural number . W is a list .
-\\ If we are counting votes and there are S seats open, H hopefuls, and U uncounted votes in play , and 
-\\ there is an uncounted vote with highest preference for candidate C with a list L of lower preferences , and 
-\\ candidate C is a hopeful with N votes , and 
-\\ Q votes are needed to be elected , and ( Q is less than or equal to ( N plus 1 ) ) \\
-then \{ there is a counted vote with highest preference for candidate C with a list L of lower preferences , and 
-\\ candidate C has been elected , and 
-\\ we are counting votes and there are ( S minus 1 ) seats open, ( H minus 1 ) hopefuls, and ( U minus 1 ) uncounted votes in play \}
+LawsEng: \\
+C is a candidate . H is a natural number . \\
+L is a list . N is a natural number . \\
+Q is a natural number . S is a natural number . \\
+U is a natural number . W is a list .\\\\
+If we are counting votes and there are ( ( S minus 1 ) minus 1 ) seats open, \\
+( H minus 1 ) hopefuls, and ( U minus 1 ) uncounted votes in play , and \\
+there is an uncounted vote with highest preference for candidate C with a list L \\
+of lower preferences , and \\
+candidate C is a hopeful with N votes , and Q votes are needed to be elected , and \\
+( Q is less than or equal to ( N minus 1 ) ) , \\
+and the candidates in the list W have been elected so far \\
+then \{ there is a counted vote with highest preference for candidate C with a \\
+list L of lower preferences , and \\
+candidate C has been elected , and \\
+the candidates in the list consisting of C and W have been elected so far , and \\
+we are counting votes and there are ( S minus 1 ) seats open, H hopefuls, and \\
+U uncounted votes in play \}
 \end{texto2}
 
 In the output, one will notice that there are cases where a sentence feels a bit odd, for example the last sentence, where it would make more sense if it said that the seats, hopefuls and uncounted votes are what is remaining. This is due to a limitation in the program (more about that in section \ref{04_04_02}), which makes the program uses the same sentences for \cf{Ident}s, no matter what side of the $\lolli$ they are on.
