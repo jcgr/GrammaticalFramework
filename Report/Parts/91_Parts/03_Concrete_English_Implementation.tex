@@ -86,8 +86,8 @@ concrete LawsEng of Laws = open Prelude in {
         _Arg A a                        = ss ( a.s ) ;
         _ArgNil                         = ss ( "- that is empty -" ) ;
         _ArgZ                           = ss ( "zero" ) ;
-        _ArgMinus a                     = ss ( "(" ++ a.s ++ "minus 1 )" ) ;
-        _ArgPlus a                      = ss ( "(" ++ a.s ++ "plus 1 )" ) ;
+        _ArgMinus a                     = ss ( "(" ++ a.s ++ "- 1 )" ) ;
+        _ArgPlus a                      = ss ( "(" ++ a.s ++ "+ 1 )" ) ;
         _ArgList a b                    = ss ( "consisting of" ++ a.s ++ "and" ++ b.s ) ;
 
         -- Mathematic operations
