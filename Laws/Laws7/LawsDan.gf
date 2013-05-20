@@ -5,7 +5,7 @@ concrete LawsDan of Laws = open SharedOpers in {
 
     lin
         -- Logic
-        Formular neg                    = ss ( neg.s ) ;
+        Formula neg                    = ss ( neg.s ) ;
         
         -- Positive types
         _Atom atom                      = ss ( atom.s ) ;

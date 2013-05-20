@@ -10,16 +10,16 @@
 \contentsline {paragraph}{Linear logic}{5}{section.3.1}
 \contentsline {subsection}{\numberline {3.1.1}Connectives}{5}{subsection.3.1.1}
 \contentsline {paragraph}{Traditional Logic}{5}{subsection.3.1.1}
-\contentsline {paragraph}{Linear Implication, $\multimap $.}{5}{subsection.3.1.1}
-\contentsline {paragraph}{Simultaneous Conjunction, $\otimes $.}{5}{subsection.3.1.1}
-\contentsline {paragraph}{Unrestricted Modality, $\mathord {\text {\rm !}}$.}{6}{subsection.3.1.1}
-\contentsline {paragraph}{Universal Quantification, $\forall $x:r.}{6}{subsection.3.1.1}
+\contentsline {paragraph}{Linear Implication ($\multimap $).}{5}{subsection.3.1.1}
+\contentsline {paragraph}{Simultaneous Conjunction ($\otimes $).}{5}{subsection.3.1.1}
+\contentsline {paragraph}{Unrestricted Modality ($\mathord {\text {\rm !}}$).}{6}{subsection.3.1.1}
+\contentsline {paragraph}{Universal Quantification ($\forall $x:r).}{6}{subsection.3.1.1}
 \contentsline {subsection}{\numberline {3.1.2}Celf}{6}{subsection.3.1.2}
 \contentsline {section}{\numberline {3.2}Grammatical Framework}{8}{section.3.2}
 \contentsline {subsection}{\numberline {3.2.1}The abstract module}{8}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}The concrete module}{8}{subsection.3.2.2}
-\contentsline {subsection}{\numberline {3.2.3}Operations}{9}{subsection.3.2.3}
-\contentsline {subsection}{\numberline {3.2.4}Variable bindings}{10}{subsection.3.2.4}
+\contentsline {subsection}{\numberline {3.2.2}The concrete module}{9}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Operations}{10}{subsection.3.2.3}
+\contentsline {subsection}{\numberline {3.2.4}Variable bindings}{11}{subsection.3.2.4}
 \contentsline {chapter}{\numberline {4}Implementation}{12}{chapter.4}
 \contentsline {section}{\numberline {4.1}Constructing the Abstract Syntax Tree}{12}{section.4.1}
 \contentsline {section}{\numberline {4.2}Constructing the Concrete Implementation}{15}{section.4.2}

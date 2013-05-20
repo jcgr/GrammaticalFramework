@@ -5,9 +5,11 @@ As described in section \ref{01_01}, the legal text is short, to the point and n
 
 	\centered{\formula{“If a candidate reaches the quota, he is declared elected.”}}
 
-This piece of text shows the lack of detail in legal language: How do we ensure the candidate has reached the quota? What is the quota? What do we do with the ballot that makes him reach the quota even? What happens with him when he is elected? Can he be elected even if there are no open seats? The latter is a very important question, one that is not answered by the legal text. Common sense dictates that the answer is “no”, but that is an assumption one has to make and assumptions are best avoided when it comes to voting.
+This piece of text shows the lack of detail in legal language: What is the quota? How do we ensure the candidate has reached the quota? What do we do with the ballot that makes him reach the quota? What happens with him when he is elected? Can he be elected even if there are no open seats? This is a lot of questions that the legal text does not answer. This means that assumptions have to be made and they are best avoided when it comes to voting.
 
-The legal text do not provide much proof that it is correct either. This is something that will have to be done seperately and is called "searching for proof". Searching for proofs of this law will invariably result in a logical formula. As a running example, I will be using the following decleration from the "Linear Logical Voting Protocols"\cite{Deyoung11} paper by \citeauthor{Deyoung11}, which describes a candidate reaching the quota.
+The legal text do not provide much proof that it is correct either. This is something that will have to be done seperately and is called "searching for proof". Searching for proofs of this law will invariably result in a logical formula. 
+
+In this project, we will focus on the single-transferrable voting protocol (STV) and as a running example, I will be using the following decleration from the "Linear Logical Voting Protocols"\cite{Deyoung11} paper by \citeauthor{Deyoung11}, which describes a candidate reaching the quota.
 
 \begin{textoform}
 	count/2: \\
@@ -19,11 +21,9 @@ The legal text do not provide much proof that it is correct either. This is some
 	\hspace{29pt}winners([C $|$ W]) $\tensor$ count-ballots(S-1, H-1, U-1) \} }
 \end{textoform}
 
-This formula accurately describes the process for checking if a candidate reaches the quota and then marking him as elected.
-
 In contrast, we will provide an example from the Votail\footnote{https://github.com/demtech/votail} system written in Java by Dermot Cochran and Joseph Kiniry.
 
-We will notice that the method operates on another level of abstraction, and requires knowledge regarding the methods and fields used, some of which are declared elsewhere, that the programmer and reader understand each other and the different semantics in Java, such as the keyword final, side effects of the code, shared memory and concurrency.
+We will notice that the method operates on another level of abstraction, and requires ambient knowledge regarding the methods and fields used (some of which are declared elsewhere), and that the programmer and reader understand each other. It also requires knowledge about the different semantics in Java, such as the keyword final, side effects of the code, shared memory and concurrency.
 
 \begin{lstownjava}
   /**
@@ -68,4 +68,4 @@ Furthermore, we will realize that is it a complicated process to translate the c
 
 Comparing the declaritive to the imperative formulation, we will notice that linear logic gives use the tools needed to express that a candidate cannot become unelected (the exclamation mark, which will be described later), and that it is more concise. The Java code assumes that the votes were already counted correctly, where the logical formula gives us a way to express how to count it.
 
-Throughout the project, I will show that it is possible to write a program, in GF, that can translate logical formulas into English. I will make the sentences readable and make sure they make sense. Furthermore, I will make it possible to name the arguments used in the formulas, as well as specify what the arguments used in the formula represents
+Throughout the project, I will show that it is possible to write a program, in Grammatical Framework, that can translate logical formulas into English. The output should be understandable and make sense. Furthermore, it should be possible to name the arguments used in the formulas, as well as specify what the arguments used in the formula represents.

@@ -1,42 +1,43 @@
 \section{Linear Logic}
 \label{03_01}
 
-\paragraph{Linear logic} is a type of logic where truth is not free, but a consumable resource. In traditional logic any logical assumption may be used an unlimited number of times, but in Linear Logic each assumption is “consumed” upon use.
+\paragraph{Linear logic} is a type of logic where truth is not free, but a consumable resource. In traditional logic, any logical assumption may be used an unlimited number of times. In Linear Logic, each assumption is "consumed" upon use.
 
-Because the resources are consumable, they may not be duplicated and can thereby only be used once. This makes the resources valuable and also means that they cannot be disposed of freely and therefore must be used once. With this, linear logic can be used to describe operations that must occur only once. This is important, as voting protocols rely on things being able to occur only once (each voter can only be registered once, each ballot may only be counted once, etc.).
+Because the resources are consumable, they may not be duplicated and can thereby only be used once. This makes the resources valuable and also means that they cannot be disposed of freely and therefore must be used that one time. With this, linear logic can be used to describe operations that must occur only once. This is important, as the STV voting protocol relies on things being able to occur only once (each voter can only be registered once, each ballot may only be counted once, etc.).
 
-To explain how linear logic works, we will build a small example of a voter who goes to recieve a ballot.
+To explain how linear logic works, we will construct a small example of a voter who goes to recieve a ballot.
 
 \subsection{Connectives}
 \label{03_01_01}
 
-\paragraph{Traditional Logic} contains connectives that, unfortunately, are not specific enough for the purpose of these formulas. The implies $\rightarrow$ and the logical conjunction $\wedge$ do not deal with resources. A $\rightarrow$ B means that if A is true then B is true. It says nothing about A or B being consumed. The same goes for $\wedge$. Another notation is therefore needed. 
+\paragraph{Traditional Logic} contains connectives that are not specific enough for the purpose of the voting protocol formulas. The implies ($\rightarrow$) and the logical conjunction ($\wedge$) do not deal with resources. A $\rightarrow$ B means that if A is true then B is true. It says nothing about A or B being consumed. The same goes for $\wedge$. Another notation is therefore needed. 
 
-As \textbf{Linear Logic} is based around the idea of resources, the connectives reflect that. Linear Logic has a lot of connectives that can be used to express logical formulas, but the logical formulas studied in the project are only concerned with some of them. They are Linear Implication, Simultaneous Conjunction, Unrestricted Modality and the Universal Quantification.
+As \textbf{Linear Logic} is based around the idea of resources, the connectives reflect that. Linear logic has a lot of connectives that can be used to express logical formulas, but the logical formulas studied in the project are only concerned with some of them. They are Linear Implication, Simultaneous Conjunction, Unrestricted Modality and the Universal Quantification.
 
-\paragraph{Linear Implication, $\lolli$.} Linear implication is linear logic’s version of $\rightarrow$. $\lolli$ consumes the resources on the left side to produce the resources on the right side. The logical formula
+\paragraph{Linear Implication ($\lolli$).} Linear implication is linear logic’s version of $\rightarrow$. $\lolli$ consumes the resources on the left side to produce the resources on the right side. The logical formula
 	\centered{\formula{voting-auth-card $\lolli$ \{ blank-ballot \}}}
 therefore consumes a voter’s authorization card and gives a blank ballot to the voter in exchange.
 
-\paragraph{Simultaneous Conjunction, $\tensor$.} Simultaneous conjunction is linear logic’s version of the $\wedge$. A $\wedge$ B means “A and B” and does not take the resources into account. It is simply concerned whether A and B are true and/or false. A $\tensor$ B means “if resource A and resource B are given”. To prove it, the resources need to be split into two parts, where one part is used to prove A and the other is used to prove B. The logical formula
+\paragraph{Simultaneous Conjunction ($\tensor$).} Simultaneous conjunction is linear logic’s version of the $\wedge$. A $\wedge$ B means “A and B” and does not take the resources into account. It is simply concerned whether A and B are true and/or false. A $\tensor$ B means “if resource A and resource B are given”. To prove it, the resources need to be split into two parts, where one part is used to prove A and the other is used to prove B. The logical formula
 	\centered{ \formula{ voting-auth-card $\tensor$ photo-id $\lolli$ \{ blank-ballot \} } }
 will consume a voter’s authorization card and photo ID and give a blank ballot to the voter in exchange. It should be noted that $\tensor$ binds more tightly than $\lolli$ and therefore has precedence.
-There is a special unit for simultaneous conjunction, $\one$ (meaning “nothing”). $\one$ represents an empty collection of resources and is mainly used when some resources are consumed but nothing is produced.
 
-\paragraph{Unrestricted Modality, $\bang$.} The unrestricted modality is unique to linear logic. In the formula \formula{voting-auth-card $\tensor$ photo-id $\lolli$ \{ blank-ballot \}}, the photo ID given is consumed, which means the voter must give up a photo ID to vote. This is a lot of lost passports/driver’s licenses!
-The unrestricted modality, $\bang$, solves that problem. $\bang$A is a version of A that is not consumed and can be used an unlimited number of times (even no times at all). Using the unrestricted modality, the logical formula
+\paragraph{Unrestricted Modality ($\bang$).} The unrestricted modality is unique to linear logic. In the formula \formula{voting-auth-card $\tensor$ photo-id $\lolli$ \{ blank-ballot \}}, the photo ID given is consumed, which means the voter must give up a photo ID to vote. This is a lot of lost passports/driver’s licenses!
+The unrestricted modality, $\bang$, solves that problem. $\bang$A means that A is not consumed and can be used an unlimited number of times (even no times at all). Using the unrestricted modality, the logical formula
 	\centered{ \formula{ voting-auth-card $\tensor \; \bang$photo-id $\lolli$ \{ blank-ballot \} } }
 now consumes only the authorization card and checks the photo ID (without consuming it) before giving the voter a blank ballot in exchange. 
 
-\paragraph{Universal Quantification, $\forall$x:r.} The universal quantification is found both in traditional logic and linear logic and is necessary to complete the formula. As it is now, one simply needs to give an authorization card and show a photo ID. The name on the authorization card does not have to match the one on the photo ID.
+\paragraph{Universal Quantification ($\forall$x:r).} The universal quantification is found both in traditional logic and linear logic and is necessary to complete the formula. As it is now, one simply needs to give an authorization card and show a photo ID. The name on the authorization card does not have to match the one on the photo ID.
 In linear logic, the universal quantification works the same was as in traditional logic and it says that “all x belongs to r”. Using the universal quantification, the logical formula is changed to
 	\centered{\formula{$\forall$v:voter. (voting-auth-card(v) $\tensor \; \bang$photo-id(v) $\lolli$ \{ blank-ballot \}) } }
-now requires voter \textit{v} to give \textit{his} authorization card and show \textit{his own} photo ID before \textit{he} can receive a blank ballot.
+and now requires voter \textit{v} to give \textit{his} authorization card and show \textit{his own} photo ID before \textit{he} can receive a blank ballot.
 
-Adding the connectives together gives the following.
+There is also a special unit in linear logic: $\one$. $\one$ represents an empty collection of resources and is mainly used when some resources are consumed but nothing is produced.
+
+With the connectives of linear logic, we can construct the following type:
 	\centered{\formula{A, B ::= P $|$ A $\lolli$ B $|$ A $\tensor$ B $| \; \bang$A $| \; \forall$x:r. A $| \; \one$}}
 
-The types at the end of section \ref{03_01_01} immediately pose a problem. As each connective gives an A, that A can be used in another connective. In theory, one could have a \formula{$\bang$$\bang$$\bang$voting-auth-card}, which does not make sense. They need to be split up to prevent this from happening, which is done as described on page 69-72 in the PhD thesis "Implementing Substructural Logical Frameworks"\cite{asncelf} by \citeauthor{asncelf}. The resulting types are the following:
+The types immediately pose a problem. As each connective gives an A, that A can be used in another connective. In theory, one could have a \formula{$\bang$$\bang$$\bang$voting-auth-card}, which does not make sense. To prevent this from happening, we split them into posetive and negative types, as described on page 69-72 in the PhD thesis "Implementing Substructural Logical Frameworks"\cite{asncelf} by \citeauthor{asncelf}. The resulting types are the following:
 \begin{texto}
 Negative Types $A^- ::= P^- \; | \; \forall x:A^+. \; | \; A^+ \lolli A^- \; | \; \{ A^+ \} $\\
 Positive Types \hspace{0.8pt} $A^+ ::= A^+ \tensor A^+ \; | \; \one \; | \; \bang A^- \; | \; A^- $
@@ -96,7 +97,7 @@ The negative and positive types are all well and good, but while humans can read
 	of state and a monad to support representation of concurrency."} \cite{Celf}
 \end{texto}
 
-Celf is a framework that can be used to check the correctness of logical formulas and works with linear logic. It does not use the native symbols from linear logic, however, as they are difficult to represent properly. Instead, Celf has its own syntax for the connectives of linear logic, which will be used as the standard for the GF program. The Celf syntax for the connectives are the following
+Celf is a framework that can be used to check the correctness of logical formulas and it works with linear logic. It does not use the native symbols from linear logic, however, as they are difficult to represent properly. Instead, Celf has its own syntax for the connectives of linear logic, which is the following
 
 \begin{texto}
 	$\tensor$\hspace{40pt} ::= * \\
@@ -117,7 +118,7 @@ The connectives are not the only things that change from linear logic to Celf. I
 	$\lbrack$ x $|$ y $\rbrack$ \hspace{12pt} ::= (cons x y)
 \end{texto}
 
-Using the Celf syntax, we can translate a formula written in linear logic into something a computer can read more easily. The example from chapter \ref{02} will look like the following in Celf's syntax. Note that the formula looks a bit different from the example from the "{L}inear {L}ogical {V}oting {P}rotocols"\cite{Deyoung11}, as it has been updated since:
+Using the Celf syntax, we can translate a formula written in linear logic into something a computer can read more easily. The example from chapter \ref{02} will look like the following in Celf's syntax. Note that the formula looks a bit different from the count/2 formula from the "{L}inear {L}ogical {V}oting {P}rotocols"\cite{Deyoung11}, as it has been updated since the paper was written:
 
 \begin{textoform}
 \formula{count-ballots (s (s S)) (s H) (s U) * \\
@@ -132,7 +133,7 @@ Using the Celf syntax, we can translate a formula written in linear logic into s
           \hspace{30pt}count-ballots (s S) H U\}. }
 \end{textoform}
 
-This is the syntax Celf reads, however, and it is missing one thing: It says nothing about what the different arguments are, it simply shows that they are there. This can be fixed by parsing the formula into Celf. The output is the following after removing excess parantheses:
+This is the syntax Celf reads but it is missing one thing: It says nothing about what the different arguments are, it simply shows that they are there. This can be fixed by parsing the formula into Celf. The output is the following after removing excess parantheses:
 
 \begin{textoform}
 	\formula{Pi C : candidate . Pi H : nat . Pi L : list . Pi N : nat . \\
@@ -149,8 +150,6 @@ This is the syntax Celf reads, however, and it is missing one thing: It says not
           	\hspace{30pt}count-ballots (s !S) H U\}. }
 \end{textoform}
 
-We notice a couple of changes in the formula, the main one being the addition of Pi, which represents the universal quantification. Another thing is that there has been added exclamation marks in the "(cons x y)" and the "(p/s x)" parts. While the latter is not a huge difference, it should be remembered.
+We notice a couple of changes in the formula, the main one being the addition of Pi, which represents the universal quantification. Another thing is that there has been added exclamation marks in the "(cons x y)" and the "(p/s x)" parts. While the latter is not a huge difference, it should be remembered, as we will be using the syntax of the output for one part of the Grammatical Framework program.
 
-Being able to generate formulas similar to the one above through Celf will ensure nothing goes wrong while translating them from linear logic's syntax into a syntax that is easier to to work with. The above is a formula corresponding to the formulas from the "{L}inear {L}ogical {V}oting {P}rotocols" paper by \citeauthor{Deyoung11}. The rest can be found in appendix \ref{A_04} along with their respective GF version.
-
-This formular, along with the rest in the appendix, are what will be used later for testing the program.
+Being able to generate formulas similar to the one above through Celf will ensure nothing goes wrong while translating them from linear logic's syntax into a syntax that is easier to to work with. The above is a formula corresponding to the formulas from the "{L}inear {L}ogical {V}oting {P}rotocols"\cite{Deyoung11} paper by \citeauthor{Deyoung11}. The rest can be found in appendix \ref{A_04} along with their respective GF version. This formula, along with the rest in the appendix, are what we will use for testing the program.

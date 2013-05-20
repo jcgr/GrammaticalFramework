@@ -1,19 +1,19 @@
 \section{Limitations of the program}
 \label{04_04}
 
-The program can parse logical formulas and translate them into decent English sentences. There are some limitations, however, that I will be describe in this section.
+The program can parse logical formulas and translate them into decent English sentences. There are some limitations, however, that I will describe in this section.
 
 \subsection{Static identifiers}
 \label{04_04_01}
 
-The identifiers are all static. It was chosen to make them static, as goal of the project was to prove that it was possible to parse and translate a specific voting protocol, which uses specific identifiers. It was therefore not required to make them dynamic.
+The identifiers are all static. It was a consious to make them static, as the goal of the project was to prove that it was possible to parse and translate a specific voting protocol, which uses only predefined identifiers.
 
-The static identifiers mean that one can only parse logical formulas written for this voting protocol. If one wants to parse other logical formulas, one will currently have to add identifiers for each identifier in the formula through editing the code. While simple to do, it is not an optimal solution and could potetially be improved upon in the future.
+The static identifiers mean that one can only parse logical formulas written for this specific voting protocol (STV). If one wants to parse other logical formulas, one will have to add identifiers for each identifier in the formula by editing the code. While simple to do, it is not an optimal solution and could potetially be improved upon in the future.
 
 \subsection{Sentence construction}
 \label{04_04_02}
 
-Like the identifiers, the sentences in the program are static. The only thing that changes is the argument given. Because of this, the sentences may not convey the exact meaning in some cases, which may cause a bit of confusion. It only happens for some sentences and mainly when they are on the right side of the $\lolli$.
+Like the identifiers, the sentences in the program are static. The only thing that changes is the argument given. Because of this, the sentences may not convey the exact wanted meaning in some cases, which may cause a bit of confusion. It only happens for some sentences and mainly when they are on the right side of the $\lolli$.
 
 This can be solved by making the sentences generic enough to convey their meaning regardless, but they will feel very robotic. With more time, it would be possible to change the program to account for it and modify the sentences to the situation.
 
@@ -22,4 +22,6 @@ This can be solved by making the sentences generic enough to convey their meanin
 
 With the way the program is built right now, translating it into other languages requires some work. The translator needs to know the other language well, as he has to translate complete sentences properly. With a few identifiers, it is relatively simple, but with more identifiers it can be very time-consuming.
 
-This issue can be soled partially using the grammar resource libraries provided by GF. Each contain operations that can be put together to build sentences. There are libraries for sixteen different languages, and the operations are called the same in each library. Therefore, if the operations are put together properly, all one will have to do, is change which library is used and the sentence should translate into that language instead. It will still be necessary to translate some words, but it will require less knowledge of the language and thereby make it easier to complete a translation.
+This issue can be solved partially by using the grammar resource libraries provided by GF. Each contain operations that can be put together to build sentences. There are libraries for sixteen different languages, and the operations are called the same in each library and used the same way. Even then, they will build sentences correctly in their own language.
+
+Therefore, if the operations are put together properly, all that has to be done, is to change which library is used and the sentence should translate into that language instead. It will still be necessary to translate nouns used by the sentence, but it will require less knowledge of the language and thereby make it easier to complete a translation.

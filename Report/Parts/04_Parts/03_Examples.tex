@@ -5,7 +5,7 @@ In this section, I will show the result of parsing a logical formula into the pr
 
 \subsection{The example}
 
-The formula to be run is the one from the example in chapter \ref{02}. As the program has been written to accept Celf's output, I will use the version of the formula from the end of section \ref{03_01_03}. Due to how GF works, I have had to add extra spaces to the formular, but the reader should be able to verify that it is the same:
+The formula to be run is the one from the example in chapter \ref{02}. As the program has been written to accept Celf's output, I will use the version of the formula from the end of section \ref{03_01_03}. Due to how GF works, I have had to add extra spaces to the formula, but the reader should be able to verify that it is the same:
 
 \begin{textoform}
 	\formula{Pi C : candidate . Pi H : nat . Pi L : list . Pi N : nat . \\
@@ -52,4 +52,4 @@ U uncounted votes in play \}
 
 In the output, one will notice that there are cases where a sentence feels a bit odd, for example the last sentence, where it would make more sense if it said that the seats, hopefuls and uncounted votes are what is remaining. This is due to a limitation in the program (more about that in section \ref{04_04_02}), which makes the program uses the same sentences for \cf{Ident}s, no matter what side of the $\lolli$ they are on.
 
-While there are some limitations, the output is nonetheless understandable and makes sense to some degree.
+Though some sentences may seem strange, the output is nonetheless in sensible English. The arguments are explained, so there is no confusion about what they are, and the different identifiers have been translated into meaningful sentences. The output is a lot more explanatory than the legal text and is something a lot of people would be able to understand.

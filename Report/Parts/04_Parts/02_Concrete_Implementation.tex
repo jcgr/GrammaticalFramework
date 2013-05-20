@@ -1,7 +1,7 @@
 \section{Constructing the Concrete Implementation}
 \label{04_02}
 
-With the abstract syntax in place, the concrete syntax is the next step. The goal here, is to give each function from the abstract syntax a proper linearization so it can understand linear logic. We will need two concrete implementations in total. One for reading and understanding the Celf syntax for linear logic (like the example at the end of section \ref{03_01_03}), and one for understanding English.
+With the abstract syntax in place, the concrete syntax is the next step. The goal here, is to give each function from the abstract syntax a proper linearization so it can understand linear logic. We will need two concrete implementations in total. One for reading and understanding the Celf output for linear logic (like the example at the end of section \ref{03_01_03}), and one for understanding English.
 
 \subsection{Concrete linear logic implementation}
 \label{04_02_01}
@@ -14,16 +14,14 @@ The first concrete implementation we will look at is the one for understanding l
         _Arg A a                        = ss ( a.s ) ;
         _ArgNil                         = ss ( "nil" ) ;
         _ArgZ                           = ss ( "z" ) ;
-        _Arg1                           = ss ( "1" ) ;
         _ArgMinus a                     = ss ( "( s !" ++ a.s ++ ")" ) ;
         _ArgPlus a                      = ss ( "( p !" ++ a.s ++ ")" ) ;
         _ArgList a b                    = ss ( "( cons !" ++ a.s ++ "!" ++ b.s ++ ")" ) ;
-        _ArgEmptyList                   = ss ( "[]" ) ;
 \end{lstgf}
 
-Remember that \cf{\_Arg} is the function that handles the bound variables. While it takes both\cf{ ArgType} as argument (\cf{A}), it is not used. With the type of the argument already given in the universal quantification, there is no need to the type of the argument next to the argument itself. \cf{\_Arg} therefore only returns the bound variable, which makes it easier for everything else to work with it.
+Remember that \cf{\_Arg} is the function that handles the bound variables. While it takes an \cf{ ArgType} as argument (\cf{A}), it is not used. With the type of the argument already given in the universal quantification, there is no need to the type of the argument next to the argument itself. \cf{\_Arg} therefore only returns the bound variable, which makes it easier for everything else to work with it.
 
-The rest of the \cf{Arg}s are self-explanatory. \cf{\_ArgNil}, \cf{\_ArgZ} and \cf{\_Arg1} simply look for the value they represent. Again, they are arguments that can be used in any logical formula, and are therefore hardcoded into the program. Their values will never change, no matter what formulas are being worked with. \cf{\_ArgPlus}, \cf{\_ArgMinus }and \cf{\_ArgList} have been written to use Celf's syntax (see section 3.1.2) and should look familiar.
+The rest of the \cf{Arg}s are self-explanatory. \cf{\_ArgNil} abd \cf{\_ArgZ} simply look for the value they represent. Again, they are arguments that can be used in any logical formula, and are therefore hardcoded into the program. Their values will never change, no matter what formulas are being worked with. \cf{\_ArgPlus}, \cf{\_ArgMinus }and \cf{\_ArgList} have been written to use Celf's syntax (see section 3.1.2) and should look familiar.
 
 Next after the arguments, \cf{Math} and \cf{Ident} are the simplest. As they take up a lot of room, we will look at them individually, starting with \cf{Math}.
 
@@ -33,6 +31,7 @@ Next after the arguments, \cf{Math} and \cf{Ident} are the simplest. As they tak
         _MathArg arg1                   = ss ( arg1.s ) ;
         _FinalFormula m1 ms m2          = ss ( ms.s ++ m1.s ++ m2.s ) ;
         _MathArgs arg1 mo arg2          = ss ( "(" ++ arg1.s ++ mo.s ++ arg2.s ++ ")" ) ;
+        _NatDivMod a b c d              = ss ( "!nat-divmod" ++ a.s ++ b.s ++ c.s ++ d.s ) ;
 
         -- Arithmetic operations
         _Division                       = ss ( "/" ) ;
@@ -49,9 +48,9 @@ Next after the arguments, \cf{Math} and \cf{Ident} are the simplest. As they tak
 \end{lstgf}
 The values for the \cf{ArithmeticOperation}s are their normal symbol. The \cf{InequalityOperation}s, however, use the syntax described in section \ref{03_01_03}. For example, $>$ becomes "!nat-greater".
 
-Looking at the \cf{Math} part, it is a bit more advanced. \cf{\_Math} is simple enough. Its value is that of the \cf{Arg} is is given. \cf{\_MathArgs} is the function that takes care of arithmetic operations between arguments and is surronded by a pair of paratheses. Throughout the voting protocol formulas, this is actually not used, but we will support it anyway.
+Looking at the \cf{Math} part, it is a bit different. \cf{\_Math} is simple enough as its value is that of the \cf{Arg} is is given. \cf{\_MathArgs} is the function that takes care of arithmetic operations between arguments and is surronded by a pair of paratheses. Throughout the voting protocol formulas, this is actually not used, but we will support it anyway.
 
-\cf{\_FinalFormula} is the formula that handles inequality operations. Looking at it, one will see that the value it returns has the inequality operation first followed by the two parameters. This is the syntax Celf uses and is thus not an error. One may also notice that the order of the parameters for \cf{\_FinalFormula} is not the same as the linearization of it. The normal way to read "x is greater than y" is "x $>$ y" and is how the abstract tree is put together (see line 7 in \refCode{04_01_C04} on page \pageref{code:04_01_C04}). The concrete implementation is allowed to choose its own way of using the parameters, and can therefore use Celf's notation easily. The formula will be parsed correctly into the abstract syntax anyway.
+\cf{\_FinalFormula} is the formula that handles inequality operations. Looking at it, one will see that the value it returns has the inequality operation first followed by the two parameters. This is the syntax Celf uses and is thus not an error. One may also notice that the order of the parameters for \cf{\_FinalFormula} is not the same as the linearization of it. The normal way to read "x is greater than y" is "x $>$ y" and is how the abstract tree is put together (see line 7 in \refCode{04_01_C04} on page \pageref{code:04_01_C04}). As the program needs to conform to Celf's output, it will need to read it as "!nat-greater x y", however. The good thing is that the concrete implementation is allowed to choose its own way of using the parameters, and can therefore use Celf's notation easily. The formula will be parsed correctly into the abstract syntax anyway.
 
 \lstCode{The linearization of \cf{Ident}}{04_02_C08}
 \begin{lstgf}
@@ -82,7 +81,7 @@ With the \cf{Ident}s explained, the only things left are the the positive and ne
 \lstCode{The linearization of the positive/negative types and the atomics}{04_02_C09}
 \begin{lstgf}
         -- Logic
-        Formular neg                    = ss ( neg.s ) ;
+        Formula neg                    = ss ( neg.s ) ;
         
         -- Positive types
         _Atom atom                      = ss ( atom.s ) ;
@@ -113,7 +112,7 @@ With the \cf{Ident}s explained, the only things left are the the positive and ne
 
 Like the \cf{\_Arg} in \refCode{04_02_C06}, the \cf{Atomic}s return the value of the \cf{Ident} or \cf{Math} it takes as a parameter. \cf{\_Atom}, \cf{\_Neg} and \cf{Formular} work in the same way, though with different parameter types. \cf{\_MPos} glues two positives together and is necessary to attach the universal quantifiers to the rest of the formula. \cf{\_Lolli}, \cf{\_Mon}, the connectives and argument types should not require any explanation.
 
-The only thing that is out of the ordinary is \cf{\_Pi}, which should look very familiar, as it uses the same syntax as the demonstration of variable bindings in \ref{03_02_04}. The only things that have changed are the names of the types involved. Instead of \cf{Set} and \cf{El}, it is \cf{ArgType} and \cf{Argument}. \cf{\_Pi} binds the variable (\cf{B.\$0}) and lets the program use it in \cf{B.s}, which is the rest of the formula. \cf{A.s} represents the type of the variable (a candidate, a list  or a natuarl number).
+The only thing that is out of the ordinary is \cf{\_Pi}, which should look familiar, as it uses the same syntax as the demonstration of variable bindings in \ref{03_02_04}. The only things that have changed are the names of the types involved. Instead of \cf{Set} and \cf{El}, it is \cf{ArgType} and \cf{Argument}. \cf{\_Pi} binds the variable (\cf{B.\$0}) and lets the program use it in \cf{B.s}, which is the rest of the formula. \cf{A.s} represents the type of the variable (a candidate, a list  or a natuarl number).
 
 With this, the concrete linear logic implementation has been explained. The full concrete implementation can be found in appendix \ref{A_02}.
 
@@ -128,7 +127,7 @@ The concrete English implementation is similar in structure to the concrete line
         _Pi A B                         = ss ( B.$0 ++ "is a" ++ A.s ++ "." ++ B.s  ) ;
 \end{lstgf}
 
-\cf{\_Pi} is used in the English implementation to let the user know what type the variable has. It is very similar to the one in the linear logic implementation, with the only change being that there is text instead of the colon. Apart from that, it works the same way.
+\cf{\_Pi} is used in the English implementation to let the user know what type the variable has. It is very similar to the one in the linear logic implementation, with the only change being that there is text instead of the colon. The reason for translating the \cf{\_Pi} is to give the reader of the translation an idea of what the different arguments represents.
 
 \lstCode{\cf{Ident}s and \cf{Arg}s}{04_02_C11}
 \begin{lstgf}
@@ -137,9 +136,9 @@ The concrete English implementation is similar in structure to the concrete line
             = ss ( "there is a hopeful candidate " ++ a.s ++ "with" ++ b.s ++ "counted ballots" ) ;
 \end{lstgf}
 
-The \cf{Ident}s have been changed to let them explain the function in English. They are rather static, and the only thing that can change is the argument they recieve, which can be either the bound variables or the modified versions of them. 
+The \cf{Ident}s have been changed to let them explain the function in English. They ares static, and the only thing that can change is the argument they recieve, which can be either the bound variables or the modified versions of them. 
 
-Everything else is very similar to the linear logic implementation, but has been translated into proper English. This is not correct for everything, however, as there are something that we do not care for being in English. In picture \ref{fig:translation}, everything in the shaded area has not been changed (with the exception of the \cf{ArgType} "nat" having been changed into "natural number"). Everything in the clear area has been formalized.
+Like the above exmples, other things have been translated into English as well. This is not correct for everything, however, as there are something that we do not care for being in English. It would be less understandable if a mathematical formula was translated into English, instead of using the mathematical symbols. In picture \ref{fig:translation}, everything in the shaded area has not been changed (with the exception of the \cf{ArgType} "nat" having been changed into "natural number"). Everything in the clear area has been formalized.
 
 \begin{figure}[h!]
   \centering

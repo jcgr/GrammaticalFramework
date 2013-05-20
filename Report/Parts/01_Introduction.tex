@@ -6,19 +6,19 @@ This paper is the result of a bachelor project on the bachelor line in Software 
 \section{Background}
 \label{01_01}
 
-It is generally agreed upon that elections consist of three parts: Pre-Election Day, Election Day and post-election day. In Denmark, computers have been used in the third part for nearly thirty years. A computer program, that was written by Bjørn Rosengreen, implemts an interpretation of the law and how to tabulate the tallies and assign seats in Folketinget to parties. Because of this, the software became the de facto law interpreting the law and resolving possible ambiguities.
+It is generally agreed upon that elections consist of three parts: Pre-Election Day, Election Day and post-election day. In Denmark, computers have been used in the third part for nearly thirty years. A computer program written by Bjørn Rosengreen implemts an interpretation of the law and how to tabulate the tallies and assign seats to parties in Folketinget. Because of this, the software became the de facto law for interpreting the law and resolving possible ambiguities.
 
 The laws regarding elections are written in legal language, which is often short and to the point. Using legal language for laws results in both advantages and disadvantages. There is the disadvantage that there are situations where the legal texts are not informative enough, for example when it comes to writing computer programs.
 
-An important advantage about legal language - for this project - is that it is closely related to logic. This means that it is possible to look at legal language from a logical point of view. As we are talking about resources, a logic that fits well is linear logic.
+An advantage about legal language - especially for this project - is that it is closely related to logic. This means that it is possible to look at legal language from a logical point of view. As we are working with resources (votes), a logic that fits well is linear logic.
 
-With a logical system, it is possible to search for proofs in the legal language and it corresponds, in this setting, with interpreting the law. With this, the law can become source code, and the search for proofs can become an algorithm.
+With a logical system such as linear logic, it is possible to search for proofs in the legal language. This corresponds, in this setting, with interpreting the law. With this, the law can become source code, and the search for proofs can become an algorithm.
 
 \section{Goal of the project}
 \label{01_02}
 
 \begin{texto2}
-\textit{"The goal of this project is to provide another solution to the chicken egg problem. Instead of taking the law for granted, we argue that we can synthesis the law text from the logical specification. Being able to check a law for soundness and the absence of inconsistency using formal mathematical tools is worth a lot. Synthesizing the law text from a formalized and mechanized set of rules is a billion times better."} (Frank Pfenning 2012)
+	\textit{"The goal of this project is to provide another solution to the chicken egg problem. Instead of taking the law for granted, we argue that we can synthesis the law text from the logical specification. Being able to check a law for soundness and the absence of inconsistency using formal mathematical tools is worth a lot. Synthesizing the law text from a formalized and mechanized set of rules is a billion times better."} (Frank Pfenning 2012)
 \end{texto2}
 
-To achieve this goal, we will be using two tools. The first tool is the linear logical framework CLF, which we will use to capture the essence of the logical rules describing the tabulation algorithms. The second tool is the Grammatical Framework\footnote{http://www.grammaticalframework.org/}, which we will use to linguistic domain specific knowledge.
+To achieve this goal, we will be using two tools. The first tool is the linear logical framework CLF, which we will use to capture the essence of the logical rules describing the tabulation algorithms. The second tool is the Grammatical Framework\footnote{http://www.grammaticalframework.org/}, which we will use to interprent linguistic domain specific knowledge.

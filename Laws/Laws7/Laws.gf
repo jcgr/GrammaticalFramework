@@ -6,7 +6,7 @@ abstract Laws = {
         Logic ; Prod ; Neg ; Pos ; Lolli ; Bang ; Atomic ; Ident ; Arg ; ArgType ; Conj ; Math ; MathFormula ; ArithmeticOperation ; InequalityOperation ; Argument ArgType ;
 
     fun
-        Formular : Neg -> Logic ;
+        Formula : Neg -> Logic ;
 
         -- Positive types
         _Atom : Atomic -> Pos ;

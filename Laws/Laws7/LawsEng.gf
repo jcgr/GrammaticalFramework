@@ -5,7 +5,7 @@ concrete LawsEng of Laws = open Prelude in {
 
     lin
         -- Logic
-        Formular neg                    = ss ( neg.s ) ;
+        Formula neg                    = ss ( neg.s ) ;
         
         -- Positive types
         _Atom atom                      = ss ( atom.s ) ;

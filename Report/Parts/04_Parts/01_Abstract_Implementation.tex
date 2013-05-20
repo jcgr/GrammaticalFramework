@@ -1,11 +1,11 @@
 \section{Constructing  the Abstract Syntax Tree}
 \label{04_01}
 
-The first step in writing the program was to construct the abstract syntax tree. The abstract syntax tree determines how the parts of the "language" (linear logic in this case) are put together to form sentences. It is important to make sure the abstract syntax is well constructed, or strange things may happen in the program.
+The first step in writing the program was to construct the abstract syntax tree. The abstract syntax tree determines how the parts of the "language" (linear logic in this case) are put together to form sentences. It is important to make sure the abstract syntax is well constructed, or strange things (or nothing at all) may happen in the program.
 
 In this section, the different parts of the abstract syntax will explained individually, but the full abstract implementation can be found in appendix \ref{A_01} if the reader wants to look at it.
 
-The fact that we split the connectives of linear logic up in section \ref{03_01_01} will help immensely. The resulting types can be translated almost directly into an abstract tree, which means we have a basic syntax already.
+The fact that we split the connectives of linear logic up in section \ref{03_01_01} is an immense help. The resulting types can be translated almost directly into an abstract tree, which means we have a basic syntax already.
 
 \lstCode{The first abstract syntax.}{04_01_C01}
 \begin{lstgf}
@@ -17,7 +17,7 @@ abstract Laws = {
         Logic ; Neg ; Pos ; Lolli ; Bang ; Atomic ; Conj ; ArgType ; Argument ArgType ;
 
     fun
-        Formular : Neg -> Logic ;
+        Formula : Neg -> Logic ;
 
         -- Positive types
         _Atom : Atomic -> Pos ;                       -- Turning an atomic into a positive type
@@ -41,15 +41,15 @@ abstract Laws = {
 }
 \end{lstgf}
 
-Going through the abstract syntax, one will notice a couple of things that do not come from the connectives: There is something called an "\cf{Atomic}" (line 12) and there is both an \cf{ArgType} and an \cf{Argument A} in the function of \cf{\_Pi}. The \cf{Atomic} is used to represent functions along with the arguments they take. They will be explained in more detail later in this section.
+Going through the abstract syntax, one will notice a couple of things that do not come from the connectives: There is something called an "\cf{Atomic}" (line 12) and there is both an \cf{ArgType} and an \cf{Argument A} in the function of \cf{\_Pi}. The \cf{Atomic} is used to represent functions along with the arguments they take and will be explained in more detail later in this section.
 
 The \cf{\_Pi} is almost the same as the one in section \ref{03_02_04}. The only things that have changed are the types involved. \cf{ArgType} is the type of the argument (a natural number, a candidate or a list), and \cf{Argument A} uses this \cf{ArgType} to bind a variable for use in the \cf{Neg}. This will allow the use of variables in the program.
 
-There are two other things that needs an explanation as well. The \cf{\_Unit} turns a negative type into a positive type (it is actually a positive type, so there is no cheating here). The \cf{\_MPos} allows for multiple positive types to follow each other without connectives and is mainly used for allowing multiple universan quantifiers to follow each other.
+There are two other things that needs an explanation as well. The \cf{\_Unit} turns a negative type into a positive type (it is actually a positive type, so there is no cheating here). The \cf{\_MPos} allows for multiple positive types to follow each other without connectives and is used for allowing multiple universan quantifiers to follow each other.
 
-The abstract syntax in \refCode{04_01_C01} introduced the \cf{Atomic}. The \cf{Atomic} needs an explanation and it needs to be defined as a function before the rest of the syntax can be written. An \cf{Atomic} represents a function in linear logic. This could be the \cf{voting-auth-card} or the \cf{blank-ballot} mentioned in section \ref{03_01_01}. An \cf{Atomic} can also represent a function that takes parameters, such as the ones in the example in section \ref{02_01}.
+The abstract syntax in \refCode{04_01_C01} introduced the \cf{Atomic}. An \cf{Atomic} represents a function in linear logic. This could be the \cf{voting-auth-card} or the \cf{blank-ballot} mentioned in section \ref{03_01_01}. An \cf{Atomic} can also represent a function that takes parameters, such as the ones in the example in section \ref{02}.
 
-Looking at the example in section \ref{02_01}, one will notice that the formula not only contains functions, but that it also contains arithmetic and inequality operations (for example  $\bang$(N + 1 $<$ Q)). This is in place of a function, so the \cf{Atomic} needs to be able to represent that as well.
+Looking at the example in section \ref{02}, one will notice that the formula not only contains functions, but that it also contains arithmetic and inequality operations (for example  $\bang$(N + 1 $<$ Q)). This is in place of a function, so the \cf{Atomic} needs to be able to represent that as well.
 
 Putting that together, it means we need two kinds of atomics, one for functions and one for mathematical operations. The \cf{Atomic} is therefore represented in the following way in the abstract syntax.
 
@@ -64,7 +64,7 @@ Putting that together, it means we need two kinds of atomics, one for functions 
         Atom_Math : MathFormula -> Atomic ;     -- Represents the mathematical operations
 \end{lstgf}
 
-With \cf{Atomic} defined, we have introduced two new categories at the same time; \cf{Ident} and \cf{MathFormula}. The \cf{Ident} represents the variables through the function name and the arguments it takes. To be able to use it, we need to define not just the \cf{Ident}, but also the arguments needed. The abstract syntax is once again extended.
+With \cf{Atomic} defined, we have introduced two new categories; \cf{Ident} and \cf{MathFormula}. The \cf{Ident} represents the function through the function name and the arguments it takes. To be able to use it, we need to define not just the \cf{Ident}, but also the arguments needed. The abstract syntax is once again extended.
 
 \lstCode{Defining the \cf{Ident} and the arguments it needs.}{04_01_C03}
 \begin{lstgf}
@@ -74,7 +74,7 @@ With \cf{Atomic} defined, we have introduced two new categories at the same time
     fun
         -- Identifiers
         Ident_Uncounted : Arg -> Arg -> Ident ;
-        Ident_Counted: Arg -> Arg -> Ident ;
+        Ident_Counted : Arg -> Arg -> Ident ;
         Ident_Hopeful : Arg -> Arg -> Ident ;
         Ident_Defeated : Arg -> Ident ;
         Ident_Elected : Arg -> Ident ;
@@ -93,15 +93,14 @@ With \cf{Atomic} defined, we have introduced two new categories at the same time
 
         -- Arguments
         _Arg : (A : ArgType) -> (a : Argument A) -> Arg ;
-        _ArgNil, _ArgZ, _Arg1 : Arg ;
+        _ArgNil, _ArgZ : Arg ;
         _ArgMinus, _ArgPlus : Arg -> Arg ;
         _ArgList : Arg -> Arg -> Arg ;
-        _ArgEmptyList : Arg ;
 \end{lstgf}
 
 Each \cf{Ident} uses the \cf{Arg}, so that will be explained first. \cf{Arg} represents any argument used in the formulas. In the example in section \ref{03_01_03}, \textit{hopeful C N} has the arguments \textit{C} and \textit{N}. They are the arguments bound through \cf{\_Pi}. To turn the variable binding into something that is easier to work with, \cf{\_Arg} is used. It takes two arguments and converts them to an \cf{Arg}, which could be the same as the \textit{C} from \textit{hopeful C N}. 
 
-In addition to \cf{\_Arg}, there are three predefined arguments: \cf{\_ArgNil}, \cf{\_ArgZ} and \cf{\_Arg1}. Each of them represents an argument that has the same meaning no matter what logical formula it is used in. \cf{\_ArgNil} is the value "nil", \cf{\_ArgZ} is the value "z" or "zero" and \cf{\_Arg1} is the value 1. The last \cf{Arg}s are used to represent Celf's plus, minus and lists, and should require no deep explanation. 
+In addition to \cf{\_Arg}, there are two predefined arguments: \cf{\_ArgNil} and \cf{\_ArgZ}. Each of them represents an argument that has the same meaning no matter what logical formula it is used in. \cf{\_ArgNil} is the value "nil" (an empty list) and \cf{\_ArgZ} is the value "z" or "zero". The last \cf{Arg}s are used to represent Celf's plus, minus and lists, and should require no deep explanation. 
 
 Having understood the arguments, the identifiers are a bit simpler. Each variable used for the logical formulas (see appendix \ref{A_04}) is represented by an \cf{Identifier}. Each \cf{Identifier} takes between zero and five \cf{Arg}s, that are used to construct the Ident.
 
@@ -117,15 +116,16 @@ With the \cf{Ident}s in place (and thereby half the \cf{Atomic}s covered),  it i
         _MathArg : Arg -> Math ;
         _FinalFormula : Math -> InequalityOperation -> Math -> MathFormula ;
         _MathArgs : Math -> ArithmeticOperation -> Math -> Math ;
+        _NatDivMod : Math -> Math -> Math -> Math -> MathFormula ;
 
         _Division, _Addition, _Subtraction, _Multiplication : ArithmeticOperation ;
         _Greater, _GreaterEqual, _Equal, _LessEqual, _Less : InequalityOperation ;
 \end{lstgf}
 
-All mathematical formulas in the logical formulas have some sort of inequality operation. Therefore, \cf{\_FinalFormula} is the only \cf{MathFormula}, and it is made from a \cf{Math}, an \cf{InequalityOperation} and a second \cf{Math}.
+There are no stand-alone mathematical operations that only use arithmetic operations. Therefore, \cf{\_FinalFormula} and \cf{\_NatDivMod} are the only \cf{MathFormula}. \cf{\_FinalFormula} is made from a \cf{Math}, an \cf{InequalityOperation} and a second \cf{Math} and represents an equality operation. \cf{\_NatDivMod} represents a special mathematical formula and takes four \cf{Math} as arguments.
 
-\cf{\_Math} simply takes an \cf{Arg} and produces a \cf{Math}. This can be used either for the \cf{\_FinalFormula} directly, or for the \cf{\_MathArgs} that takes two \cf{Math}s and a \cf{ArithmeticOperation} and returns a \cf{Math}. That way, a \cf{\_MathArgs} can be used inside a \cf{\_MathArgs} to signify multiple operations.
+\cf{\_Math} takes an \cf{Arg} and produces a \cf{Math}. This can be used either for the \cf{\_FinalFormula} directly, or for the \cf{\_MathArgs} that takes two \cf{Math}s and a \cf{ArithmeticOperation} and returns a \cf{Math}. That way, a \cf{\_MathArgs} can be used inside a \cf{\_MathArgs} to represent multiple operations.
 
 The \cf{InequalityOperation} and \cf{ArithmeticOperation} represents the different inequality- and arithmetic op-erations and should require no explanation
 
-That covers the entire abstract syntax tree and should let the reader understand how it is put together and why it is put together in this way.
+This covers the entire abstract syntax tree and should let the reader understand how it is put together and why it is put together in the way it is.

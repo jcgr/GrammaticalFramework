@@ -1,14 +1,14 @@
 \section{Grammatical Framework}
 \label{03_02}
 
-Grammatical Framework (GF) is an open-source multilingual programming language. With GF, one can write programs that can translate other languages. This works through parsing (analyzing a language), linearization (generating the language) and translation (analyzing one language to generate another one). In this section, I will go over the aspects of GF that have been used in writing the program.
+Grammatical Framework (GF) is an open-source multilingual programming language. With GF, one can write programs that can translate from one language into another. This works through parsing (analyzing a language), linearization (generating the language) and translation (analyzing one language to generate another one). In this section, I will go over the aspects of GF that have been used in writing the program.
 
 A GF program consists of an abstract module and one or more concrete modules. The abstract module defines what meanings can be interpreted and parsed by the grammar. The concrete module maps the abstract meanings to strings, thereby forming complete sentences.
 
 \subsection{The abstract module}
 \label{03_02_01}
 
-The abstract module contains category declarations (\cf{cat}) and function declarations (\cf{fun}). The \cf{cat} list the different categories (meanings) used in the language, where the \cf{fun} dictates how the categories fit together to create meaning-building functions. The abstract syntax furthermore has a \cf{flag startcat} that indicates what category the program should start with. 
+The abstract module contains category declarations (\cf{cat}) and function declarations (\cf{fun}). The \cf{cat} list the different categories (meanings) used in the language, where the \cf{fun} dictates how the categories fit together to create meaning-building functions. The abstract syntax furthermore has a \cf{flag startcat} that indicates what category the input should correspond to.
 
 \lstCode{A simple abstract syntax.}{03_02_C01}
 \begin{lstgf}
@@ -31,7 +31,7 @@ In the abstract syntax shown in \refCode{03_02_C01}, there are three categories:
 
 The concrete module contains linearization type definitions (\cf{lincat}) and linearization definitions (\cf{lin}). The \cf{lincat} determines the type of object for each category in the abstract syntax and the \cf{lin} determines what value is assigned to each abstract meaning. 
 
-When the program parses a language, it will look for the values being held by the meanings and translate each into the abstract syntax. This abstract syntax forms an abstract syntax tree. The program can then turn the abstract syntax tree into any language supported by concrete implementations.
+When the program parses a language, it will look for the values held by the meanings and translate each into the abstract syntax. This abstract syntax forms an abstract syntax tree. The program can then turn the abstract syntax tree into any language supported by concrete implementations.
 
 \lstCode{A concrete implementation of the abstract syntax from \refCode{03_02_C01} that understands linear logic.}{03_02_C02}
 \begin{lstgf}
@@ -71,7 +71,7 @@ Using the modules above, one would be able to translate "voting-auth-card -o \{ 
 
 Some thing may happen a lot of times in a concrete implementation (such as concatenating two strings). GF can make this easier through operations (\cf{oper}), also known as functions in other programming languages. 
 
-Operations can do two things. They can define a new type and they can be used with arguments to produce something. The latter type of operation consists of the following:
+Operations can do two things. They can define a new type and they can be used with arguments to produce/modify something. The latter type of operation consists of the following:
 \begin{itemize}
 \item \textbf{A name} that defines the \cf{oper} and is used when calling it. The operation in \refCode{03_02_C04} has the name "cc" (concatenate).
 
@@ -117,7 +117,7 @@ One should note that GF comes with built-in resource modules. The module "Prelud
 \subsection{Variable bindings}
 \label{03_02_04}
 
-The last thing we are going to look at is variable bindings. These are used to bind variables, which allows for them to be used dynamically in parts of the program. In the universal quantification \cf{( Pi x : nat ) ( x = x )}, the variable \cf{x} has a binding (\cf{( Pi x : nat )}) that says it is of the type \cf{nat} (a natural number), and that it is bound in the body \cf{B(x)}, where it can be used.
+The last thing we are going to look at is variable bindings. These are used to bind variables, which allows for them to be used dynamically in parts of the program. In the universal quantification \cf{( Pi x : nat ) ( x = x )}, the variable \cf{x} has a binding (\cf{( Pi x : nat )}) that says it is of the type \cf{nat} (a natural number), and that it is bound in the body \cf{(x = x )}, where it can be used.
 
 To use variable bindings in GF, it is necessary to use functions as arguments. In \refCode{03_02_C07}, \cf{Pi} takes an argument \cf{A} that is required to be of the type \cf{Set}. It also takes an \cf{El A} argument, a type that takes a \cf{Set} as argument (in this case \cf{A}), and uses that in a \cf{Set}. These two groups of arguments are used to create a \cf{Set}. Furthermore, \cf{Eq} also takes an argument \cf{A} that is of the type \cf{Set}. It also takes two other arguments, \cf{a} and \cf{b}, which both must be of the type \cf{El} with \cf{A} as its argument. This is turned into a \cf{Set}.
 
@@ -145,8 +145,10 @@ The concrete syntax needs to use a special syntax for the variable bindings as w
         Nat = ss ( "nat" ) ;
 \end{lstgf}
 
-A normal argument would have the type \cf{s : Str}, but a function argument has the type \cf{s : Str ; \$0 : Str}. It means that the argument \cf{arg.\$0} is bound and can be used in \cf{arg.s}. If the function had more arguments \cf{.\$1}, \cf{.\$2}, etc. would have been used to refer to them.
+A normal argument would have the type \cf{\{ s : Str \}}, but a function argument has the type \cf{\{ s : Str ; \$0 : Str \}}. It means that the argument \cf{B.\$0} is bound and can be used in \cf{B.s}. If the function had more arguments \cf{.\$1}, \cf{.\$2}, etc. would have been used to refer to them.
 
-In \refCode{03_02_C08}, \cf{( Pi x : nat )} will bind the variable \cf{x} (\cf{B.\$0}) as the type of \cf{A}, and use it in \cf{B.s}. \cf{B.s} could be \cf{Eq}, which would end up being \cf{( x = x )}. At this point, one might wonder why the \cf{A} argument is not used in \cf{Eq}. The \cf{A} argument shows the type of \cf{a} and \cf{b}, but as we already do that with \cf{Pi}, there is no reason to write it next to the arguments.
+In \refCode{03_02_C08}, \cf{( Pi x : nat )} will bind the variable \cf{x} (\cf{B.\$0}) and allow the use of it in \cf{B.s}. \cf{B.s} could be \cf{Eq}, which would end up being \cf{( x = x )}. At this point, one might wonder why the \cf{A} argument is not used in \cf{Eq}. The \cf{A} argument shows the type of \cf{a} and \cf{b}, but as we already do that with \cf{Pi}, there is no reason to write it next to the arguments.
 
 The use of variable bindings allows for a more fexible program, and is important when working with logical formulas where it is never certain how many variables are going to be used, and what they are going to represent.
+
+This covers linear logic, Celf and Grammatical Framework and should give the reader a fair idea of how they work.
