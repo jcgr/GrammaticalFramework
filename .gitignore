@@ -2,9 +2,9 @@
 *.bib
 *.aux
 *.blg
+*.gz
 *.log
 *.out
-*.gz
 *.toc
 
 *.gfo
