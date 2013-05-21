@@ -1,7 +1,10 @@
-*.gfo
-*.png
-*.dot
-*.out
-*.log
+*.bbl
+*.bib
 *.aux
+*.blg
+*.log
+*.out
 *.gz
+*.toc
+
+*.gfo
